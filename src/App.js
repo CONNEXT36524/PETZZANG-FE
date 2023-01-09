@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import Home from "./pages/Home";
-import Posting from "./pages/Community/Posting/Posting";
 
 function App() {
 	return (
@@ -14,14 +13,9 @@ function App() {
 						{" "}
 						사이트
 					</Navbar.Brand>
-					{/* <Nav.Link className = "item" href="/about">소개</Nav.Link> */}
 					<div className="item1">
 						<Nav.Link href="/">그거</Nav.Link>
 					</div>
-					<div className="item3">
-						<Nav.Link href="/posting">포스팅</Nav.Link>
-					</div>
-
 					<div className="item2">
 						<Nav.Link href="/">로그인</Nav.Link>
 					</div>
@@ -29,10 +23,8 @@ function App() {
 			</Navbar>
 
 			<main className="main">
-				{/* Switch has been replaced with Routes from v6 */}
 				<Routes>
 					<Route exact path="/" element={<Home />} />
-					<Route path="/posting" element={<Posting />} />
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
 				</Routes>

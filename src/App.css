@@ -38,7 +38,6 @@
 }
 .Navbar-logo{
   height: 40px;
-  color:#fff;
   justify-self: start;
   display: flex;
   align-items: center;
@@ -59,12 +58,13 @@
   margin-bottom: 20px;
   align-items: center;
   height: 70px;
+
 }
 .menu {
   font-size: 16px;
   font-family: 'yg-jalnan';
   text-align: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -76,15 +76,15 @@
 } 
 
 .item1 {
-  padding: 20px;
+  padding-bottom: 20px;
   margin-left: auto;
 }
 .item2 {
-  padding: 20px;
+  padding-bottom: 20px;
   margin-left: auto;
 }
 .item3 {
-  padding: 20px;
+  padding-bottom: 20px;
   margin-left: auto;
 }
 .item1:hover{color: #61dafb}
@@ -96,4 +96,7 @@
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+}
+.main {
+  margin-top: 90px;
 }
