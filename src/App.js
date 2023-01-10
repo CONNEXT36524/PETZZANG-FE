@@ -2,7 +2,8 @@
 import './App.css';
 import {Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import {Container, Nav, Navbar} from 'react-bootstrap';
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
+import Ranking from './pages/ranking/Ranking';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <main className='main'>
       <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/Ranking" element={<Ranking />} />
           {/* <Route path="*" element={<NotFound />} /> */}
           {/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
         </Routes>

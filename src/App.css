@@ -48,7 +48,7 @@
 
 }
 .nav{
-  background-color: #fff;
+  background-color: #FABF3E;
   color: black;
 
 }
@@ -64,6 +64,7 @@
   font-size: 16px;
   font-family: 'yg-jalnan';
   text-align: center;
+  background-color: #FECB4E;
   position: fixed;
   top: 0;
   left: 0;
@@ -72,7 +73,6 @@
   font-weight: medium;
   padding-bottom: 10px;
   color : black;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 } 
 
 .item1 {
@@ -97,6 +97,6 @@
   font-weight: normal;
   font-style: normal;
 }
-.main {
+.main { 
   margin-top: 90px;
 }
