@@ -1,4 +1,4 @@
-const Home=()=>{
+const Ranking=()=>{
     return(
         <div>
             hi
@@ -8,4 +8,4 @@ const Home=()=>{
     );
 
 }
-export default Home;
+export default Ranking;
