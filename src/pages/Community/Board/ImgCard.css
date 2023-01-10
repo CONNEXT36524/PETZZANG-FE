@@ -1,0 +1,20 @@
+.ImgCardDiv {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    display: flex;
+}
+.card {
+    width: 250px;
+    text-align: center;
+    /* cardDiv 가로로 */
+    display: inline-flex; 
+    margin: 10px;
+}
+.card-img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin-top: 20px;
+}
