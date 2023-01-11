@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home";
 import Ranking from "./pages/ranking/Ranking";
 import Posting from "./pages/Community/Posting/Posting";
 import Daily from "./pages/Community/Board/Daily";
+import KakaoLogin from "./pages/Login/KakaoLogin";
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
