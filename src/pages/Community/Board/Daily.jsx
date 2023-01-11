@@ -8,10 +8,17 @@ import ImgCard from "./ImgCard.js";
 import TypeBtn from "./TypeBtn.js";
 import Paging from "./Paging.js";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
+import { useDispatch} from "react-redux/";
+import { useEffect } from "react";
+import { changepagetype } from "../../../Slice/Navslice";
 function Daily() {
 	const [typeValue, setTypeValue] = useState(""); //OffCanvas에서 Daily로 데이터가져오기
 
 	console.log(typeValue);
+	const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(changepagetype("community"))
+    },[dispatch])
 
 	return (
 		<>
