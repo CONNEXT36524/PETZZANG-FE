@@ -6,6 +6,7 @@ import './Daily.css';
 import Offcanvas from "./OffCanvas.js";
 import ImgCard from "./ImgCard.js";
 import TypeBtn from "./TypeBtn.js";
+import Paging from "./Paging.js";
 
 function Daily() {
   
@@ -15,18 +16,20 @@ function Daily() {
   
   return (
     <>
+
     <div className="banner">
-		<h2> 펫짱 커뮤니티 {">"} 게시글 작성</h2>
-	</div>
+		  <h2> 펫짱 커뮤니티 </h2>
+	  </div>
+
     <Navbar bg="light">
-		<Container id="middleNavigationBar">
-		    <Navbar.Brand>
-				HOME {">"} 커뮤니티 {">"} 일상
-			</Navbar.Brand>
-		</Container>
-	</Navbar>
+      <Container id="middleNavigationBar">
+          <Navbar.Brand>
+          HOME {">"} 커뮤니티 {">"} 일상
+        </Navbar.Brand>
+      </Container>
+    </Navbar>
+
     <Container>
-      
       <div className='dailyMain'> 
         <Offcanvas setTypeValue={setTypeValue} />
         <h2 className='boardName'>일상 게시판</h2> <br/><br/>
@@ -37,6 +40,7 @@ function Daily() {
           <Pagination count={10} />
         </Stack> */}
         <div className='writeBtnDiv'>
+          <Paging/>
           <button className='writeBtn'> ✏️ 글쓰기 </button>
         </div>
       </div>

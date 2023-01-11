@@ -3,16 +3,17 @@
     background-color: #FABF3E;
     border-color: #FABF3E;
     font-weight: bold;
+    width: 45px;
+    height: 45px;
 }
 
 
 /* offcanvas 열렸을때 상단바 가리지 않게 밑으로 내림 */
 .offcanvas {
-    margin-top: 350px;
-    margin-left: 40px;
+    margin-top: 250px;
+    margin-left: 220px;
     height: 650px;
     border-style: solid;
-    
 }
 
 /* 부트스트랩 기본 css를 바꾸고 싶은데 덮어쓰기가 안되서 id 이용해서 바꿈
