@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home";
 import Ranking from "./pages/ranking/Ranking";
 import Posting from "./pages/Community/Posting/Posting";
 import Daily from "./pages/Community/Board/Daily";
+import Question from "./pages/Community/Board/Question";
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
@@ -37,6 +38,7 @@ function App() {
 					<Route path="/posting" element={<Posting />} />
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/Community/Daily" element={<Daily />} />
+					<Route exact path="/Community/Question" element={<Question />} />
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
 				</Routes>
