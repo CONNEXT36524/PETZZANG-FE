@@ -4,6 +4,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import Home from "./pages/Home/Home";
 import Ranking from "./pages/ranking/Ranking";
 import Posting from "./pages/Community/Posting/Posting";
+import KakaoLogin from "./pages/Login/KakaoLogin"
 import { useSelector} from "react-redux/";
 import Daily from "./pages/Community/Board/Daily";
 
