@@ -52,17 +52,17 @@
 	width: 100px;
 	/* height: fit-content; */
 }
-
 .user-logo{
   background-image: url('/src/assets/user_icon.png');
-  background-size: 50%;
+  background-size: 100%;
   width: 50px;
   height: 100px;
   background-repeat: no-repeat;
-  background-color: #fff;
+  background-position: 50% 70%;
+  /* background-color: #fff; */
   /* height: fit-content; */
   background-position: center;
-
+  /* opacity: 0.5; */
 }
 .nav {
 	background-color: #fabf3e;
