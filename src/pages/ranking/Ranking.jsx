@@ -1,3 +1,4 @@
+
 import "./Ranking.css"
 import { useDispatch} from "react-redux/";
 import { changepagetype } from "../../Slice/Navslice";
@@ -15,9 +16,6 @@ const Ranking=()=>{
                 hi
             </div>
         </>
-        
-
     );
-
 }
-export default Ranking;
+

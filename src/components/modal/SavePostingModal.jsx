@@ -27,22 +27,3 @@ function SavePostingModal(props) {
 }
 
 export default SavePostingModal;
-
-function App() {
-	const [modalShow, setModalShow] = React.useState(false);
-
-	return (
-		<>
-			<Button variant="primary" onClick={() => setModalShow(true)}>
-				Launch vertically centered modal
-			</Button>
-
-			<SavePostingModal
-				show={modalShow}
-				onHide={() => setModalShow(false)}
-			/>
-		</>
-	);
-}
-
-render(<App />);

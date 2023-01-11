@@ -1,3 +1,7 @@
+:root {
+	--font-black-color: #2e2e2e;
+}
+
 .App {
   text-align: center;
 }
@@ -36,20 +40,33 @@
     transform: rotate(360deg);
   }
 }
-.Navbar-logo{
-  height: 40px;
-  justify-self: start;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  vertical-align: middle;
-  width: 100px;
+
+
+.Navbar-logo {
+	height: 40px;
+	justify-self: start;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	vertical-align: middle;
+	width: 100px;
+	/* height: fit-content; */
+}
+
+.user-logo{
+  background-image: url('/src/assets/user_icon.png');
+  background-size: 50%;
+  width: 50px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-color: #fff;
   /* height: fit-content; */
+  background-position: center;
 
 }
-.nav{
-  color: black;
-
+.nav {
+	background-color: #fabf3e;
+	color: var(--font-black-color);
 }
 #home{
   background-color: #FECB4E;
