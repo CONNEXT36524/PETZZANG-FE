@@ -4,14 +4,15 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import Home from "./pages/Home/Home";
 import Ranking from "./pages/ranking/Ranking";
 import Posting from "./pages/Community/Posting/Posting";
+import { useSelector} from "react-redux/";
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
 function App() {
-  
+  const pagetype= useSelector((state)=>state.Nav.pagetype);
 	return (
 		<Router>
-			<Navbar collapseOnSelect fixed="top" className="menu">
+			<Navbar collapseOnSelect fixed="top" className="menu" id={pagetype}>
 				<Container>
 					<Navbar.Brand href="/" className="Navbar-logo">
 						{" "}
@@ -19,7 +20,7 @@ function App() {
 					</Navbar.Brand>
 					{/* <Nav.Link className = "item" href="/about">소개</Nav.Link> */}
 					<div className="item1">
-						<Nav.Link href="/">그거</Nav.Link>
+						<Nav.Link href="/Ranking" >랭킹</Nav.Link>
 					</div>
 					<div className="item3">
 						<Nav.Link href="/posting">포스팅</Nav.Link>

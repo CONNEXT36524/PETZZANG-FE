@@ -48,23 +48,19 @@
 
 }
 .nav{
-  background-color: #FABF3E;
   color: black;
 
 }
-.menu * {
-  display: flex;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  align-items: center;
-  height: 70px;
-
+#home{
+  background-color: #FECB4E;
+}
+#ranking{
+  background-color: #FF9F2E;
 }
 .menu {
   font-size: 16px;
   font-family: 'yg-jalnan';
   text-align: center;
-  background-color: #FECB4E;
   position: fixed;
   top: 0;
   left: 0;
