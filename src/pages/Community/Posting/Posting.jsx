@@ -6,11 +6,16 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Editor from "../../../components/editor/EditorComponent";
+import PostingBanner from "../../../components/banner/PostingBanner";
+import SavePostingModal from "../../../components/modal/SavePostingModal";
+
 function simulateNetworkRequest() {
 	return new Promise((resolve) => setTimeout(resolve, 2000));
 }
 
 function Posting(props) {
+	const [modalShow, setModalShow] = React.useState(false);
+
 	const [desc, setDesc] = useState("");
 	function onEditorChange(value) {
 		setDesc(value);
@@ -31,9 +36,8 @@ function Posting(props) {
 
 	return (
 		<div className="posting">
-			<div className="banner">
-				<h2> 펫짱 커뮤니티 {">"} 게시글 작성</h2>
-			</div>
+			<PostingBanner />
+
 			<Navbar bg="light">
 				<Container>
 					<Navbar.Brand className="middleNavigationBar">
@@ -91,11 +95,15 @@ function Posting(props) {
 				<div className="containerFooter">
 					<Button
 						variant="primary"
-						disabled={isLoading}
-						onClick={!isLoading ? handleClick : null}
+						onClick={() => setModalShow(true)}
 					>
-						{isLoading ? "로딩중…" : "작성하기"}
+						✏️ 작성하기
 					</Button>
+
+					<SavePostingModal
+						show={modalShow}
+						onHide={() => setModalShow(false)}
+					/>
 				</div>
 			</Container>
 		</div>
