@@ -6,6 +6,9 @@ const Home=()=>{
     return(
         <>
         <div className="first_section">
+            <div className="first_section_ment">
+                반갑습니다~
+            </div>
         </div> 
 
         <div className="second_section">

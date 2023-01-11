@@ -7,9 +7,10 @@ import Ranking from './pages/ranking/Ranking';
 import Posting from "./pages/Community/Posting/Posting";
 
 function App() {
+  
 	return (
 		<Router>
-			<Navbar collapseOnSelect fixed="top" className="menu" bg="white">
+			<Navbar collapseOnSelect fixed="top" className="menu">
 				<Container>
 					<Navbar.Brand href="/" className="Navbar-logo">
 						{" "}
