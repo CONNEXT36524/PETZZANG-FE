@@ -71,6 +71,12 @@
 #home{
   background-color: #FECB4E;
 }
+#ranking{
+  background-color: #fb901a;
+}
+#mypage{
+  background-color: #b0b0b0;
+}
 
 .menu {
   font-size: 16px;
