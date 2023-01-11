@@ -88,6 +88,7 @@
   font-weight: medium;
   padding-bottom: 10px;
   color : black;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 } 
 #communityDropdown {
   margin-right: 80px;

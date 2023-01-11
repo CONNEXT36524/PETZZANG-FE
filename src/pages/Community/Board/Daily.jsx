@@ -1,54 +1,56 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import './Daily.css';
+import "./Daily.css";
 import Offcanvas from "./OffCanvas.js";
 import ImgCard from "./ImgCard.js";
 import TypeBtn from "./TypeBtn.js";
 import Paging from "./Paging.js";
-
+import CommunityBanner from "../../../components/banner/CommunityBanner";
 function Daily() {
-  
-  const [typeValue, setTypeValue] = useState(""); //OffCanvas에서 Daily로 데이터가져오기
-  
-  console.log(typeValue)
-  
-  return (
-    <>
-  
-    <div className="banner">
-		  <h2> 펫짱 커뮤니티 </h2>
-	  </div>
+	const [typeValue, setTypeValue] = useState(""); //OffCanvas에서 Daily로 데이터가져오기
 
-    <Navbar bg="light">
-      <Container id="middleNavigationBar">
-          <Navbar.Brand>
-          HOME {">"} 커뮤니티 {">"} 일상
-        </Navbar.Brand>
-      </Container>
-    </Navbar>
+	console.log(typeValue);
 
-    <Container>
-      <div className='dailyMain'> 
-        <Offcanvas setTypeValue={setTypeValue} />
-        <h2 className='boardName'>일상 게시판</h2> <br/><br/>
-        <TypeBtn data={typeValue}/>
-        <ImgCard/> 
-        <br/><br/>
-        {/* <Stack spacing={2}>
+	return (
+		<>
+			<CommunityBanner />
+			<Navbar bg="light">
+				<Container id="middleNavigationBar">
+					<Navbar.Brand>
+						HOME {">"} 커뮤니티 {">"} 일상
+					</Navbar.Brand>
+				</Container>
+			</Navbar>
+			<Container>
+				<div className="dailyMain">
+					<Offcanvas setTypeValue={setTypeValue} />
+					<h2 className="boardName">일상 게시판</h2> <br />
+					<br />
+					<TypeBtn data={typeValue} />
+					<ImgCard />
+					<br />
+					<br />
+					{/* <Stack spacing={2}>
           <Pagination count={10} />
         </Stack> */}
-        <div className='writeBtnDiv'>
-          <Paging/>
-          <button className='writeBtn' onClick={()=>window.location.href="/community/posting"}> ✏️ 글쓰기 </button>
-        </div>
-      </div>
-    </Container>
-    
-    </>
-            
-  )
-};
+					<div className="writeBtnDiv">
+						<Paging />
+						<button
+							className="writeBtn"
+							onClick={() =>
+								(window.location.href = "/community/posting")
+							}
+						>
+							{" "}
+							✏️ 글쓰기{" "}
+						</button>
+					</div>
+				</div>
+			</Container>
+		</>
+	);
+}
 
 export default Daily;

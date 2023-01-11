@@ -2,7 +2,8 @@ import "./BannerDetail.css";
 import "./Banner.css";
 import Container from "react-bootstrap/Container";
 import bannerDogImage from "../../assets/dog.png";
-function SavePostingModal(props) {
+
+function postingBanner(props) {
 	return (
 		<div className="postingBanner">
 			<Container id="bannerContainer">
@@ -33,4 +34,4 @@ function SavePostingModal(props) {
 	);
 }
 
-export default SavePostingModal;
+export default postingBanner;

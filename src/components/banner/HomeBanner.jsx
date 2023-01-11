@@ -3,18 +3,14 @@ import "./Banner.css";
 import Container from "react-bootstrap/Container";
 import bannerDogImage from "../../assets/dog.png";
 
-
-function mypageBanner(props) {
-
+function homeBanner(props) {
 	return (
-		<div className="mypageBanner">
+		<div className="homeBanner">
 			<Container id="bannerContainer">
 				<div className="bannerContainerText">
 					<h2 className="bannerContainerTitle">
 						펫짱 커뮤니티 {">"} 게시글 작성
 					</h2>
-					<h2 className="bannerContainerTitle">펫짱 나의 공간</h2>
-
 					<br />
 					<br />
 					<p className="bannerContainerContent">
@@ -38,6 +34,4 @@ function mypageBanner(props) {
 	);
 }
 
-
-export default mypageBanner;
-
+export default homeBanner;

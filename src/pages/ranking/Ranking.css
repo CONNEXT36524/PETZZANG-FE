@@ -3,3 +3,19 @@
     height: 50vh;
     background-color: #FF9F2E;
 }
+
+
+#ranking_container{
+    width: 10%;
+    margin-left: 0px;
+    margin-right: 900px;
+}
+#ranking_address{
+    margin-left: 8px;
+    margin-right: 8px;
+}
+@media screen and (max-width: 1100px) {
+    #ranking_container {
+      margin-right: auto;
+    }
+  } 
