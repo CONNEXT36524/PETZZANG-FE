@@ -3,9 +3,9 @@ import "./Banner.css";
 import Container from "react-bootstrap/Container";
 import bannerDogImage from "../../assets/dog.png";
 
-function postingBanner(props) {
+function homeBanner(props) {
 	return (
-		<div className="postingBanner">
+		<div className="homeBanner">
 			<Container id="bannerContainer">
 				<div className="bannerContainerText">
 					<h2 className="bannerContainerTitle">
@@ -34,4 +34,4 @@ function postingBanner(props) {
 	);
 }
 
-export default postingBanner;
+export default homeBanner;
