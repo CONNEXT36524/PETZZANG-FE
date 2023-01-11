@@ -7,7 +7,7 @@ import Offcanvas from "./OffCanvas.js";
 import ImgCard from "./ImgCard.js";
 import TypeBtn from "./TypeBtn.js";
 import Paging from "./Paging.js";
-
+import CommunityBanner from "../../../components/banner/CommunityBanner";
 function Daily() {
 	const [typeValue, setTypeValue] = useState(""); //OffCanvas에서 Daily로 데이터가져오기
 
@@ -15,7 +15,7 @@ function Daily() {
 
 	return (
 		<>
-			c
+			<CommunityBanner />
 			<Navbar bg="light">
 				<Container id="middleNavigationBar">
 					<Navbar.Brand>
