@@ -9,7 +9,13 @@ import Daily from "./pages/Community/Board/Daily";
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
 function App() {
+
+  const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
+  const rest_api_key = process.env.REACT_APP_REST_API_KEY;
+  const KAKAO_AUTH_URL = process.env.REACT_APP_KAKAO_AUTH_URL;
+
 	return (
+
 		<Router>
 			<Navbar collapseOnSelect fixed="top" className="menu">
 				<Container>
@@ -25,7 +31,7 @@ function App() {
 						<Nav.Link href="/posting">포스팅</Nav.Link>
 					</div>
 					<div className="item2">
-						<Nav.Link href="/">로그인</Nav.Link>
+						<Nav.Link className='user-logo' href={KAKAO_AUTH_URL}></Nav.Link>
 					</div>
 				</Container>
 			</Navbar>
@@ -37,12 +43,14 @@ function App() {
 					<Route path="/posting" element={<Posting />} />
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/Community/Daily" element={<Daily />} />
+					<Route path="/oauth/callback/kakao" element={<KakaoLogin />}/>
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
 				</Routes>
 			</main>
 		</Router>
 	);
+
 }
 
 export default App;
