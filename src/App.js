@@ -8,6 +8,7 @@ import { useSelector } from "react-redux/";
 import Daily from "./pages/Community/Board/Daily";
 import Search from "./pages/Community/Board/Search";
 import KakaoLogin from "./pages/Login/KakaoLogin";
+import Mypage from "./pages/Mypage/Mypage";
 
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
@@ -57,6 +58,13 @@ function App() {
 					<div className="user">
 						<Nav.Link className='user-logo' href={KAKAO_AUTH_URL}></Nav.Link>
 					</div>
+					<NavDropdown
+						title=""
+						id={`mypageDropdown`}>
+	
+						<NavDropdown.Item href="/mypage">마이페이지</NavDropdown.Item>
+						<NavDropdown.Item href="/logout">로그아웃</NavDropdown.Item>
+					</NavDropdown>
 				</Container>
 			</Navbar>
 
@@ -68,6 +76,8 @@ function App() {
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/search" element={<Search />} />
+					<Route exact path="/mypage" element={<Mypage />} />
+					{/* <Route exact path="/logout" element={<Logout />} /> */}
 					<Route path="/oauth/callback/kakao" element={<KakaoLogin />}/>
 
 					{/* <Route path="*" element={<NotFound />} /> */}
