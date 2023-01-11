@@ -16,7 +16,7 @@ function Daily() {
   
   return (
     <>
-
+  
     <div className="banner">
 		  <h2> 펫짱 커뮤니티 </h2>
 	  </div>
@@ -41,11 +41,11 @@ function Daily() {
         </Stack> */}
         <div className='writeBtnDiv'>
           <Paging/>
-          <button className='writeBtn'> ✏️ 글쓰기 </button>
+          <button className='writeBtn' onClick={()=>window.location.href="/community/posting"}> ✏️ 글쓰기 </button>
         </div>
       </div>
     </Container>
-      
+    
     </>
             
   )

@@ -71,9 +71,7 @@
 #home{
   background-color: #FECB4E;
 }
-#ranking{
-  background-color: #FF9F2E;
-}
+
 .menu {
   font-size: 16px;
   font-family: 'yg-jalnan';
@@ -87,22 +85,17 @@
   padding-bottom: 10px;
   color : black;
 } 
+#communityDropdown {
+  margin-right: 80px;
+}
+.dropdown-menu.show {
+  min-width: 140px;
+}
 
-.item1 {
-  padding-bottom: 20px;
+.user {
   margin-left: auto;
+  margin-top: 10px;
 }
-.item2 {
-  padding-bottom: 20px;
-  margin-left: auto;
-}
-.item3 {
-  padding-bottom: 20px;
-  margin-left: auto;
-}
-.item1:hover{color: #61dafb}
-.item2:hover{color: #61dafb}
-.item3:hover{color: #61dafb}
 
 @font-face {
   font-family: 'yg-jalnan';
