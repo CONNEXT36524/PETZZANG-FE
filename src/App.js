@@ -9,8 +9,8 @@ import { useSelector } from "react-redux/";
 import Daily from "./pages/Community/Board/Daily";
 import Question from "./pages/Community/Board/Question";
 import Search from "./pages/Community/Board/Search";
+import Recommendation from "./pages/Community/Board/Recommendation";
 import KakaoLogin from "./pages/Login/KakaoLogin";
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import {FiSearch} from "react-icons/fi";
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
@@ -95,6 +95,7 @@ function App() {
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/Community/Daily" element={<Daily />} />
 					<Route exact path="/Community/Question" element={<Question />} />
+					<Route exact path="/Community/Recommendation" element={<Recommendation />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/search" element={<Search />} />
 					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />

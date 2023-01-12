@@ -40,7 +40,6 @@
 .dailyMain {
     margin-left: 100px;
     margin-right: 100px;
-    
 }
 .TypeBtnDiv{
     text-align: center;
@@ -62,8 +61,6 @@
 /* ################## 질문 게시판 ################## */
 .questionMain {
     margin-top: 150px;
-    margin-left: 100px;
-    margin-right: 100px;
 }
 /* 테이블 가운데 정렬 */
 .tableDiv {
@@ -75,8 +72,6 @@
 /* ################## 추천 게시판 ################## */
 .recommendationMain {
     margin-top: 150px;
-    margin-left: 100px;
-    margin-right: 100px;
 }
 .recommendationImg {
     width: 150px;
