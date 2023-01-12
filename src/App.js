@@ -76,7 +76,7 @@ function App() {
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/search" element={<Search />} />
-					<Route exact path="/mypage" element={<Mypage />} />
+					<Route exact path="/mypage/*" element={<Mypage />} />
 					{/* <Route exact path="/logout" element={<Logout />} /> */}
 					<Route path="/oauth/callback/kakao" element={<KakaoLogin />}/>
 
