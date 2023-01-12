@@ -12,6 +12,8 @@ import Search from "./pages/Community/Board/Search";
 import KakaoLogin from "./pages/Login/KakaoLogin";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {FiSearch} from "react-icons/fi";
+import Mypage from "./pages/Mypage/Mypage";
+
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
@@ -84,6 +86,13 @@ function App() {
 							href={KAKAO_AUTH_URL}
 						></Nav.Link>
 					</div>
+					<NavDropdown
+						title=""
+						id={`mypageDropdown`}>
+	
+						<NavDropdown.Item href="/mypage">마이페이지</NavDropdown.Item>
+						<NavDropdown.Item href="/logout">로그아웃</NavDropdown.Item>
+					</NavDropdown>
 				</Container>
 			</Navbar>
 
@@ -98,6 +107,9 @@ function App() {
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/search" element={<Search />} />
 					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
+					<Route exact path="/mypage/*" element={<Mypage />} />
+					{/* <Route exact path="/logout" element={<Logout />} /> */}
+
 
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
