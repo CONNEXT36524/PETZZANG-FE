@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import { changepagetype } from "../../../Slice/Navslice";
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import './Daily.css';
-import Paging from "./Paging.js";
+import Paging from "../../../components/community/Paging.js";
+import CommunityBanner from "../../../components/banner/CommunityBanner";
 
 const StyledTable = styled.table`
   
@@ -46,6 +49,10 @@ const questionData = [
 ]
 
 function Question() {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(changepagetype("community"))
+  },[dispatch])
 
   const questionClick = props => {
     console.log(props);

@@ -1,7 +1,7 @@
 import "./App.css";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import { Container, Nav, Navbar, NavDropdown, Form } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Home from "./pages/Home/Home";
 import Ranking from "./pages/ranking/Ranking";
 import Posting from "./pages/Community/Posting/Posting";
@@ -12,6 +12,8 @@ import Search from "./pages/Community/Board/Search";
 import Recommendation from "./pages/Community/Board/Recommendation";
 import KakaoLogin from "./pages/Login/KakaoLogin";
 import {FiSearch} from "react-icons/fi";
+import Mypage from "./pages/Mypage/Mypage";
+
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
@@ -34,11 +36,11 @@ function App() {
 		console.log(searchText)
         // enter키 눌렀을때
         if(e.key === "Enter") {
-			window.location.href =`/Community/Search?q=${searchText}`
+			window.location.href =`/community/search?q=${searchText}`
         }
         // '검색' 클릭했을때
         if(e === "클릭") {
-			window.location.href =`/Community/Search?q=${searchText}`
+			window.location.href =`/community/search?q=${searchText}`
         }
     }
 
@@ -84,6 +86,13 @@ function App() {
 							href={KAKAO_AUTH_URL}
 						></Nav.Link>
 					</div>
+					<NavDropdown
+						title=""
+						id={`mypageDropdown`}>
+	
+						<NavDropdown.Item href="/mypage">마이페이지</NavDropdown.Item>
+						<NavDropdown.Item href="/logout">로그아웃</NavDropdown.Item>
+					</NavDropdown>
 				</Container>
 			</Navbar>
 
@@ -93,12 +102,14 @@ function App() {
 					<Route exact path="/" element={<Home />} />
 					<Route path="/community/posting" element={<Posting />} />
 					<Route exact path="/Ranking" element={<Ranking />} />
-					<Route exact path="/Community/Daily" element={<Daily />} />
-					<Route exact path="/Community/Question" element={<Question />} />
-					<Route exact path="/Community/Recommendation" element={<Recommendation />} />
+					<Route exact path="/community/daily" element={<Daily />} />
+					<Route exact path="/community/question" element={<Question />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/search" element={<Search />} />
 					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
+					<Route exact path="/mypage/*" element={<Mypage />} />
+					{/* <Route exact path="/logout" element={<Logout />} /> */}
+
 
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}

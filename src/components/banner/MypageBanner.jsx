@@ -3,12 +3,15 @@ import "./Banner.css";
 import Container from "react-bootstrap/Container";
 import bannerDogImage from "../../assets/dog.png";
 
+
 function mypageBanner(props) {
+
 	return (
 		<div className="mypageBanner">
 			<Container id="bannerContainer">
 				<div className="bannerContainerText">
 					<h2 className="bannerContainerTitle">펫짱 나의 공간</h2>
+
 					<br />
 					<br />
 					<p className="bannerContainerContent">
@@ -32,4 +35,6 @@ function mypageBanner(props) {
 	);
 }
 
+
 export default mypageBanner;
+
