@@ -5,10 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import "./Daily.css";
-import Offcanvas from "./OffCanvas.js";
-import ImgCard from "./ImgCard.js";
-import TypeBtn from "./TypeBtn.js";
-import Paging from "./Paging.js";
+import Offcanvas from "../../../components/community/OffCanvas.js";
+import ImgCard from "../../../components/community/ImgCard.js";
+import TypeBtn from "../../../components/community/TypeBtn.js";
+import Paging from "../../../components/community/Paging.js";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 
 function Daily() {
@@ -33,9 +33,9 @@ function Daily() {
 			</Navbar>
 			<Container>
 				<div className="dailyMain">
-					<Offcanvas setTypeValue={setTypeValue} />
+					<br/><br/><br/><br/>
 					<h2 className="boardName">일상 게시판</h2> <br />
-					<br />
+					<Offcanvas setTypeValue={setTypeValue} />
 					<TypeBtn data={typeValue} />
 					<ImgCard />
 					<br />

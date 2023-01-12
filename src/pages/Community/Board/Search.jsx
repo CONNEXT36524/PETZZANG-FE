@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import { changepagetype } from "../../../Slice/Navslice";
 import { Container } from "react-bootstrap";
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import './Daily.css';
-
 
 function Card() {  
     return (
@@ -19,7 +19,11 @@ function Card() {
 
 
 function Search() {
-    
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(changepagetype("community"))
+    },[dispatch])
+
     // app.js에서 받은 검색어 찾기
     let getLink = window.location.search;
     let getKeyword = getLink.split('=')[1];	//분리한 배열 중 두번째 요소 변수에 넣기
