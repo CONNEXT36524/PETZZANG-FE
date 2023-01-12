@@ -1,0 +1,37 @@
+#bannerContainer {
+	width: 100%;
+	height: 446px;
+	margin-top: 0px;
+	display: flex;
+	justify-self: center;
+	align-items: center;
+	flex-direction: row;
+}
+
+.bannerContainerText {
+	flex: 1;
+}
+.bannerContainerTitle {
+	width: 100%;
+	height: fit-content;
+	color: var(--font-black-color);
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.bannerContainerContent {
+	width: 450px;
+	color: white;
+	font-size: medium;
+}
+
+.bannerContainerImage {
+	height: 100%;
+	display: flex;
+	flex: 2;
+	flex-direction: row-reverse;
+}
+
+.bannerDogImage {
+	align-self: flex-end;
+}
