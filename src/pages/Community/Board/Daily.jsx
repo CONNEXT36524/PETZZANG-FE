@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { changepagetype } from "../../../Slice/Navslice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
@@ -8,7 +10,13 @@ import ImgCard from "./ImgCard.js";
 import TypeBtn from "./TypeBtn.js";
 import Paging from "./Paging.js";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
+
 function Daily() {
+	const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(changepagetype("community"))
+    },[dispatch])
+
 	const [typeValue, setTypeValue] = useState(""); //OffCanvas에서 Daily로 데이터가져오기
 
 	console.log(typeValue);

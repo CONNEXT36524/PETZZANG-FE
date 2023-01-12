@@ -77,9 +77,11 @@
 #mypage{
   background-color: #b0b0b0;
 }
-
 #mypage{
 	background-color: #00C27E;
+}
+#community{
+	background-color: #73BFFF;
 }
 
 .menu {
@@ -120,7 +122,7 @@
   margin-top: 25px;
   margin-right: 10px;
   height: 35px;
-  background-color: #FECB4E;
+  background-color: transparent;
   border: none;
   font-size: xx-large;
 }
