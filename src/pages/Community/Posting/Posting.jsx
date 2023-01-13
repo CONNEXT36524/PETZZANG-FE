@@ -23,14 +23,12 @@ function Posting(props) {
 		<div className="posting">
 			<PostingBanner />
 
-			<MiddleNav />
+			<MiddleNav contents="HOME>커뮤니티>일상>게시글 작성" />
+
 			<Container>
 				<br />
 				<br />
 				<br />
-				<br />
-				<br />
-
 				<div className="containerHeader">
 					<Form.Group
 						className="mb-3"
@@ -44,15 +42,13 @@ function Posting(props) {
 						/>
 					</Form.Group>
 					<br />
-					<hr size="5" />
-					<br />
+					<hr size="30" />
 					<Form.Group controlId="formFileLg" className="mb-3">
 						<Form.Label>썸네일 사진 첨부</Form.Label>
 						<Form.Control type="file" />
 					</Form.Group>
 					<br />
-					<hr size="5" />
-					<br />
+					<hr size="50" />
 					<div className="selectType">
 						<Form.Select
 							id="selection1"
@@ -93,7 +89,7 @@ function Posting(props) {
 						</Form.Select>
 					</div>
 					<br />
-					<hr size="5" />
+					<hr size="50" />
 				</div>
 				<br />
 				<div>
@@ -103,7 +99,8 @@ function Posting(props) {
 						onChange={onEditorChange}
 					/>
 				</div>
-				<hr size="5" />
+				<br />
+				<hr size="50" />
 				<div className="containerFooter">
 					<Button
 						className="postingBtn"
