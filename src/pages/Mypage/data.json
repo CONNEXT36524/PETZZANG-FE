@@ -1,0 +1,17 @@
+{
+    "noti" : [
+    {
+        "id" : 1,
+        "title" : "댓글 알림",
+        "sub" : "치즈맘님이 게시물에 댓글을 달았습니다",
+        "img" : "../assets/comment.png"
+    },
+    {
+        "id": 2, 
+        "title": "랭킹 달성 알림",
+        "sub" : "주간 랭킹 1위에 달성했습니다!",
+        "img" : "../assets/party.png"
+    }
+
+    ]
+}

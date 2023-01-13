@@ -8,13 +8,9 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import MypageBanner from "../../components/banner/MypageBanner";
 import Sidebar from "../../components/mypage/Sidebar";
-import Awards from "../../components/mypage/Awards";
-import Note from "../../components/mypage/Note";
-import Notification from "../../components/mypage/Notification";
-import Account from "../../components/mypage/Account";
 import styled from "styled-components";
-import { BrowserRouter, Switch, Route, Routes } from "react-router-dom";
-import { Toggle } from "../../components/Toggle"
+
+import { Toggle } from "../../components/mypage/Toggle"
 
 const Center = styled.div`
   height: 92vh;
@@ -22,7 +18,8 @@ const Center = styled.div`
   flex-direction: row;
 `
 
-const Mypage=()=>{
+const Awards=()=>{
+    
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(changepagetype("mypage"))
@@ -48,16 +45,11 @@ const Mypage=()=>{
             </Navbar>
             <Center>
                 <Sidebar/>
-                </Center>
-                <Routes>
-                    <Route path="/mypage/notification" element={<Notification />} />
-                    <Route path="/mypage/note" element={<Note />} />
-                    <Route path="/mypage/awards" element={<Awards />} />
-                    <Route path="/mypage/account" element={<Account />} />
-                </Routes>
-                
+                <div>Awards</div>
+            </Center>
+      
             
         </>
     );
 }
-export default Mypage;
+export default Awards;
