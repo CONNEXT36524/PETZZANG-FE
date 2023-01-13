@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import SidebarItem from "./SidebarItem.jsx";
+import "./Mypage.css"
 // import profile from "../assets/profile.png";
 
 const Side = styled.div`
@@ -19,23 +20,19 @@ const Side = styled.div`
 // `
 const Menu = styled.div`
   margin-top: 30px;
+  margin-left: 50px;
   width: 200px;
   display: flex;
   flex-direction: column;
+  font-family : Pretendard-Regular;
+  font-size : 18px;
 `
-
-// const NavStyle = styled.NavLink`
-// &.active{
-//   color : black;
-// }
-// `
-
 
 
 function Sidebar() {
   const menus = [
     { name: "알림", path: "/mypage/notification" },
-    { name: "펫짱 수첩", path: "/mypage/note" },
+    { name: "펫짱 수첩", path: "/mypage/history" },
     { name: "펫짱 수상기록", path: "/mypage/awards" },
     { name: "정보 수정", path: "/mypage/account"}
   ];
@@ -53,7 +50,6 @@ function Sidebar() {
             >
               <SidebarItem
                 menu={menu}>
-              
               </SidebarItem>
             </NavLink>
           );

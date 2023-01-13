@@ -8,8 +8,10 @@ import { useSelector } from "react-redux/";
 import Daily from "./pages/Community/Board/Daily";
 import Search from "./pages/Community/Board/Search";
 import KakaoLogin from "./pages/Login/KakaoLogin";
-import Mypage from "./pages/Mypage/Mypage";
-
+import History from "./pages/Mypage/History";
+import Notification from "./pages/Mypage/Notification";
+import Awards from "./pages/Mypage/Awards";
+import Account from "./pages/Mypage/Account";
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
@@ -18,6 +20,7 @@ function App() {
   const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
   const rest_api_key = process.env.REACT_APP_REST_API_KEY;
   const KAKAO_AUTH_URL = process.env.REACT_APP_KAKAO_AUTH_URL;
+  
 
 	return (
 
@@ -62,7 +65,7 @@ function App() {
 						title=""
 						id={`mypageDropdown`}>
 	
-						<NavDropdown.Item href="/mypage">마이페이지</NavDropdown.Item>
+						<NavDropdown.Item href="/mypage/notification">마이페이지</NavDropdown.Item>
 						<NavDropdown.Item href="/logout">로그아웃</NavDropdown.Item>
 					</NavDropdown>
 				</Container>
@@ -76,13 +79,18 @@ function App() {
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/search" element={<Search />} />
-					<Route exact path="/mypage/*" element={<Mypage />} />
 					{/* <Route exact path="/logout" element={<Logout />} /> */}
-					<Route path="/oauth/callback/kakao" element={<KakaoLogin />}/>
-
+					<Route path="/oauth/callback/kakao" element={<KakaoLogin />}/>	
+                    <Route path="/mypage/notification" element={<Notification />} />
+                    <Route path="/mypage/history" element={<History />} />
+                    <Route path="/mypage/awards" element={<Awards />} />
+                    <Route path="/mypage/account" element={<Account />} />
+    
+        
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
 				</Routes>
+	
 			</main>
 		</Router>
 	);

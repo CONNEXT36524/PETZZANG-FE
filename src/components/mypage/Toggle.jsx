@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const ToggleContainer = styled.div`
   position: relative;
-  margin-top: 8rem;
-  left: 47%;
+  margin-top: 1rem;
+  margin-left: 1rem;
   cursor: pointer;
 
   > .toggle-container {
@@ -25,7 +25,7 @@ const ToggleContainer = styled.div`
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background-color: rgb(255,254,255);
+    background-color: rgb(255, 254, 255);
     transition : 0.5s
     //.toggle--checked 클래스가 활성화 되었을 경우의 CSS를 구현
   } >.toggle--checked {
@@ -61,9 +61,17 @@ export const Toggle = () => {
       </ToggleContainer>
       {/* Desc 컴포넌트를 활용*/}
       {/* Toggle Switch가 ON인 상태일 경우에 Desc 컴포넌트 내부의 텍스트를 'Toggle Switch ON'으로, 그렇지 않은 경우 'Toggle Switch OFF'. 조건부 렌더링을 활용. */}
-      {isOn === false ?
+      {/* {isOn === false ?
+          클릭할때마다 백엔드로 boolean값 전송 
+          axios.get('api/notification',
+		  {
+        	params: {state: {isOn}},
+        	headers: {Authorization: token,},
+        }
+      )
+        
       <Desc><div className='OFF'>FEJIGU Toggle Switch OFF</div></Desc> :
-      <Desc><div className='ON'></div>FEJIGU Toggle Switch ON</Desc>}
+      <Desc><div className='ON'></div>FEJIGU Toggle Switch ON</Desc>} */}
     </>
   );
 };
