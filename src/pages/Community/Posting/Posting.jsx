@@ -1,5 +1,5 @@
-import { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./Posting.css";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -19,11 +19,15 @@ function Posting(props) {
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
 
+	//MNB 정보
+	const location = useLocation();
+	const { contents } = location.state;
+
 	return (
 		<div className="posting">
 			<PostingBanner />
 
-			<MiddleNav contents="HOME>커뮤니티>일상>게시글 작성" />
+			<MiddleNav contents={contents} />
 
 			<Container>
 				<br />

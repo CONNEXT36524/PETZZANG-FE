@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container";
 import "./Daily.css";
 import Paging from "../../../components/community/Paging.js";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
-
+import WriteButton from "../../../components/button/WriteButton";
 const StyledTable = styled.table`
 	border-collapse: collapse;
 	thead {
@@ -127,15 +127,7 @@ function Question() {
 					<br />
 					<div className="writeBtnDiv">
 						<Paging />
-						<button
-							className="writeBtn"
-							onClick={() =>
-								(window.location.href = "/community/posting")
-							}
-						>
-							{" "}
-							✏️ 글쓰기{" "}
-						</button>
+						<WriteButton content="HOME>커뮤니티>질문>게시글 작성" />
 					</div>
 				</div>
 			</Container>

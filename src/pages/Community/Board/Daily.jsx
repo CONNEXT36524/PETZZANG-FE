@@ -10,6 +10,7 @@ import ImgCard from "../../../components/community/ImgCard.js";
 import TypeBtn from "../../../components/community/TypeBtn.js";
 import Paging from "../../../components/community/Paging.js";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
+import WriteButton from "../../../components/button/WriteButton";
 
 function Daily() {
 	const dispatch = useDispatch();
@@ -38,19 +39,11 @@ function Daily() {
 					<br />
 					<br />
 					{/* <Stack spacing={2}>
-          <Pagination count={10} />
+        <Pagination count={10} />
         </Stack> */}
 					<div className="writeBtnDiv">
 						<Paging />
-						<button
-							className="writeBtn"
-							onClick={() =>
-								(window.location.href = "/community/posting")
-							}
-						>
-							{" "}
-							✏️ 글쓰기{" "}
-						</button>
+						<WriteButton content="HOME>커뮤니티>일상>게시글 작성" />
 					</div>
 				</div>
 			</Container>
