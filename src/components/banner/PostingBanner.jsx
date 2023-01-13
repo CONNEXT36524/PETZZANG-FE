@@ -5,7 +5,7 @@ import bannerDogImage from "../../assets/dog.png";
 
 function postingBanner(props) {
 	return (
-		<div className="postingBanner">
+		<div id="banner" className="postingBanner">
 			<Container id="bannerContainer">
 				<div className="bannerContainerText">
 					<h2 className="bannerContainerTitle">

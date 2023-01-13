@@ -1,51 +1,37 @@
-import { useState, useEffect } from "react";
-import React from "react";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./Posting.css";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
+import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import Form from "react-bootstrap/Form";
 import Editor from "../../../components/editor/EditorComponent";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
 
-function simulateNetworkRequest() {
-	return new Promise((resolve) => setTimeout(resolve, 2000));
-}
-
 function Posting(props) {
-	const [modalShow, setModalShow] = React.useState(false);
-
+	//Editor
 	const [desc, setDesc] = useState("");
 	function onEditorChange(value) {
 		setDesc(value);
 	}
 
-	//Button Loading State
-	const [isLoading, setLoading] = useState(false);
+	//Modal
+	const [modalShow, setModalShow] = React.useState(false);
 
-	useEffect(() => {
-		if (isLoading) {
-			simulateNetworkRequest().then(() => {
-				setLoading(false);
-			});
-		}
-	}, [isLoading]);
-
-	const handleClick = () => setLoading(true);
+	//MNB 정보
+	//const location = useLocation();
+	const content = "HOME>커뮤니티>게시글 작성";
 
 	return (
 		<div className="posting">
 			<PostingBanner />
 
-			<Navbar bg="light">
-				<Container>
-					<Navbar.Brand className="middleNavigationBar">
-						HOME {">"} 커뮤니티 {">"} 일상 {">"} 게시글작성
-					</Navbar.Brand>
-				</Container>
-			</Navbar>
+			<MiddleNav contents={content} />
+
 			<Container>
+				<br />
+				<br />
 				<br />
 				<div className="containerHeader">
 					<Form.Group
@@ -60,8 +46,19 @@ function Posting(props) {
 						/>
 					</Form.Group>
 					<br />
-					<div className="SelectType">
-						<Form.Select aria-label="Default select example">
+					<hr size="30" />
+					<Form.Group controlId="formFileLg" className="mb-3">
+						<Form.Label>썸네일 사진 첨부</Form.Label>
+						<Form.Control type="file" />
+					</Form.Group>
+					<br />
+					<hr size="50" />
+					<div className="selectType">
+						<Form.Select
+							id="selection1"
+							className="selection"
+							aria-label="Default select example"
+						>
 							<option>동물</option>
 							<option value="1">강아지</option>
 							<option value="2">고양이</option>
@@ -73,27 +70,44 @@ function Posting(props) {
 							<option value="8">기타</option>
 						</Form.Select>
 
-						<Form.Select aria-label="Default select example">
+						<Form.Select
+							disabled="true"
+							id="selection2"
+							className="selection"
+							aria-label="Default select example"
+						>
 							<option>품종</option>
 							<option value="1">One</option>
 							<option value="2">Two</option>
 							<option value="3">Three</option>
 						</Form.Select>
 
-						<Form.Select aria-label="Default select example">
+						<Form.Select
+							id="selection3"
+							className="selection"
+							aria-label="Default select example"
+						>
 							<option>성별</option>
 							<option value="1">암컷</option>
 							<option value="2">수컷</option>
 						</Form.Select>
 					</div>
+					<br />
+					<hr size="50" />
 				</div>
 				<br />
 				<div>
-					<Editor value={desc} onChange={onEditorChange} />
+					<Editor
+						id="textEditor"
+						value={desc}
+						onChange={onEditorChange}
+					/>
 				</div>
-
+				<br />
+				<hr size="50" />
 				<div className="containerFooter">
 					<Button
+						className="postingBtn"
 						variant="primary"
 						onClick={() => setModalShow(true)}
 					>
