@@ -1,53 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import React from "react";
 import "./Posting.css";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
+import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import Form from "react-bootstrap/Form";
 import Editor from "../../../components/editor/EditorComponent";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
 
-function simulateNetworkRequest() {
-	return new Promise((resolve) => setTimeout(resolve, 2000));
-}
-
 function Posting(props) {
-	const [modalShow, setModalShow] = React.useState(false);
-
+	//Editor
 	const [desc, setDesc] = useState("");
 	function onEditorChange(value) {
 		setDesc(value);
 	}
 
-	//Button Loading State
-	const [isLoading, setLoading] = useState(false);
-
-	useEffect(() => {
-		if (isLoading) {
-			simulateNetworkRequest().then(() => {
-				setLoading(false);
-			});
-		}
-	}, [isLoading]);
-
-	const handleClick = () => setLoading(true);
+	//Modal
+	const [modalShow, setModalShow] = React.useState(false);
 
 	return (
 		<div className="posting">
 			<PostingBanner />
 
-			<Navbar bg="light">
-				<Container id="middleNavigationBar">
-					<Navbar.Brand>
-						HOME {">"} 커뮤니티 {">"} 일상 {">"} 게시글 작성
-					</Navbar.Brand>
-				</Container>
-			</Navbar>
-
+			<MiddleNav />
 			<Container>
 				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+
 				<div className="containerHeader">
 					<Form.Group
 						className="mb-3"
@@ -62,6 +45,14 @@ function Posting(props) {
 					</Form.Group>
 					<br />
 					<hr size="5" />
+					<br />
+					<Form.Group controlId="formFileLg" className="mb-3">
+						<Form.Label>썸네일 사진 첨부</Form.Label>
+						<Form.Control type="file" />
+					</Form.Group>
+					<br />
+					<hr size="5" />
+					<br />
 					<div className="selectType">
 						<Form.Select
 							id="selection1"
@@ -101,11 +92,16 @@ function Posting(props) {
 							<option value="2">수컷</option>
 						</Form.Select>
 					</div>
+					<br />
 					<hr size="5" />
 				</div>
 				<br />
 				<div>
-					<Editor value={desc} onChange={onEditorChange} />
+					<Editor
+						id="textEditor"
+						value={desc}
+						onChange={onEditorChange}
+					/>
 				</div>
 				<hr size="5" />
 				<div className="containerFooter">
