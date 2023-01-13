@@ -48,10 +48,23 @@
     background-color: #73BFFF;
     color: white;
 }
-/* .dailyMain-active {
-    background-color: #73BFFF;
-    margin-left: 200px;
-} */
+
+
+/* ################## 자랑 게시판 ################## */
+.boastMain {
+    margin-top: 50px;
+    text-align: center;
+    background-color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.noContent {
+    padding-top: 100px;
+    padding-bottom: 80px;
+}
+.noContent button {
+    margin-top: 50px;
+}
 
 
 /* ################## 질문 게시판 ################## */

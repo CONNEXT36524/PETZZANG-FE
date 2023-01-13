@@ -7,6 +7,7 @@ import Ranking from "./pages/ranking/Ranking";
 import Posting from "./pages/Community/Posting/Posting";
 import { useSelector } from "react-redux/";
 import Daily from "./pages/Community/Board/Daily";
+import Boast from "./pages/Community/Board/Boast";
 import Question from "./pages/Community/Board/Question";
 import Search from "./pages/Community/Board/Search";
 import KakaoLogin from "./pages/Login/KakaoLogin";
@@ -102,6 +103,7 @@ function App() {
 					<Route path="/community/posting" element={<Posting />} />
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
+					<Route exact path="/community/boast" element={<Boast />} />
 					<Route exact path="/community/question" element={<Question />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/search" element={<Search />} />
