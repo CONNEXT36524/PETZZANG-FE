@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "react-bootstrap/Navbar";
+import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import Container from "react-bootstrap/Container";
 import "./Daily.css";
 import Offcanvas from "../../../components/community/OffCanvas.js";
@@ -13,9 +13,9 @@ import CommunityBanner from "../../../components/banner/CommunityBanner";
 
 function Daily() {
 	const dispatch = useDispatch();
-    useEffect(()=>{
-        dispatch(changepagetype("community"))
-    },[dispatch])
+	useEffect(() => {
+		dispatch(changepagetype("community"));
+	}, [dispatch]);
 
 	const [typeValue, setTypeValue] = useState(""); //OffCanvas에서 Daily로 데이터가져오기
 
@@ -24,16 +24,13 @@ function Daily() {
 	return (
 		<>
 			<CommunityBanner />
-			<Navbar bg="light">
-				<Container id="middleNavigationBar">
-					<Navbar.Brand>
-						HOME {">"} 커뮤니티 {">"} 일상
-					</Navbar.Brand>
-				</Container>
-			</Navbar>
+			<MiddleNav contents="HOME>커뮤니티>일상" />
 			<Container>
 				<div className="dailyMain">
-					<br/><br/><br/><br/>
+					<br />
+					<br />
+					<br />
+					<br />
 					<h2 className="boardName">일상 게시판</h2> <br />
 					<Offcanvas setTypeValue={setTypeValue} />
 					<TypeBtn data={typeValue} />
