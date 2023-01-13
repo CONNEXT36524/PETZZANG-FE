@@ -20,14 +20,14 @@ function Posting(props) {
 	const [modalShow, setModalShow] = React.useState(false);
 
 	//MNB 정보
-	const location = useLocation();
-	const { contents } = location.state;
+	//const location = useLocation();
+	const content = "HOME>커뮤니티>게시글 작성";
 
 	return (
 		<div className="posting">
 			<PostingBanner />
 
-			<MiddleNav contents={contents} />
+			<MiddleNav contents={content} />
 
 			<Container>
 				<br />
