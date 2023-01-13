@@ -82,11 +82,11 @@ const Notification=()=>{
                         <Toggle/>
                   </Title>
                   <Sub>
-                     
+            
                         {data.noti.map((noti) => (
                             <Detail>
                        
-                                <img src={commnet}/>
+                             <img src={commnet}/>
                           
                             <div className="cont">
                             <p> {noti.title} </p>

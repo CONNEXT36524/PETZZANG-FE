@@ -13,7 +13,7 @@ import styled from "styled-components";
 import { Toggle } from "../../components/mypage/Toggle"
 
 const Center = styled.div`
-  height: 92vh;
+ 
   display: flex;
   flex-direction: row;
 `
@@ -77,7 +77,6 @@ const History=()=>{
                         <div className="title">내가 작성한 글 보기</div>
                   </Title>
                   <Sub>            
-                    
                   </Sub>
                   <Title>
                         <div className="title">내가 작성한 댓글 보기</div>

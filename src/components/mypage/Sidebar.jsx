@@ -6,6 +6,7 @@ import "./Mypage.css"
 // import profile from "../assets/profile.png";
 
 const Side = styled.div`
+
   display: flex;
   border-right: 1px solid #e0e0e0;
   flex-direction: column;
