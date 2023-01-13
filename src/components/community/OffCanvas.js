@@ -65,7 +65,6 @@ const SidebarData = (props) => {
       // 단일 선택 시 체크된 아이템을 배열에 추가
       setCheckTypes(prev => [...prev, id]);
       //sendData(id)
-      
     } else {
       // 단일 선택 해제 시 체크된 아이템을 제외한 배열 (필터)
       setCheckTypes(checkTypes.filter((el) => el !== id));

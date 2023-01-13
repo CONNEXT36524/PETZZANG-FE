@@ -40,9 +40,7 @@ function Daily() {
 					<ImgCard />
 					<br />
 					<br />
-					{/* <Stack spacing={2}>
-          <Pagination count={10} />
-        </Stack> */}
+					
 					<div className="writeBtnDiv">
 						<Paging />
 						<button

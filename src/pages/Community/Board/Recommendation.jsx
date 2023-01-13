@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { changepagetype } from "../../../Slice/Navslice";
 import styled from 'styled-components';
 import {Navbar, Container} from "react-bootstrap";
+import Paging from "../../../components/community/Paging.js";
 import './Daily.css';
 
 const StyledTable = styled.table`
@@ -41,66 +44,75 @@ const recommendationData = [
 ]
 
 function Recommendation() {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(changepagetype("community"))
+  },[dispatch])
 
-    const recommendationClick = props => {
-        console.log(props);
-    };
 
-    return (
-        <>
+  const recommendationClick = props => {
+    console.log(props);
+  };
+
+  return (
+    <>
         
-        <Navbar bg="light">
+      <Navbar bg="light">
         <Container id="middleNavigationBar">
-            <Navbar.Brand>
+          <Navbar.Brand>
             HOME {">"} 커뮤니티 {">"} 질문
-            </Navbar.Brand>
+          </Navbar.Brand>
         </Container>
-        </Navbar>  
+      </Navbar>  
 
-        <Container>
-            <div className='recommendationMain'> 
-                <h2 className='boardName'>제품 추천 게시판</h2> <br/><br/>
-                <StyledTable className="tableDiv">
-                    <thead>
-                        <tr>
-                            <th> No. </th>
-                            <th> 이미지 </th>
-                            <th className='second-col'> 제목 </th>
-                            <th> 글쓴이 </th>
-                            <th> 작성 날짜 </th>
-                            <th> 조회수 </th>
-                            <th> 좋아요수 </th>
-                        </tr>
-                    </thead>
+      <Container>
+        <div className='recommendationMain'> 
+          <h2 className='boardName'>제품 추천 게시판</h2> <br/><br/>
 
-                    <tbody className="tbodyDiv">
-                        {recommendationData.map((data, num) => (
-                        <tr num={num} onClick={() => recommendationClick(data.rNum)}>
+          <StyledTable className="tableDiv">
+            <thead>
+              <tr>
+                <th> No. </th>
+                <th> 이미지 </th>
+                <th className='second-col'> 제목 </th>
+                <th> 글쓴이 </th>
+                <th> 작성 날짜 </th>
+                <th> 조회수 </th>
+                <th> 좋아요수 </th>
+              </tr>
+            </thead>
+
+            <tbody className="tbodyDiv">
+              {recommendationData.map((data, num) => (
+                <tr num={num} onClick={() => recommendationClick(data.rNum)}>
                             
-                            {
-                                data.rNum < 0
-                                ? <td> 공지 </td> 
-                                : <td> {data.rNum+1} </td>
-                            }
+                  {
+                    data.rNum < 0
+                    ? <td> 공지 </td> 
+                    : <td> {data.rNum+1} </td>
+                  }
                             
-                            <td> <img src="../../img/dog1.png" className="recommendationImg" /> </td>
-                            <td> {data.rTitle} </td>
-                            <td> {data.rWriter} </td>
-                            <td> {data.rDate} </td>
-                            <td> {data.rClickNum} </td>
-                            <td> {data.rLikeNum} </td>
-                        </tr>
-                        ))}
-                    </tbody>
-                </StyledTable> <br/><br/>
-                <div className='writeBtnDiv'>
-                    <button className='writeBtn'> ✏️ 글쓰기 </button>
-                </div>
-            </div>
-        </Container>
+                  <td> <img src="../../img/dog1.png" className="recommendationImg" /> </td>
+                  <td> {data.rTitle} </td>
+                  <td> {data.rWriter} </td>
+                  <td> {data.rDate} </td>
+                  <td> {data.rClickNum} </td>
+                  <td> {data.rLikeNum} </td>
+                </tr>
+              ))}
+            </tbody>
+          </StyledTable> 
 
-        </>
-    );
+          <br/><br/>
+          <div className='writeBtnDiv'>
+            <Paging/>
+            <button className='writeBtn'> ✏️ 글쓰기 </button>
+          </div>
+        </div>
+      </Container>
+
+    </>
+  );
 }
 
 export default Recommendation;
