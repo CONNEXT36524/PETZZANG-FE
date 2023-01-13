@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
+import RankingBanner from "../../components/banner/RankingBanner";
 
 const Ranking=()=>{
     const dispatch = useDispatch();
@@ -15,9 +16,8 @@ const Ranking=()=>{
     
     return(
         <>
-            <div className="ranking_first_section">
-                hi
-            </div>
+            <RankingBanner/>
+
             <Navbar bg="light"  >
             <Container id="ranking_container">
                 <Navbar.Brand href="/" id="ranking_address">
@@ -37,6 +37,10 @@ const Ranking=()=>{
                     이주의 반려동물
                 </div>
             </Navbar>
+
+            <div className="ranking_section">
+
+            </div>
         </>
     );
 }

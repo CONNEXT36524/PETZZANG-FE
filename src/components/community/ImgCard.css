@@ -6,15 +6,15 @@
     display: flex;
 }
 .card {
-    width: 250px;
+    width: 300px;
     text-align: center;
     /* cardDiv 가로로 */
     display: inline-flex; 
     margin: 10px;
 }
 .card-img {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     object-fit: contain;
     margin-top: 20px;
 }

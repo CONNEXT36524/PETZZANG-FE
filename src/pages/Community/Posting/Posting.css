@@ -1,0 +1,36 @@
+.posting {
+}
+
+.containerHeader {
+}
+
+.selectType {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.selection {
+	max-width: 200px;
+	margin: 10px;
+}
+
+#selection1 {
+}
+
+#selection2 {
+}
+
+#selection3 {
+}
+
+.containerFooter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.postingBtn {
+	margin: 20px;
+}

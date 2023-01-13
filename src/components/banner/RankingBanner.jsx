@@ -20,13 +20,7 @@ function rankingBanner(props) {
 					</p>
 				</div>
 
-				<div className="bannerContainerImage">
-					<img
-						src={bannerDogImage}
-						className="bannerDogImage"
-						alt="bannerDogImage"
-					></img>
-				</div>
+			
 			</Container>
 		</div>
 	);

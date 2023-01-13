@@ -1,3 +1,6 @@
+#banner {
+}
+
 #bannerContainer {
 	width: 100%;
 	height: 446px;
@@ -7,7 +10,6 @@
 	align-items: center;
 	flex-direction: row;
 }
-
 .bannerContainerText {
 	flex: 1;
 }
