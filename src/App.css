@@ -81,6 +81,12 @@
 #mypage {
 	background-color: #b0b0b0;
 }
+#mypage {
+	background-color: #00c27e;
+}
+#community {
+	background-color: #73bfff;
+}
 
 .menu {
 	font-size: 16px;
@@ -106,8 +112,24 @@
 .user {
 	margin-left: auto;
 	margin-top: 10px;
+	display: flex;
 }
 
+.searchBar {
+	margin-top: 35px;
+	width: 250px;
+	height: 35px;
+	border-radius: 8px;
+	border-color: #282c34;
+}
+.searchBtn {
+	margin-top: 25px;
+	margin-right: 10px;
+	height: 35px;
+	background-color: transparent;
+	border: none;
+	font-size: xx-large;
+}
 @font-face {
 	font-family: "yg-jalnan";
 	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")

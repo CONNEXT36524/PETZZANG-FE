@@ -195,8 +195,8 @@ function OffCanvas(props) {
         ≡
       </Button>
 
-      {/* offcanvas가 열려도 원래 페이지 스크롤 가능하게, offcanvas 밖에 화면을 클릭해도 offcanvas 지우지 못하게 */}
-      <Offcanvas show={show} onHide={handleClose} scroll={true} backdrop={false} restoreFocus={false} id="offcanvasMain">
+      {/* offcanvas가 열리면 원래 페이지 스크롤 불가능, offcanvas 밖에 화면을 클릭해도 offcanvas 지우지 못하게 */}
+      <Offcanvas show={show} onHide={handleClose} scroll={false} backdrop={false} restoreFocus={false} id="offcanvasMain">
         <Offcanvas.Header closeButton>
           옵션 선택
         </Offcanvas.Header>
