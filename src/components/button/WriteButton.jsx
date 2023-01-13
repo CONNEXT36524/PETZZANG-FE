@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 function WriteButton(props) {
 	//mnb 정보 전달
-	let content = props.content;
+	let content = "";
 
 	const navigate = useNavigate();
 
