@@ -10,14 +10,20 @@ import Daily from "./pages/Community/Board/Daily";
 import Boast from "./pages/Community/Board/Boast";
 import Question from "./pages/Community/Board/Question";
 import Search from "./pages/Community/Board/Search";
+import Recommendation from "./pages/Community/Board/Recommendation";
 import KakaoLogin from "./pages/Login/KakaoLogin";
+import History from "./pages/Mypage/History";
+import Notification from "./pages/Mypage/Notification";
+import Awards from "./pages/Mypage/Awards";
+import Account from "./pages/Mypage/Account";
 import {FiSearch} from "react-icons/fi";
-import Mypage from "./pages/Mypage/Mypage";
+
 
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
 function App() {
+
 
 	// 로그인
 	const pagetype = useSelector((state) => state.Nav.pagetype);
@@ -90,7 +96,7 @@ function App() {
 						title=""
 						id={`mypageDropdown`}>
 	
-						<NavDropdown.Item href="/mypage">마이페이지</NavDropdown.Item>
+						<NavDropdown.Item href="/mypage/notification">마이페이지</NavDropdown.Item>
 						<NavDropdown.Item href="/logout">로그아웃</NavDropdown.Item>
 					</NavDropdown>
 				</Container>
@@ -105,16 +111,21 @@ function App() {
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/boast" element={<Boast />} />
 					<Route exact path="/community/question" element={<Question />} />
+					<Route exact path="/community/recommendation" element={<Recommendation />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/search" element={<Search />} />
-					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
-					<Route exact path="/mypage/*" element={<Mypage />} />
 					{/* <Route exact path="/logout" element={<Logout />} /> */}
-
+					<Route path="/oauth/callback/kakao" element={<KakaoLogin />}/>	
+                    <Route path="/mypage/notification" element={<Notification />} />
+                    <Route path="/mypage/history" element={<History />} />
+                    <Route path="/mypage/awards" element={<Awards />} />
+                    <Route path="/mypage/account" element={<Account />} />
+					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
 
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
 				</Routes>
+	
 			</main>
 		</Router>
 	);
