@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Offcanvas} from 'react-bootstrap';
+import { useDispatch, useSelector } from "react-redux";
+import { Checked_Animal, Unchecked_Animal, Checked_All_Animal, Unchecked_All_Animal } from "../../Slice/OffcanvasSlice";
+import { Checked_Sex, Unchecked_Sex, Checked_All_Sex, Unchecked_All_Sex } from "../../Slice/OffcanvasSlice";
 import './OffCanvas.css';
 
 const StyledTable = styled.table`
@@ -47,56 +50,55 @@ const data2 = [
 
 const SidebarData = (props) => {
   
+  const dispatch = useDispatch();
+  const animalTypeArr = useSelector((state) => state.Offcanvas.animalTypeArr);
+  const sexTypeArr = useSelector((state) => state.Offcanvas.sexTypeArr);
+  //console.log(animalTypeArr)
 
   function sendData(id) {
     props.setValue(id);
   }
-  
-  // 체크된 종을 담을 배열
-  const [checkTypes, setCheckTypes] = useState([]);
-  sendData(checkTypes)
+  // 체크된 종을 담은 배열 보내주기
+  sendData(animalTypeArr)
 
-  // 체크된 성별을 담을 배열
-  const [checkItems, setCheckItems] = useState([]);
 
+  ////////////////////////////  동물 종류  ////////////////////////////////////////
   // 체크박스 단일 선택
   const handleSingleCheck = (checked, id) => {
     if (checked) {
       // 단일 선택 시 체크된 아이템을 배열에 추가
-      setCheckTypes(prev => [...prev, id]);
-      //sendData(id)
+      dispatch(Checked_Animal(id)) //리덕스
+      
     } else {
       // 단일 선택 해제 시 체크된 아이템을 제외한 배열 (필터)
-      setCheckTypes(checkTypes.filter((el) => el !== id));
+      dispatch(Unchecked_Animal(id)) //리덕스
     }
   };
 
   // 체크박스 전체 선택
   const handleAllCheck1 = (checked) => {
     if(checked) {
-      // 전체 선택 클릭 시 데이터의 모든 아이템(id)를 담은 배열로 checkItems 상태 업데이트
+      // 전체 선택 클릭 시 데이터의 모든 아이템(id)를 담은 배열로 상태 업데이트
       const idArray = [];
       data1.forEach((el) => idArray.push(el.id));
-      setCheckTypes(idArray);
+      dispatch(Checked_All_Animal(idArray)) //리덕스
     }
     else {
-      // 전체 선택 해제 시 checkItems 를 빈 배열로 상태 업데이트
-      setCheckTypes([]);
+      // 전체 선택 해제시 빈 배열로 상태 업데이트
+      dispatch(Unchecked_All_Animal([])) //리덕스
     }
   }
 
-  ////////////////////////////////////////////////////////////////////
-
+  ////////////////////////////  성별  ////////////////////////////////////////
   // 체크박스 단일 선택
   const handleSingleCheck2 = (checked, id) => {
     if (checked) {
       // 단일 선택 시 체크된 아이템을 배열에 추가
-      setCheckItems(prev => [...prev, id]);
-      //sendData(id)
+      dispatch(Checked_Sex(id)) //리덕스
       
     } else {
       // 단일 선택 해제 시 체크된 아이템을 제외한 배열 (필터)
-      setCheckItems(checkItems.filter((el) => el !== id));
+      dispatch(Unchecked_Sex(id)) //리덕스
     }
   };
 
@@ -106,19 +108,19 @@ const SidebarData = (props) => {
       // 전체 선택 클릭 시 데이터의 모든 아이템(id)를 담은 배열로 checkItems 상태 업데이트
       const idArray = [];
       data2.forEach((el) => idArray.push(el.id));
-      setCheckItems(idArray);
+      dispatch(Checked_All_Sex(idArray)) //리덕스
     }
     else {
       // 전체 선택 해제 시 checkItems 를 빈 배열로 상태 업데이트
-      setCheckItems([]);
+      dispatch(Unchecked_All_Sex([])) //리덕스
     }
   }
-  console.log(checkTypes);
-  console.log(checkItems);
+  // console.log(checkTypes);
+  // console.log(checkItems);
 
   return (
     <>
-    <h5>종</h5>
+    <h5>종 </h5>
     <StyledTable>
       <thead>
         <tr>
@@ -126,7 +128,7 @@ const SidebarData = (props) => {
             <input type='checkbox' name='select-all'
             onChange={(e) => handleAllCheck1(e.target.checked)}
             // 데이터 개수와 체크된 아이템의 개수가 다를 경우 선택 해제 (하나라도 해제 시 선택 해제)
-            checked={checkTypes.length === data1.length ? true : false} />
+            checked={animalTypeArr.length === data1.length ? true : false} />
           </th>
           <th className='second-row'>전체</th>
         </tr>
@@ -139,7 +141,7 @@ const SidebarData = (props) => {
               <input type='checkbox' name={`select-${data.id}`}
               onChange={(e) => handleSingleCheck(e.target.checked, data.id)}
               // 체크된 아이템 배열에 해당 아이템이 있을 경우 선택 활성화, 아닐 시 해제
-              checked={checkTypes.includes(data.id) ? true : false} />
+              checked={animalTypeArr.includes(data.id) ? true : false} />
             </td>
             <td className='second-row'>{data.title}</td>
           </tr>
@@ -155,7 +157,7 @@ const SidebarData = (props) => {
             <input type='checkbox' name='select-all'
             onChange={(e) => handleAllCheck2(e.target.checked)}
             // 데이터 개수와 체크된 아이템의 개수가 다를 경우 선택 해제 (하나라도 해제 시 선택 해제)
-            checked={checkItems.length === data2.length ? true : false} />
+            checked={sexTypeArr.length === data2.length ? true : false} />
           </th>
           <th className='second-row'>전체</th>
         </tr>
@@ -168,7 +170,7 @@ const SidebarData = (props) => {
               <input type='checkbox' name={`select-${data.id}`}
               onChange={(e) => handleSingleCheck2(e.target.checked, data.id)}
               // 체크된 아이템 배열에 해당 아이템이 있을 경우 선택 활성화, 아닐 시 해제
-              checked={checkItems.includes(data.id) ? true : false} />
+              checked={sexTypeArr.includes(data.id) ? true : false} />
             </td>
             <td className='second-row'>{data.title}</td>
           </tr>

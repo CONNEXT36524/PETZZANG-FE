@@ -9,20 +9,20 @@ function ImgCard() {
                 <img src="../../img/dog1.png" className="card-img" alt="이미지"/>
             </div>
 
-            <div class="card" >
-                <div class="embed-responsive embed-responsive-4by3">
+            <div className="card" >
+                <div className="embed-responsive embed-responsive-4by3">
                     <img src="../../img/dog2.png" className="card-img" alt="이미지"/>
                 </div>
             </div>
         
             <div className="card" >
-                <div class="embed-responsive embed-responsive-4by3">
+                <div className="embed-responsive embed-responsive-4by3">
                     <img src="../../img/dog1.png" className="card-img" alt="이미지"/>
                 </div>
             </div>
 
-            <div class="card" >
-                <div class="embed-responsive embed-responsive-4by3">
+            <div className="card" >
+                <div className="embed-responsive embed-responsive-4by3">
                     <img src="../../img/dog2.png" className="card-img" alt="이미지"/>
                 </div>
             </div>
