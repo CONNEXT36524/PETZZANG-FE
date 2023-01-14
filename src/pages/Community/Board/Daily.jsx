@@ -20,9 +20,14 @@ function Daily() {
 
 	const [typeValue, setTypeValue] = useState(""); //OffCanvas에서 Daily로 데이터가져오기
 
-	console.log(typeValue);
+	// console.log(typeValue);
 
-	return (
+	const data = [
+		{img: "../../img/dog1.png", content: "내용1"}, 
+		{img: "../../img/dog2.png", content: "내용2"}, 
+	]
+
+	return ( 
 		<>
 			<CommunityBanner />
 			<MiddleNav contents="HOME>커뮤니티>일상" />
@@ -35,15 +40,14 @@ function Daily() {
 					<h2 className="boardName">일상 게시판</h2> <br />
 					<Offcanvas setTypeValue={setTypeValue} />
 					<TypeBtn data={typeValue} />
+
 					<ImgCard />
 					<br />
 					<br />
-					{/* <Stack spacing={2}>
-        <Pagination count={10} />
-        </Stack> */}
 					<div className="writeBtnDiv">
 						<Paging />
 						<WriteButton content="HOME>커뮤니티>일상>게시글 작성" />
+
 					</div>
 				</div>
 			</Container>
