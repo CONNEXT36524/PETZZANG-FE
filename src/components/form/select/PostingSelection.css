@@ -1,0 +1,24 @@
+.selectPostingType {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.selection {
+	width: 300px;
+	margin: 10px;
+}
+
+.selectBoardType {
+	margin: 10px;
+}
+
+#selection1 {
+}
+
+#selection2 {
+}
+
+#selection3 {
+}
