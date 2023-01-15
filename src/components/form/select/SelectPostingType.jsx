@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import "./SelectPostingType.css";
+import React from "react";
+import "./PostingSelection.css";
 import Form from "react-bootstrap/Form";
 
 function SelectPostingType() {
 	return (
-		<div className="selectType">
+		<div className="selectPostingType">
 			<Form.Select
 				id="selection1"
 				className="selection"
