@@ -10,13 +10,39 @@ import MypageBanner from "../../components/banner/MypageBanner";
 import Sidebar from "../../components/mypage/Sidebar";
 import styled from "styled-components";
 
-import { Toggle } from "../../components/mypage/Toggle"
 
 const Center = styled.div`
   height: 92vh;
   display: flex;
   flex-direction: row;
 `
+const Content = styled.div`
+    position: relative;
+    margin-top: 9rem;
+    margin-left: 10rem;
+    cursor: pointer;
+
+`
+const Title = styled.div`
+    display: flex;
+`
+const Sub =styled.div`
+    margin-top: 50px;
+    left: 1px;
+    width: 130vh;
+    height: 60vh;
+    background-color: rgb(234, 234, 234);
+    border: 1px solid rgb(234, 234, 234);
+    flex-direction: row;
+`
+const Detail = styled.div`
+    
+    width: 130vh;
+    height: 10vh;
+    background-color: rgb(255, 255, 254);
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+`   
 
 const Awards=()=>{
     
@@ -45,7 +71,17 @@ const Awards=()=>{
             </Navbar>
             <Center>
                 <Sidebar/>
-                <div>Awards</div>
+                <Content>
+                  <Title>
+                        <div className="title">펫짱 수상기록</div>
+           
+                  </Title>
+                  <Sub>
+            
+                        
+                  </Sub>
+                  
+                </Content>
             </Center>
       
             
