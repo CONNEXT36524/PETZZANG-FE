@@ -9,6 +9,7 @@ import Container from "react-bootstrap/Container";
 import MypageBanner from "../../components/banner/MypageBanner";
 import Sidebar from "../../components/mypage/Sidebar";
 import styled from "styled-components";
+import { useState } from "react" 
 
 import { Toggle } from "../../components/mypage/Toggle"
 
@@ -25,7 +26,9 @@ const Content = styled.div`
 
 `
 const Title = styled.div`
-    display: flex;
+    margin-top: 1rem;
+    flex-direction: row;
+    margin-bottom : 15px;
 `
 const Sub =styled.div`
     margin-top: 50px;
@@ -51,7 +54,24 @@ const History=()=>{
     useEffect(()=>{
         dispatch(changepagetype("mypage"))
     },[dispatch])
+
+    const data =['전체', '일상', '자랑', '질문', '제품추천'];
     
+    //내가 작성한 글 버튼 
+    let [btnActive, setBtnActive] = useState("");
+    const toggleActive = (e) => {
+        setBtnActive((prev) => {
+          return e.target.value;
+        });
+      };
+
+    //내가 작성한 댓글 버튼
+    let [btnActive1, setBtnActive1] = useState("");
+    const toggleActive1 = (e) => {
+        setBtnActive1((prev) => {
+          return e.target.value;
+        });
+      };
     return(
         <>
             <MypageBanner/>
@@ -74,12 +94,38 @@ const History=()=>{
                 <Sidebar/>
                 <Content>
                   <Title>
-                        <div className="title">내가 작성한 글 보기</div>
+                        <div className="title">내가 작성한 글 보기</div> 
+                        <div>
+                        {data.map((elm, index) => {   
+                            return ( 
+                                <button className={(index == btnActive ? "typeBtnActive" : "typeBtn")}
+                                    value={index}
+                                    onClick={toggleActive}
+                                >
+                                    {elm}
+                                </button>
+                                );
+                        })}
+                        </div>
                   </Title>
-                  <Sub>            
+                  <Sub>      
+             
                   </Sub>
+                  
                   <Title>
                         <div className="title">내가 작성한 댓글 보기</div>
+                        <div>
+                        {data.map((elm, index) => {   
+                            return ( 
+                                <button className={(index == btnActive1 ? "typeBtnActive" : "typeBtn")}
+                                    value={index}
+                                    onClick={toggleActive1}
+                                >
+                                    {elm}
+                                </button>                             
+                                );
+                        })}
+                        </div>
                   </Title>
                   <Sub>            
       
