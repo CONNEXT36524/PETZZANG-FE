@@ -5,6 +5,7 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Home from "./pages/Home/Home";
 import Ranking from "./pages/ranking/Ranking";
 import Posting from "./pages/Community/Posting/Posting";
+import Posts from "./pages/Community/Posts/Posts";
 import { useSelector } from "react-redux/";
 import Daily from "./pages/Community/Board/Daily";
 import Question from "./pages/Community/Board/Question";
@@ -119,6 +120,7 @@ function App() {
 				<Routes>
 					<Route exact path="/" element={<Home />} />
 					<Route path="/community/posting" element={<Posting />} />
+					<Route path="/community/posts" element={<Posts />} />
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route
