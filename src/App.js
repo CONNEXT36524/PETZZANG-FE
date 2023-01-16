@@ -17,6 +17,7 @@ import Notification from "./pages/Mypage/Notification";
 import Awards from "./pages/Mypage/Awards";
 import Account from "./pages/Mypage/Account";
 import { FiSearch } from "react-icons/fi";
+import logoImg from "./assets/logo192.png";
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
@@ -50,8 +51,14 @@ function App() {
 			<Navbar collapseOnSelect fixed="top" className="menu" id={pagetype}>
 				<Container>
 					<Navbar.Brand href="/" className="Navbar-logo">
-						{" "}
-						로고
+						<img
+							src={logoImg}
+							width={"30"}
+							height={"30"}
+							className="d-inline-block align-top"
+							alt="PETZZANG Logo"
+						/>
+						PETZZANG
 					</Navbar.Brand>
 
 					<NavDropdown title="커뮤니티" id={`communityDropdown`}>

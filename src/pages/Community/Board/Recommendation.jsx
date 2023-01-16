@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { Navbar, Container } from "react-bootstrap";
 import Paging from "../../../components/community/Paging.js";
 import "./Daily.css";
+import CommunityBanner from "../../../components/banner/CommunityBanner";
+import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
+import WriteButton from "../../../components/button/WriteButton";
 
 const StyledTable = styled.table`
 	border-collapse: collapse;
@@ -64,15 +67,6 @@ const recommendationData = [
 		rClickNum: "987",
 		rLikeNum: "0",
 	},
-	{
-		rNum: -2,
-		rImg: "",
-		rTitle: "제품 추천 게시판 이용시 주의사항",
-		rWriter: "관리자",
-		rDate: "2023.01.01",
-		rClickNum: "987",
-		rLikeNum: "0",
-	},
 ];
 
 function Recommendation() {
@@ -87,13 +81,8 @@ function Recommendation() {
 
 	return (
 		<>
-			<Navbar bg="light">
-				<Container id="middleNavigationBar">
-					<Navbar.Brand>
-						HOME {">"} 커뮤니티 {">"} 질문
-					</Navbar.Brand>
-				</Container>
-			</Navbar>
+			<CommunityBanner />
+			<MiddleNav contents="HOME>커뮤니티>제품 추천" />
 
 			<Container>
 				<div className="recommendationMain">
@@ -146,7 +135,7 @@ function Recommendation() {
 					<br />
 					<div className="writeBtnDiv">
 						<Paging />
-						<button className="writeBtn"> ✏️ 글쓰기 </button>
+						<WriteButton />
 					</div>
 				</div>
 			</Container>
