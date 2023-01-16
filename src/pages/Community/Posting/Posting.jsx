@@ -7,8 +7,8 @@ import Form from "react-bootstrap/Form";
 import Editor from "../../../components/editor/EditorComponent";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
-import SelectBoard from "../../../components/\bform/select/SelectBoard";
-import SelectPostingType from "../../../components/\bform/select/SelectPostingType";
+import SelectBoard from "../../../components/form/select/SelectBoard";
+import SelectPostingType from "../../../components/form/select/SelectPostingType";
 function Posting(props) {
 	//Editor
 	const [desc, setDesc] = useState("");
