@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
 import styled from 'styled-components';
-import CommunityBanner from "../../../components/banner/CommunityBanner";
-import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import {Container} from "react-bootstrap";
 import Paging from "../../../components/community/Paging.js";
 import "./Daily.css";
