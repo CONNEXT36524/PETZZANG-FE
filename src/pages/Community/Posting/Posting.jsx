@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 import "./Posting.css";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -8,7 +7,8 @@ import Form from "react-bootstrap/Form";
 import Editor from "../../../components/editor/EditorComponent";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
-
+import SelectBoard from "../../../components/form/select/SelectBoard";
+import SelectPostingType from "../../../components/form/select/SelectPostingType";
 function Posting(props) {
 	//Editor
 	const [desc, setDesc] = useState("");
@@ -20,18 +20,16 @@ function Posting(props) {
 	const [modalShow, setModalShow] = React.useState(false);
 
 	//MNB 정보
-	const location = useLocation();
-	const { contents } = location.state;
+	//const location = useLocation();
+	const content = "HOME>커뮤니티>게시글 작성";
 
 	return (
-		<div className="posting">
+		<div>
 			<PostingBanner />
 
-			<MiddleNav contents={contents} />
+			<MiddleNav contents={content} />
 
-			<Container>
-				<br />
-				<br />
+			<Container className="posting">
 				<br />
 				<div className="containerHeader">
 					<Form.Group
@@ -53,45 +51,8 @@ function Posting(props) {
 					</Form.Group>
 					<br />
 					<hr size="50" />
-					<div className="selectType">
-						<Form.Select
-							id="selection1"
-							className="selection"
-							aria-label="Default select example"
-						>
-							<option>동물</option>
-							<option value="1">강아지</option>
-							<option value="2">고양이</option>
-							<option value="3">관상어</option>
-							<option value="4">햄스터</option>
-							<option value="5">토끼</option>
-							<option value="6">새</option>
-							<option value="7">거북이</option>
-							<option value="8">기타</option>
-						</Form.Select>
-
-						<Form.Select
-							disabled="true"
-							id="selection2"
-							className="selection"
-							aria-label="Default select example"
-						>
-							<option>품종</option>
-							<option value="1">One</option>
-							<option value="2">Two</option>
-							<option value="3">Three</option>
-						</Form.Select>
-
-						<Form.Select
-							id="selection3"
-							className="selection"
-							aria-label="Default select example"
-						>
-							<option>성별</option>
-							<option value="1">암컷</option>
-							<option value="2">수컷</option>
-						</Form.Select>
-					</div>
+					<SelectBoard />
+					<SelectPostingType />
 					<br />
 					<hr size="50" />
 				</div>

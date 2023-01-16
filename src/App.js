@@ -9,6 +9,7 @@ import { useSelector } from "react-redux/";
 import Daily from "./pages/Community/Board/Daily";
 import Question from "./pages/Community/Board/Question";
 import Search from "./pages/Community/Board/Search";
+import Recommendation from "./pages/Community/Board/Recommendation";
 import KakaoLogin from "./pages/Login/KakaoLogin";
 import History from "./pages/Mypage/History";
 import Notification from "./pages/Mypage/Notification";
@@ -108,6 +109,7 @@ function App() {
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/question" element={<Question />} />
+					<Route exact path="/community/recommendation" element={<Recommendation />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/search" element={<Search />} />
 					{/* <Route exact path="/logout" element={<Logout />} /> */}
