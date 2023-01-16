@@ -45,7 +45,7 @@ function Daily() {
 					<br />
 					<br />
 					<div className="writeBtnDiv">
-						<Paging />
+						<Paging cntPer={40} total={100} range={5}/>
 						<WriteButton content="HOME>커뮤니티>일상>게시글 작성" />
 
 					</div>

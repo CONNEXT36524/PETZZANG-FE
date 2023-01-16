@@ -134,7 +134,7 @@ function Question() {
 					<br />
 					<br />
 					<div className="writeBtnDiv">
-						<Paging />
+						<Paging cntPer={40} total={100} range={5}/>
 						<WriteButton content="HOME>커뮤니티>질문>게시글 작성" />
 					</div>
 				</div>

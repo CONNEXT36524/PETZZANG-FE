@@ -141,7 +141,7 @@ function Recommendation() {
 					<br />
 					<br />
 					<div className="writeBtnDiv">
-						<Paging />
+						<Paging cntPer={40} total={100} range={5}/>
 						<WriteButton />
 					</div>
 				</div>
