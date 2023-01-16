@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
 import styled from "styled-components";
@@ -74,8 +75,14 @@ function Question() {
 		dispatch(changepagetype("community"));
 	}, [dispatch]);
 
+	const navigate = useNavigate();
+
 	const questionClick = (props) => {
-		console.log(props);
+		navigate("/community/posts", {
+			state: {
+				title: "a",
+			},
+		});
 	};
 
 	return (
@@ -103,6 +110,7 @@ function Question() {
 							{questionData.map((data, num) => (
 								<tr
 									num={num}
+									//추후 게시글 id 넘기기
 									onClick={() => questionClick(data.qNum)}
 								>
 									{data.qNum < 0 ? (

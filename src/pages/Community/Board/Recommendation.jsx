@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
 import styled from "styled-components";
@@ -75,8 +76,14 @@ function Recommendation() {
 		dispatch(changepagetype("community"));
 	}, [dispatch]);
 
+	const navigate = useNavigate();
+
 	const recommendationClick = (props) => {
-		console.log(props);
+		navigate("/community/posts", {
+			state: {
+				title: "a",
+			},
+		});
 	};
 
 	return (
