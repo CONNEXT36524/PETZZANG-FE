@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
+import CommunityBanner from "../../../components/banner/CommunityBanner";
+import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import { Container } from "react-bootstrap";
 import './Daily.css';
 
@@ -55,14 +57,22 @@ function Search() {
     //     setSearchList(data)
     // }
 
+    //MNB 정보
+	const content = "HOME>커뮤니티>검색 결과";
 
 
     return (
+        <>
+        <CommunityBanner />
+        <MiddleNav contents={content} />
         <Container>
             <div className='searchMain'>
                 {/* 검색어 입력후 엔터를 눌렀을때만 이벤트 발생 */}
-                
-
+                <div className='searchResultTextDiv'> 
+                    <h3>검색어 '</h3>
+                    <h3 className='searchResultText'>{keyword}</h3>
+                    <h3>' 에 대한 전체 '0'개의 결과를 찾았습니다.</h3>
+                </div>
                 {/* { 
                   error
                   ?(console.log("에러"))
@@ -78,10 +88,12 @@ function Search() {
                 </div>
                 <Card/>
                 <hr/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
                 
             </div>
         </Container>
+        </>
     );
 }
 

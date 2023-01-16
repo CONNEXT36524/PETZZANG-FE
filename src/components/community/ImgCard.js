@@ -28,7 +28,7 @@ function ImgCard() {
             </div>
         </div>
         
-  );
+    );
 }
 
 export default ImgCard;

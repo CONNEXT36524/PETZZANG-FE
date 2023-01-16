@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
 import styled from 'styled-components';
-import {Navbar, Container} from "react-bootstrap";
+import CommunityBanner from "../../../components/banner/CommunityBanner";
+import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
+import {Container} from "react-bootstrap";
 import Paging from "../../../components/community/Paging.js";
 import './Daily.css';
 
@@ -54,17 +56,13 @@ function Recommendation() {
     console.log(props);
   };
 
+  //MNB 정보
+	const content = "HOME>커뮤니티>제품 추천";
+
   return (
     <>
-        
-      <Navbar bg="light">
-        <Container id="middleNavigationBar">
-          <Navbar.Brand>
-            HOME {">"} 커뮤니티 {">"} 질문
-          </Navbar.Brand>
-        </Container>
-      </Navbar>  
-
+      <CommunityBanner />
+      <MiddleNav contents={content} />
       <Container>
         <div className='recommendationMain'> 
           <h2 className='boardName'>제품 추천 게시판</h2> <br/><br/>

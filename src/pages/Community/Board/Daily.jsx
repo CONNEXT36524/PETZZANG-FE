@@ -22,10 +22,6 @@ function Daily() {
 
 	// console.log(typeValue);
 
-	const data = [
-		{img: "../../img/dog1.png", content: "내용1"}, 
-		{img: "../../img/dog2.png", content: "내용2"}, 
-	]
 
 	return ( 
 		<>
@@ -33,15 +29,13 @@ function Daily() {
 			<MiddleNav contents="HOME>커뮤니티>일상" />
 			<Container>
 				<div className="dailyMain">
-					<br />
-					<br />
-					<br />
-					<br />
+					
 					<h2 className="boardName">일상 게시판</h2> <br />
 					<Offcanvas setTypeValue={setTypeValue} />
 					<TypeBtn data={typeValue} />
 
 					<ImgCard />
+					
 					<br />
 					<br />
 					<div className="writeBtnDiv">
