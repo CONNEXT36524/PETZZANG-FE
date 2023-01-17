@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
-import styled from "styled-components";
-import "bootstrap/dist/css/bootstrap.min.css";
-import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
-import Container from "react-bootstrap/Container";
-import "./Daily.css";
+import styled from 'styled-components';
+import {Container} from "react-bootstrap";
 import Paging from "../../../components/community/Paging.js";
+import "./Daily.css";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
+import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import WriteButton from "../../../components/button/WriteButton";
+
 const StyledTable = styled.table`
 	border-collapse: collapse;
 	thead {
@@ -40,36 +40,37 @@ const StyledTable = styled.table`
 	}
 `;
 
-// 공지글은 qNum을 마이너스값으로 해서 sort했을때 가장 위에 오게 하고 싶은데
-// 데이터베이스에서 sort해서 가져올수 있나?
-const questionData = [
+const recommendationData = [
 	{
-		qNum: 0,
-		qTitle: "강아지가 계속 발을 핥아요",
-		qWriter: "소금엄마",
-		qDate: "2023.01.09",
-		qClickNum: "987",
-		qLikeNum: "32",
+		rNum: 0,
+		rImg: "",
+		rTitle: "강아지 하네스 추천해주세요~",
+		rWriter: "소금엄마",
+		rDate: "2023.01.11",
+		rClickNum: "34",
+		rLikeNum: "8",
 	},
 	{
-		qNum: 1,
-		qTitle: "다들 산책훈련 어떻게 하시나요?",
-		qWriter: "라라",
-		qDate: "2023.01.08",
-		qClickNum: "631",
-		qLikeNum: "27",
+		rNum: 1,
+		rImg: "",
+		rTitle: "고양이 모래 추천합니다!",
+		rWriter: "치즈맘",
+		rDate: "2023.01.10",
+		rClickNum: "42",
+		rLikeNum: "11",
 	},
 	{
-		qNum: -1,
-		qTitle: "질문 게시판 이용시 주의사항",
-		qWriter: "관리자",
-		qDate: "2023.01.01",
-		qClickNum: "1234",
-		qLikeNum: "0",
+		rNum: -1,
+		rImg: "",
+		rTitle: "제품 추천 게시판 이용시 주의사항",
+		rWriter: "관리자",
+		rDate: "2023.01.01",
+		rClickNum: "987",
+		rLikeNum: "0",
 	},
 ];
 
-function Question() {
+function Recommendation() {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(changepagetype("community"));
@@ -77,7 +78,7 @@ function Question() {
 
 	const navigate = useNavigate();
 
-	const questionClick = (props) => {
+	const recommendationClick = (props) => {
 		navigate("/community/posts", {
 			state: {
 				title: "a",
@@ -88,16 +89,17 @@ function Question() {
 	return (
 		<>
 			<CommunityBanner />
-			<MiddleNav contents="HOME>커뮤니티>질문" />
+			<MiddleNav contents="HOME>커뮤니티>제품 추천" />
 
 			<Container>
-				<div className="questionMain">
-					<h2 className="boardName">질문 게시판</h2> <br />
+				<div className="recommendationMain">
+					<h2 className="boardName">제품 추천 게시판</h2> <br />
 					<br />
 					<StyledTable className="tableDiv">
 						<thead>
 							<tr>
 								<th> No. </th>
+								<th> 이미지 </th>
 								<th className="second-col"> 제목 </th>
 								<th> 글쓴이 </th>
 								<th> 작성 날짜 </th>
@@ -106,36 +108,42 @@ function Question() {
 							</tr>
 						</thead>
 
+
 						<tbody className="tbodyDiv">
-							{questionData.map((data, num) => (
+							{recommendationData.map((data, num) => (
 								<tr
 									num={num}
-									//추후 게시글 id 넘기기
-									onClick={() => questionClick(data.qNum)}
+									onClick={() =>
+										recommendationClick(data.rNum)
+									}
 								>
-									{data.qNum < 0 ? (
+									{data.rNum < 0 ? (
 										<td> 공지 </td>
 									) : (
-										<td> {data.qNum + 1} </td>
+										<td> {data.rNum + 1} </td>
 									)}
 
-									<td className="second-col">
+									<td>
 										{" "}
-										{data.qTitle}{" "}
+										<img
+											src="../../img/dog1.png"
+											className="recommendationImg"
+										/>{" "}
 									</td>
-									<td> {data.qWriter} </td>
-									<td> {data.qDate} </td>
-									<td> {data.qClickNum} </td>
-									<td> {data.qLikeNum} </td>
+									<td> {data.rTitle} </td>
+									<td> {data.rWriter} </td>
+									<td> {data.rDate} </td>
+									<td> {data.rClickNum} </td>
+									<td> {data.rLikeNum} </td>
 								</tr>
 							))}
 						</tbody>
-					</StyledTable>{" "}
+					</StyledTable>
 					<br />
 					<br />
 					<div className="writeBtnDiv">
 						<Paging />
-						<WriteButton content="HOME>커뮤니티>질문>게시글 작성" />
+						<WriteButton />
 					</div>
 				</div>
 			</Container>
@@ -143,4 +151,4 @@ function Question() {
 	);
 }
 
-export default Question;
+export default Recommendation;

@@ -1,62 +1,67 @@
 import "./App.css";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Home from "./pages/Home/Home";
 import Ranking from "./pages/ranking/Ranking";
 import Posting from "./pages/Community/Posting/Posting";
+import Posts from "./pages/Community/Posts/Posts";
 import { useSelector } from "react-redux/";
 import Daily from "./pages/Community/Board/Daily";
+import Boast from "./pages/Community/Board/Boast";
 import Question from "./pages/Community/Board/Question";
 import Search from "./pages/Community/Board/Search";
+import Recommendation from "./pages/Community/Board/Recommendation";
 import KakaoLogin from "./pages/Login/KakaoLogin";
 import History from "./pages/Mypage/History";
 import Notification from "./pages/Mypage/Notification";
 import Awards from "./pages/Mypage/Awards";
 import Account from "./pages/Mypage/Account";
-import {FiSearch} from "react-icons/fi";
-
-
+import { FiSearch } from "react-icons/fi";
+import logoImg from "./assets/logo192.png";
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
 function App() {
-
-
 	// 로그인
 	const pagetype = useSelector((state) => state.Nav.pagetype);
 	const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
 	const rest_api_key = process.env.REACT_APP_REST_API_KEY;
 	const KAKAO_AUTH_URL = process.env.REACT_APP_KAKAO_AUTH_URL;
 
-
 	// 검색
-	const [searchText, setSearchText] = useState('');
+	const [searchText, setSearchText] = useState("");
 	const onChangeSearchText = (e) => {
-        setSearchText(e.target.value);
-    };
+		setSearchText(e.target.value);
+	};
 
 	const search = (e) => {
-		console.log(searchText)
-        // enter키 눌렀을때
-        if(e.key === "Enter") {
-			window.location.href =`/community/search?q=${searchText}`
-        }
-        // '검색' 클릭했을때
-        if(e === "클릭") {
-			window.location.href =`/community/search?q=${searchText}`
-        }
-    }
+		console.log(searchText);
+		// enter키 눌렀을때
+		if (e.key === "Enter") {
+			window.location.href = `/community/search?q=${searchText}`;
+		}
+		// '검색' 클릭했을때
+		if (e === "클릭") {
+			window.location.href = `/community/search?q=${searchText}`;
+		}
+	};
 
 	return (
 		<Router>
 			<Navbar collapseOnSelect fixed="top" className="menu" id={pagetype}>
 				<Container>
 					<Navbar.Brand href="/" className="Navbar-logo">
-						{" "}
-						로고
+						<img
+							src={logoImg}
+							width={"30"}
+							height={"30"}
+							className="d-inline-block align-top"
+							alt="PETZZANG Logo"
+						/>
+						PETZZANG
 					</Navbar.Brand>
-					
+
 					<NavDropdown title="커뮤니티" id={`communityDropdown`}>
 						<NavDropdown.Item href="/community/daily">
 							일상
@@ -82,20 +87,31 @@ function App() {
 					</NavDropdown>
 
 					<div className="user">
-						<input className="searchBar" type='text'
-						onChange={onChangeSearchText} onKeyDown={(e)=>search(e)}/>
-						<button className="searchBtn"onClick={(e)=> search('클릭')}> <FiSearch/> </button>
+						<input
+							className="searchBar"
+							type="text"
+							onChange={onChangeSearchText}
+							onKeyDown={(e) => search(e)}
+						/>
+						<button
+							className="searchBtn"
+							onClick={(e) => search("클릭")}
+						>
+							{" "}
+							<FiSearch />{" "}
+						</button>
 						<Nav.Link
 							className="user-logo"
 							href={KAKAO_AUTH_URL}
 						></Nav.Link>
 					</div>
-					<NavDropdown
-						title=""
-						id={`mypageDropdown`}>
-	
-						<NavDropdown.Item href="/mypage/notification">마이페이지</NavDropdown.Item>
-						<NavDropdown.Item href="/logout">로그아웃</NavDropdown.Item>
+					<NavDropdown title="" id={`mypageDropdown`}>
+						<NavDropdown.Item href="/mypage/notification">
+							마이페이지
+						</NavDropdown.Item>
+						<NavDropdown.Item href="/logout">
+							로그아웃
+						</NavDropdown.Item>
 					</NavDropdown>
 				</Container>
 			</Navbar>
@@ -105,23 +121,25 @@ function App() {
 				<Routes>
 					<Route exact path="/" element={<Home />} />
 					<Route path="/community/posting" element={<Posting />} />
+					<Route path="/community/posts" element={<Posts />} />
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
+					<Route exact path="/community/boast" element={<Boast />} />
 					<Route exact path="/community/question" element={<Question />} />
+					<Route exact path="/community/recommendation" element={<Recommendation />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/search" element={<Search />} />
 					{/* <Route exact path="/logout" element={<Logout />} /> */}
-					<Route path="/oauth/callback/kakao" element={<KakaoLogin />}/>	
-                    <Route path="/mypage/notification" element={<Notification />} />
-                    <Route path="/mypage/history" element={<History />} />
-                    <Route path="/mypage/awards" element={<Awards />} />
-                    <Route path="/mypage/account" element={<Account />} />
+					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
+					<Route path="/mypage/notification" element={<Notification />} />
+					<Route path="/mypage/history" element={<History />} />
+					<Route path="/mypage/awards" element={<Awards />} />
+					<Route path="/mypage/account" element={<Account />} />
 					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
 
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
 				</Routes>
-	
 			</main>
 		</Router>
 	);

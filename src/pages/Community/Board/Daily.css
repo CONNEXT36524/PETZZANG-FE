@@ -37,6 +37,9 @@
 
 
 /* ################## 일상 게시판 ################## */
+.dailyMain {
+    margin-top: 80px;
+}
 .TypeBtnDiv{
     text-align: center;
 }
@@ -48,17 +51,16 @@
     background-color: #73BFFF;
     color: white;
 }
-/* .dailyMain-active {
-    background-color: #73BFFF;
-    margin-left: 200px;
-} */
+
+
+/* ################## 자랑 게시판 ################## */
+
+
 
 
 /* ################## 질문 게시판 ################## */
 .questionMain {
-    margin-top: 150px;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-top: 80px;
 }
 /* 테이블 가운데 정렬 */
 .tableDiv {
@@ -69,9 +71,7 @@
 
 /* ################## 추천 게시판 ################## */
 .recommendationMain {
-    margin-top: 150px;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-top: 80px;
 }
 .recommendationImg {
     width: 150px;
@@ -83,9 +83,17 @@
 
 /* ################## 검색 게시판 ################## */
 .searchMain {
-    margin-top: 150px;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-top: 80px;
+}
+.searchResultTextDiv {
+    display: flex;
+    margin-bottom: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content : center;
+}
+.searchResultText {
+    color: #FB901A;
 }
 .searchCardContainer {
     display: flex;
@@ -116,4 +124,22 @@
 }
 .section:hover {
     cursor: initial;
+}
+
+
+
+/* ################## 게시판에 글이 없습니다 ################## */
+.noContentMain {
+    margin-top: 50px;
+    text-align: center;
+    background-color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.noContent {
+    padding-top: 100px;
+    padding-bottom: 80px;
+}
+.noContent button {
+    margin-top: 50px;
 }

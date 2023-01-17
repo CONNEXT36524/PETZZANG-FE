@@ -17,4 +17,24 @@
     height: 250px;
     object-fit: contain;
     margin-top: 20px;
+    margin-bottom: 20px;
+}
+#imgContent{ 
+    opacity: 0; 
+    position: absolute;
+    width: 100%;
+    line-height: 290px;
+    text-align: center;
+}
+.ImgCardDiv:hover #imgContent{
+    opacity: 0.5;
+    background-color: #ffffff;
+    color: black;
+    font-weight: 700;
+}
+/* 화면 가로가 1200이하 크기가 되면 imgContent 안보이게 하기 */
+@media (max-width: 1200px) {
+    #imgContent {
+      display: none;
+    }
 }
