@@ -97,37 +97,6 @@
 .searchResultText {
     color: #FB901A;
 }
-.searchCardContainer {
-    display: flex;
-    border-color: #2E2E2E;
-    margin-left: 20px;
-}
-.searchCardImg {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-    
-}
-.searchCardContent {
-    margin-top: 10px;
-    margin-left: 30px;
-    display: block;
-}
-.sectionDiv {
-    display: flex;
-}
-.section {
-    background-color: #73BFFF;
-    color: #73BFFF;
-    border: none;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    margin-right: 5px;
-}
-.section:hover {
-    cursor: initial;
-}
-
 
 
 /* ################## 게시판에 글이 없습니다 ################## */

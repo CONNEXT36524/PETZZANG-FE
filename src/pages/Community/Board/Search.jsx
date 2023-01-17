@@ -5,19 +5,9 @@ import CommunityBanner from "../../../components/banner/CommunityBanner";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import { Container } from "react-bootstrap";
 import './Daily.css';
-
-function Card() {  
-    return (
-      <div className='searchCardContainer'>
-        <img src="../../img/dog1.png" className="searchCardImg" />
-        <div className='searchCardContent'>
-            <h3>글 제목</h3>
-            <p>글 내용</p>
-            <p>작성자</p>
-        </div>
-      </div>
-    );
-}
+import SearchSectionDiv from "../../../components/community/SearchSectionDiv.js";
+import SearchDailyCard from "../../../components/community/SearchDailyCard.js";
+import SearchQuestionCard from "../../../components/community/SearchQuestionCard.js";
 
 
 function Search() {
@@ -57,14 +47,11 @@ function Search() {
     //     setSearchList(data)
     // }
 
-    //MNB 정보
-	const content = "HOME>커뮤니티>검색 결과";
-
 
     return (
         <>
         <CommunityBanner />
-        <MiddleNav contents={content} />
+        <MiddleNav contents={"HOME>커뮤니티>검색 결과"} />
         <Container>
             <div className='searchMain'>
                 {/* 검색어 입력후 엔터를 눌렀을때만 이벤트 발생 */}
@@ -81,13 +68,16 @@ function Search() {
                     )
                 } */}
 
-                <hr/>
-                <div className='sectionDiv'>
-                    <button className='section'> | </button>
-                    <h5>일상 게시판</h5>
-                </div>
-                <Card/>
-                <hr/>
+                
+                <SearchSectionDiv boardName={"일상"}/>
+                <SearchDailyCard/>
+                
+
+                
+                <SearchSectionDiv boardName={"질문"}/>
+                <SearchQuestionCard/>
+                
+
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
                 
