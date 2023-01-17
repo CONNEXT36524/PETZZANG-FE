@@ -1,5 +1,5 @@
 const mainPallete = {
-	orange: "FB901A",
+	orange: "fb901a",
 	green: "00C27E",
 	blue: "73BFFF",
 	yellow: "FABF3E",

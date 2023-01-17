@@ -7,16 +7,12 @@
 	font-size: 30px;
 }
 .cont {
-	margin-top: 13px;
+
 	margin-left: 20px;
 	flex-direction: row;
 	font-family: "Pretendard-Regular";
 }
 
-body {
-	background-color: red;
-	font-family: "Pretendard-Regular";
-}
 .typeBtn {
     margin-bottom: 10px;
     width: 7rem;

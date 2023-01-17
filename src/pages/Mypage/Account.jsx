@@ -17,6 +17,25 @@ const Center = styled.div`
   display: flex;
   flex-direction: row;
 `
+const Content = styled.div`
+    position: relative;
+    margin-top: 9rem;
+    margin-left: 10rem;
+    cursor: pointer;
+
+`
+const Title = styled.div`
+    display: flex;
+`
+const Sub =styled.div`
+    margin-top: 50px;
+    left: 1px;
+    width: 130vh;
+    height: 60vh;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(234, 234, 234);
+    flex-direction: row;
+`
 
 const Account=()=>{
     
@@ -45,7 +64,16 @@ const Account=()=>{
             </Navbar>
             <Center>
                 <Sidebar/>
-                <div>Account</div>
+                <Content>
+                  <Title>
+                        <div className="title">나의 계정</div>
+                  </Title>
+                  <Sub>
+            
+                        
+                  </Sub>
+                  
+                </Content>
             </Center>
       
             

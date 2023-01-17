@@ -73,8 +73,8 @@ const Awards=()=>{
                 <Sidebar/>
                 <Content>
                   <Title>
+                        <span role="img" aria-label="writing hand">✍</span>
                         <div className="title">펫짱 수상기록</div>
-           
                   </Title>
                   <Sub>
             

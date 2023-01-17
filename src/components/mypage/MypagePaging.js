@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import './Paging.css';
+import React, { useState, useEffect } from "react";
+
 import Pagination from "react-js-pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurPage, rpaging } from "../../Slice/PagingSlice";
 
-
-
 // api 연동해야함
-const Paging = () => {
+const MypagePaging = (props) => {
+
   const dispatch = useDispatch();
 
   const currentPage = useSelector(state => state.PagingR.page);
@@ -35,4 +34,4 @@ const Paging = () => {
   );
 };
 
-export default Paging;
+export default MypagePaging;
