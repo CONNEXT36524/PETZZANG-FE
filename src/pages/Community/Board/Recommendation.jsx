@@ -111,25 +111,14 @@ function Recommendation() {
 
 						<tbody className="tbodyDiv">
 							{recommendationData.map((data, num) => (
-								<tr
-									num={num}
-									onClick={() =>
-										recommendationClick(data.rNum)
+								<tr num={num} onClick={()=>recommendationClick(data.rNum)}>
+									{	
+										data.rNum < 0 
+										? <td> 공지 </td>
+										: <td> {data.rNum + 1} </td>
 									}
-								>
-									{data.rNum < 0 ? (
-										<td> 공지 </td>
-									) : (
-										<td> {data.rNum + 1} </td>
-									)}
 
-									<td>
-										{" "}
-										<img
-											src="../../img/dog1.png"
-											className="recommendationImg"
-										/>{" "}
-									</td>
+									<td> {" "} <img src="../../img/dog1.png" className="recommendationImg"/>{" "} </td>
 									<td> {data.rTitle} </td>
 									<td> {data.rWriter} </td>
 									<td> {data.rDate} </td>

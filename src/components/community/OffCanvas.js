@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Offcanvas} from 'react-bootstrap';
@@ -55,11 +55,15 @@ const SidebarData = (props) => {
   const sexTypeArr = useSelector((state) => state.Offcanvas.sexTypeArr);
   //console.log(animalTypeArr)
 
-  function sendData(id) {
-    props.setValue(id);
-  }
-  // 체크된 종을 담은 배열 보내주기
-  sendData(animalTypeArr)
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      //console.log(animalTypeArr);
+      props.setValue(animalTypeArr) //OffCanvas에서 Daily로 데이터보내기 (체크된 종을 담은 배열 보내주기)
+    }
+  }, [animalTypeArr]);
 
 
   ////////////////////////////  동물 종류  ////////////////////////////////////////
@@ -185,7 +189,18 @@ function OffCanvas(props) {
   const [idValue, setValue] = useState(""); // SidebarData에서 OffCanvas로 데이터 가져오기
   
   const [show, setShow] = useState(false);
-  props.setTypeValue(idValue) //OffCanvas에서 Daily로 데이터보내기
+  
+  
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      //console.log(idValue);
+      props.setTypeValue(idValue) //OffCanvas에서 Daily로 데이터보내기
+    }
+  }, [idValue]);
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

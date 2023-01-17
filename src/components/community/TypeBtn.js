@@ -81,9 +81,10 @@ function TypeBtn (props) {
         : null
       }
     
-      { typeData.map((item) => {
+      { typeData.map((item,idx) => {
           return(
-            <StyledBtn className={
+            <StyledBtn key={idx}
+              className={
               checkBtn.find(order => order === item)
               ? "menu-item-active"
               : "menu-item"}
