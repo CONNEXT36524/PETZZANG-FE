@@ -43,10 +43,11 @@ const Home=()=>{
                     반려동물을 키우며 궁금했던 점을 질문하는 공간, <br></br>
                     펫짱 커뮤니티에서 활동해보세요
                     </p>
-                
-            <Button variant="danger" size="lg">
+                    <Link to="/Community/daily">
+                     <Button variant="danger" size="lg">
                     게시판 둘러보기
-                </Button>
+                    </Button>
+                    </Link>
             </div>
             <div className="third_circle">
                 <div className="third_image">
