@@ -6,7 +6,7 @@ import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import Container from "react-bootstrap/Container";
 import "./Daily.css";
 import Offcanvas from "../../../components/community/OffCanvas.js";
-import ImgCard from "../../../components/community/ImgCard.js";
+import Imgdiv from "../../../components/community/Imgdiv.js";
 import TypeBtn from "../../../components/community/TypeBtn.js";
 import Paging from "../../../components/community/Paging.js";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
@@ -17,9 +17,10 @@ function CallImgCard(props) {
 	var arr = [];
 
 	for(let divNum=0; divNum<props.propsData.length; divNum=divNum+4) {
+		// console.log(props.propsData.slice(divNum,(divNum+4)))
 		arr.push (
-			<div className='ImgCardDiv'> 
-				<ImgCard props0={props.propsData[divNum]} props1={props.propsData[divNum+1]} props2={props.propsData[divNum+2]} props3={props.propsData[divNum+3]}/> 
+			<div className='ImgCardDiv' key={divNum}> 
+				<Imgdiv data={props.propsData.slice(divNum,(divNum+4))}/> 
 			</div>
 		)
 	}

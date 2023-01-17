@@ -1,5 +1,5 @@
-import "../pages/ranking/Ranking.css"
-import crown from "../assets/crown.png"
+import "../../pages/ranking/Ranking.css"
+import crown from "../../assets/crown.png"
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 
@@ -37,6 +37,7 @@ function Mainranking(props) {
                 {Isbtn? <p className="date_font">{startyear}년{startMonth}월 {startDate}일 ~ {endyear}년{endMonth}월 {endDate}일</p>: <p className="date_font">{startyear}년{startMonth}월</p>}
             </div>
         </div>
+        {/* map 으로 순위 8개 component들 불러오기  */}
         </>
 	);
 }
