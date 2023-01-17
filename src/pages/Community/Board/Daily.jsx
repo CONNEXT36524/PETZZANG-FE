@@ -12,6 +12,22 @@ import Paging from "../../../components/community/Paging.js";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import WriteButton from "../../../components/button/WriteButton";
 
+function CallImgCard(props) {
+	//console.log(props)
+	var arr = [];
+
+	for(let divNum=0; divNum<props.propsData.length; divNum=divNum+4) {
+		arr.push (
+			<div className='ImgCardDiv'> 
+				<ImgCard props0={props.propsData[divNum]} props1={props.propsData[divNum+1]} props2={props.propsData[divNum+2]} props3={props.propsData[divNum+3]}/> 
+			</div>
+		)
+	}
+	return arr;
+}
+
+
+
 function Daily() {
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -22,6 +38,14 @@ function Daily() {
 
 	// console.log(typeValue);
 
+	const data = [
+		{id:0, img: '../../img/dog1.png', content: '내용1'},
+		{id:1, img: '../../img/dog2.png', content: '내용2'},
+		{id:2, img: '../../img/dog1.png', content: '내용3'},
+		{id:3, img: '../../img/dog2.png', content: '내용4'},
+		{id:4, img: '../../img/dog1.png', content: '내용5'},
+		{id:5, img: '../../img/dog2.png', content: '내용6'},
+	]
 
 	return ( 
 		<>
@@ -30,18 +54,16 @@ function Daily() {
 			<Container>
 				<div className="dailyMain">
 					
-					<h2 className="boardName">일상 게시판</h2> <br />
+					<h2 className="boardName"> 일상 게시판</h2> <br/>
+					
 					<Offcanvas setTypeValue={setTypeValue} />
 					<TypeBtn data={typeValue} />
+					<CallImgCard propsData={data}/>
+					<br/> <br/>
 
-					<ImgCard />
-					
-					<br />
-					<br />
 					<div className="writeBtnDiv">
 						<Paging />
 						<WriteButton content="HOME>커뮤니티>일상>게시글 작성" />
-
 					</div>
 				</div>
 			</Container>
