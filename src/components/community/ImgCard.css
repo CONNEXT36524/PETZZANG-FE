@@ -4,9 +4,10 @@
     margin-right: 50px;
     text-align: center;
     display: flex;
+    align-items: flex-start;
 }
 .card {
-    width: 300px;
+    width: 279px;
     text-align: center;
     /* cardDiv 가로로 */
     display: inline-flex; 
@@ -19,15 +20,19 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#imgContent{ 
+#imgContent0, #imgContent1, #imgContent2, #imgContent3{ 
     opacity: 0; 
     position: absolute;
     width: 100%;
     line-height: 290px;
     text-align: center;
 }
-.ImgCardDiv:hover #imgContent{
+#imgContent0:hover, #imgContent1:hover, #imgContent2:hover, #imgContent3:hover {
     opacity: 0.5;
+    position: absolute;
+    width: 100%;
+    line-height: 290px;
+    text-align: center;
     background-color: #ffffff;
     color: black;
     font-weight: 700;
