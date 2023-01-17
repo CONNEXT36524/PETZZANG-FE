@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
 import styled from 'styled-components';
 import {Container} from "react-bootstrap";
@@ -9,7 +9,7 @@ import "./Daily.css";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import WriteButton from "../../../components/button/WriteButton";
-
+import { rpaging } from "../../../Slice/PagingSlice";
 const StyledTable = styled.table`
 	border-collapse: collapse;
 	thead {
@@ -74,6 +74,7 @@ function Recommendation() {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(changepagetype("community"));
+		dispatch(rpaging(setPage));
 	}, [dispatch]);
 
 	const navigate = useNavigate();
@@ -86,6 +87,24 @@ function Recommendation() {
 		});
 	};
 
+	const currentPage = useSelector(state => state.PagingR.page);
+    const cntPerPage = useSelector(state => state.PagingR.cntPerPage);
+    const total = useSelector(state => state.PagingR.total);
+    const range = useSelector(state => state.PagingR.range);
+
+    const setPage = {
+        cntPerPage : 10, 
+        total : 40, 
+        range : 5 
+    }
+
+	// 백엔드에서 게시글 list 받아와서 recommendationData 대신 sliceList를 map에 사용
+	//  
+	// const sliceList = () =>{ 
+    //         setPage.total = list.length
+    //         dispatch(rpaging(setPage))
+    //         return list.slice(cntPerPage*(currentPage-1), cntPerPage*currentPage);
+    // } 
 	return (
 		<>
 			<CommunityBanner />

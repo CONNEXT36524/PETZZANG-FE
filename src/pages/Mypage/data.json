@@ -3,15 +3,70 @@
     {
         "id" : 1,
         "title" : "댓글 알림",
-        "sub" : "치즈맘님이 게시물에 댓글을 달았습니다",
-        "img" : "../assets/comment.png"
+        "sub" : "치즈맘님이 게시물에 댓글을 달았습니다"
+
     },
     {
         "id": 2, 
         "title": "랭킹 달성 알림",
-        "sub" : "주간 랭킹 1위에 달성했습니다!",
-        "img" : "../assets/party.png"
+        "sub" : "주간 랭킹 1위에 달성했습니다!"
     }
+    ],
 
+    "post": [
+        {
+            "id":0,
+            "title" : "일상1",
+            "writer" : "소금엄마",
+            "clickNum": 987,
+            "likeNum": 32,
+            "date": "2023-01-16 14:14",
+            "type" : "일상"
+        },    
+        {
+            "id":1,
+            "title" : "일상2",
+            "writer" : "소금엄마",
+            "clickNum": 987,
+            "likeNum": 32,
+            "date": "2023-01-16 14:14",
+            "type" : "일상"
+        },    
+        {
+            "id":2,
+            "title" : "자랑1",
+            "writer" : "소금엄마",
+            "clickNum": 987,
+            "likeNum": 32,
+            "date": "2023-01-16 14:14",
+            "type" : "자랑"
+        },    
+        {
+            "id":3,
+            "title" : "질문1",
+            "writer" : "소금엄마",
+            "clickNum": 987,
+            "likeNum": 32,
+            "date": "2023-01-16 14:14",
+            "type" : "질문"
+        },
+        {
+            "id":4,
+            "title" : "제품추천1",
+            "writer" : "소금엄마",
+            "clickNum": 987,
+            "likeNum": 32,
+            "date": "2023-01-16 14:14",
+            "type" : "제품추천"
+        },
+        {
+            "id":5,
+            "title" : "일상3",
+            "writer" : "소금엄마",
+            "clickNum": 987,
+            "likeNum": 32,
+            "date": "2023-01-16 14:14",
+            "type" : "일상"
+        }        
     ]
 }
