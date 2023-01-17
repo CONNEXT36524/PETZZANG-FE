@@ -78,7 +78,7 @@ function App() {
 					</NavDropdown>
 
 					<NavDropdown title="랭킹" id={`rankingDropdown`}>
-						<NavDropdown.Item href="/Ranking">
+						<NavDropdown.Item href="/Ranking" >
 							주간 랭킹
 						</NavDropdown.Item>
 						<NavDropdown.Item href="/Ranking">
