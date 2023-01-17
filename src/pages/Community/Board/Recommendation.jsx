@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
-import styled from "styled-components";
-import { Navbar, Container } from "react-bootstrap";
+import styled from 'styled-components';
+import {Container} from "react-bootstrap";
 import Paging from "../../../components/community/Paging.js";
 import "./Daily.css";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
@@ -127,27 +127,17 @@ function Recommendation() {
 							</tr>
 						</thead>
 
+
 						<tbody className="tbodyDiv">
 							{recommendationData.map((data, num) => (
-								<tr
-									num={num}
-									onClick={() =>
-										recommendationClick(data.rNum)
+								<tr num={num} onClick={()=>recommendationClick(data.rNum)}>
+									{	
+										data.rNum < 0 
+										? <td> 공지 </td>
+										: <td> {data.rNum + 1} </td>
 									}
-								>
-									{data.rNum < 0 ? (
-										<td> 공지 </td>
-									) : (
-										<td> {data.rNum + 1} </td>
-									)}
 
-									<td>
-										{" "}
-										<img
-											src="../../img/dog1.png"
-											className="recommendationImg"
-										/>{" "}
-									</td>
+									<td> {" "} <img src="../../img/dog1.png" className="recommendationImg"/>{" "} </td>
 									<td> {data.rTitle} </td>
 									<td> {data.rWriter} </td>
 									<td> {data.rDate} </td>

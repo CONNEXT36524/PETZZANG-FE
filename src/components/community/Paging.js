@@ -17,8 +17,10 @@ const Paging = () => {
 
 
   const handlePageChange = (page) => {
+
     dispatch(setCurPage(page));
     console.log(page)
+
   };
 
 

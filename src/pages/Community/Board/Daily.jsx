@@ -6,12 +6,29 @@ import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import Container from "react-bootstrap/Container";
 import "./Daily.css";
 import Offcanvas from "../../../components/community/OffCanvas.js";
-import ImgCard from "../../../components/community/ImgCard.js";
+import Imgdiv from "../../../components/community/Imgdiv.js";
 import TypeBtn from "../../../components/community/TypeBtn.js";
 import Paging from "../../../components/community/Paging.js";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import WriteButton from "../../../components/button/WriteButton";
 import { rpaging } from "../../../Slice/PagingSlice";
+
+function CallImgCard(props) {
+	//console.log(props)
+	var arr = [];
+
+	for(let divNum=0; divNum<props.propsData.length; divNum=divNum+4) {
+		// console.log(props.propsData.slice(divNum,(divNum+4)))
+		arr.push (
+			<div className='ImgCardDiv' key={divNum}> 
+				<Imgdiv data={props.propsData.slice(divNum,(divNum+4))}/> 
+			</div>
+		)
+	}
+	return arr;
+}
+
+
 
 function Daily() {
 	const dispatch = useDispatch();
@@ -25,8 +42,12 @@ function Daily() {
 	// console.log(typeValue);
 
 	const data = [
-		{img: "../../img/dog1.png", content: "내용1"}, 
-		{img: "../../img/dog2.png", content: "내용2"}, 
+		{id:0, img: '../../img/dog1.png', content: '내용1'},
+		{id:1, img: '../../img/dog2.png', content: '내용2'},
+		{id:2, img: '../../img/dog1.png', content: '내용3'},
+		{id:3, img: '../../img/dog2.png', content: '내용4'},
+		{id:4, img: '../../img/dog1.png', content: '내용5'},
+		{id:5, img: '../../img/dog2.png', content: '내용6'},
 	]
 
 	const currentPage = useSelector(state => state.PagingR.page);
@@ -54,21 +75,17 @@ function Daily() {
 			<MiddleNav contents="HOME>커뮤니티>일상" />
 			<Container>
 				<div className="dailyMain">
-					<br />
-					<br />
-					<br />
-					<br />
-					<h2 className="boardName">일상 게시판</h2> <br />
+					
+					<h2 className="boardName"> 일상 게시판</h2> <br/>
+					
 					<Offcanvas setTypeValue={setTypeValue} />
 					<TypeBtn data={typeValue} />
+					<CallImgCard propsData={data}/>
+					<br/> <br/>
 
-					<ImgCard />
-					<br />
-					<br />
 					<div className="writeBtnDiv">
 						<Paging />
 						<WriteButton content="HOME>커뮤니티>일상>게시글 작성" />
-
 					</div>
 				</div>
 			</Container>

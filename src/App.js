@@ -8,6 +8,7 @@ import Posting from "./pages/Community/Posting/Posting";
 import Posts from "./pages/Community/Posts/Posts";
 import { useSelector } from "react-redux/";
 import Daily from "./pages/Community/Board/Daily";
+import Boast from "./pages/Community/Board/Boast";
 import Question from "./pages/Community/Board/Question";
 import Search from "./pages/Community/Board/Search";
 import Recommendation from "./pages/Community/Board/Recommendation";
@@ -123,38 +124,18 @@ function App() {
 					<Route path="/community/posts" element={<Posts />} />
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
-					<Route
-						exact
-						path="/community/question"
-						element={<Question />}
-					/>
-					<Route
-						exact
-						path="/community/recommendation"
-						element={<Recommendation />}
-					/>
+					<Route exact path="/community/boast" element={<Boast />} />
+					<Route exact path="/community/question" element={<Question />} />
+					<Route exact path="/community/recommendation" element={<Recommendation />} />
 					<Route exact path="/community/daily" element={<Daily />} />
-					<Route
-						exact
-						path="/community/search"
-						element={<Search />}
-					/>
+					<Route exact path="/community/search" element={<Search />} />
 					{/* <Route exact path="/logout" element={<Logout />} /> */}
-					<Route
-						path="/oauth/callback/kakao"
-						element={<KakaoLogin />}
-					/>
-					<Route
-						path="/mypage/notification"
-						element={<Notification />}
-					/>
+					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
+					<Route path="/mypage/notification" element={<Notification />} />
 					<Route path="/mypage/history" element={<History />} />
 					<Route path="/mypage/awards" element={<Awards />} />
 					<Route path="/mypage/account" element={<Account />} />
-					<Route
-						path="/oauth/callback/kakao"
-						element={<KakaoLogin />}
-					/>
+					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
 
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
