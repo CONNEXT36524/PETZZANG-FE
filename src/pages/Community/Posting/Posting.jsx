@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import Form from "react-bootstrap/Form";
-import Editor from "../../../components/editor/EditorComponent";
+import Editor from "../../../components/editor/QuillEditor";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
 import SelectBoard from "../../../components/\bform/select/SelectBoard";
@@ -16,6 +16,9 @@ function Posting(props) {
 		setDesc(value);
 	}
 
+	function setContentsShow() {
+		console.log(desc);
+	}
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
 
@@ -58,6 +61,10 @@ function Posting(props) {
 				</div>
 				<br />
 				<div>
+					<Button variant="warning" onClick={() => setContentsShow()}>
+						check contents
+					</Button>
+
 					<Editor
 						id="textEditor"
 						value={desc}
