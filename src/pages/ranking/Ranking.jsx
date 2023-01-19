@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import RankingBanner from "../../components/banner/RankingBanner";
+import Mainranking from "../../components/ranking/Mainrnaking";
 
 const Ranking=()=>{
     const dispatch = useDispatch();
@@ -39,6 +40,8 @@ const Ranking=()=>{
             </Navbar>
 
             <div className="ranking_section">
+                
+                <Mainranking/>
 
             </div>
         </>

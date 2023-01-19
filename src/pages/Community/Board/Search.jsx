@@ -1,21 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
+import CommunityBanner from "../../../components/banner/CommunityBanner";
+import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import { Container } from "react-bootstrap";
 import './Daily.css';
-
-function Card() {  
-    return (
-      <div className='searchCardContainer'>
-        <img src="../../img/dog1.png" className="searchCardImg" />
-        <div className='searchCardContent'>
-            <h3>글 제목</h3>
-            <p>글 내용</p>
-            <p>작성자</p>
-        </div>
-      </div>
-    );
-}
+import SearchSectionDiv from "../../../components/community/SearchSectionDiv.js";
+import SearchDailyCard from "../../../components/community/SearchDailyCard.js";
+import SearchQuestionCard from "../../../components/community/SearchQuestionCard.js";
 
 
 function Search() {
@@ -56,13 +48,18 @@ function Search() {
     // }
 
 
-
     return (
+        <>
+        <CommunityBanner />
+        <MiddleNav contents={"HOME>커뮤니티>검색 결과"} />
         <Container>
             <div className='searchMain'>
                 {/* 검색어 입력후 엔터를 눌렀을때만 이벤트 발생 */}
-                
-
+                <div className='searchResultTextDiv'> 
+                    <h3>검색어 '</h3>
+                    <h3 className='searchResultText'>{keyword}</h3>
+                    <h3>' 에 대한 전체 '0'개의 결과를 찾았습니다.</h3>
+                </div>
                 {/* { 
                   error
                   ?(console.log("에러"))
@@ -71,17 +68,22 @@ function Search() {
                     )
                 } */}
 
-                <hr/>
-                <div className='sectionDiv'>
-                    <button className='section'> | </button>
-                    <h5>일상 게시판</h5>
-                </div>
-                <Card/>
-                <hr/>
+                
+                <SearchSectionDiv boardName={"일상"}/>
+                <SearchDailyCard/>
+                
+
+                
+                <SearchSectionDiv boardName={"질문"}/>
+                <SearchQuestionCard/>
+                
+
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
                 
             </div>
         </Container>
+        </>
     );
 }
 

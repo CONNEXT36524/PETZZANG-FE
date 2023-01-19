@@ -8,21 +8,44 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import MypageBanner from "../../components/banner/MypageBanner";
 import Sidebar from "../../components/mypage/Sidebar";
-import Awards from "../../components/mypage/Awards";
-import Note from "../../components/mypage/Note";
-import Notification from "../../components/mypage/Notification";
-import Account from "../../components/mypage/Account";
 import styled from "styled-components";
-import { BrowserRouter, Switch, Route, Routes } from "react-router-dom";
-import { Toggle } from "../../components/Toggle"
+
 
 const Center = styled.div`
   height: 92vh;
   display: flex;
   flex-direction: row;
 `
+const Content = styled.div`
+    position: relative;
+    margin-top: 9rem;
+    margin-left: 10rem;
+    cursor: pointer;
 
-const Mypage=()=>{
+`
+const Title = styled.div`
+    display: flex;
+`
+const Sub =styled.div`
+    margin-top: 50px;
+    left: 1px;
+    width: 130vh;
+    height: 60vh;
+    background-color: rgb(234, 234, 234);
+    border: 1px solid rgb(234, 234, 234);
+    flex-direction: row;
+`
+const Detail = styled.div`
+    
+    width: 130vh;
+    height: 10vh;
+    background-color: rgb(255, 255, 254);
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+`   
+
+const Awards=()=>{
+    
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(changepagetype("mypage"))
@@ -48,16 +71,21 @@ const Mypage=()=>{
             </Navbar>
             <Center>
                 <Sidebar/>
-                </Center>
-                <Routes>
-                    <Route path="/mypage/notification" element={<Notification />} />
-                    <Route path="/mypage/note" element={<Note />} />
-                    <Route path="/mypage/awards" element={<Awards />} />
-                    <Route path="/mypage/account" element={<Account />} />
-                </Routes>
-                
+                <Content>
+                  <Title>
+                        <span role="img" aria-label="writing hand">✍</span>
+                        <div className="title">펫짱 수상기록</div>
+                  </Title>
+                  <Sub>
+            
+                        
+                  </Sub>
+                  
+                </Content>
+            </Center>
+      
             
         </>
     );
 }
-export default Mypage;
+export default Awards;

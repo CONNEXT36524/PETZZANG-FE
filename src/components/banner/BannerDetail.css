@@ -13,8 +13,7 @@
 
 .rankingBanner {
 	background-color: #fb901a;
+	display: flex;
 }
 
-.mypageBanner {
-	background-color: #00C27E;
-}
+
