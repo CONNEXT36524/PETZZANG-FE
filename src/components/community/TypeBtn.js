@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import '../../pages/Community/Board/Daily.css'
 
@@ -35,6 +35,15 @@ function TypeBtn (props) {
     
   const [checkBtn, setOrders] = useState([]);
   //console.log(checkBtn)
+
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      props.setTypeBtn(checkBtn) //TypeBtn에서 Daily로 데이터보내기
+    }
+  }, [checkBtn]);
   
   const onClickHandler = selectedItem => {
     // 이미 선택되어 있을때

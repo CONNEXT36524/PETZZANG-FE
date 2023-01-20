@@ -12,9 +12,13 @@ import Paging from "../../../components/community/Paging.js";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import WriteButton from "../../../components/button/WriteButton";
 import { rpaging } from "../../../Slice/PagingSlice";
+import NoContent from "./NoContent";
+import axios from "axios";
 
 function CallImgCard(props) {
 	//console.log(props)
+	//typeValue가 0이면 강아지 / 1이면 고양이 ...
+
 	var arr = [];
 
 	for(let divNum=0; divNum<props.propsData.length; divNum=divNum+4) {
@@ -38,18 +42,25 @@ function Daily() {
 	}, [dispatch]);
 
 	const [typeValue, setTypeValue] = useState(""); //OffCanvas에서 Daily로 데이터가져오기
-
 	// console.log(typeValue);
 
-	const data = [
-		{id:0, img: '../../img/dog1.png', content: '내용1'},
-		{id:1, img: '../../img/dog2.png', content: '내용2'},
-		{id:2, img: '../../img/dog1.png', content: '내용3'},
-		{id:3, img: '../../img/dog2.png', content: '내용4'},
-		{id:4, img: '../../img/dog1.png', content: '내용5'},
-		{id:5, img: '../../img/dog2.png', content: '내용6'},
-	]
+	const [typeBtn, setTypeBtn] = useState([]); //TypeBtn에서 Daily로 데이터가져오기
+	//console.log(typeBtn)
 
+	//데이터 가져오기
+	const [dList, setdList] = useState([]);
+	useEffect(() => {
+		axios.get('/api/community/board/daily')
+		.then((respondList)=>{
+			//console.log(respondList.data)
+			setdList(respondList.data)
+		})
+		.catch(error => console.log(error))
+	}, []);
+
+
+
+	// pagination 설정
 	const currentPage = useSelector(state => state.PagingR.page);
     const cntPerPage = useSelector(state => state.PagingR.cntPerPage);
     const total = useSelector(state => state.PagingR.total);
@@ -75,18 +86,28 @@ function Daily() {
 			<MiddleNav contents="HOME>커뮤니티>일상" />
 			<Container>
 				<div className="dailyMain">
-					
 					<h2 className="boardName"> 일상 게시판</h2> <br/>
-					
-					<Offcanvas setTypeValue={setTypeValue} />
-					<TypeBtn data={typeValue} />
-					<CallImgCard propsData={data}/>
-					<br/> <br/>
 
-					<div className="writeBtnDiv">
-						<Paging />
-						<WriteButton content="HOME>커뮤니티>일상>게시글 작성" />
-					</div>
+					{
+						dList.length === 0
+						? <NoContent/>
+						: 
+						<>
+							{/* Offcanvas에서 받은 데이터를 TypeBtn에 보내고 
+								TypeBtn에서 선택된 값들로 필터링해서 callImgCard 호출..  */}
+							<Offcanvas setTypeValue={setTypeValue} />
+							<TypeBtn data={typeValue} setTypeBtn={setTypeBtn}/>
+							<CallImgCard propsData={dList} typeValue={typeValue} typeBtn={typeBtn}/>
+							<br/> <br/>
+
+							<div className="writeBtnDiv">
+								<Paging />
+								<WriteButton content="HOME>커뮤니티>일상>게시글 작성" />
+							</div>
+						</>
+					}
+					
+					
 				</div>
 			</Container>
 		</>
