@@ -51,7 +51,7 @@ const Home=()=>{
             </div>
             <div className="third_circle">
                 <div className="third_image">
-                <img src={home_cat} alt="homecat"></img>
+                <img src={home_cat} alt="home_cat"></img>
                 </div>
             </div>
 

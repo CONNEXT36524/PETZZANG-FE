@@ -6,7 +6,7 @@ import bannerDogImage from "../../assets/dog.png";
 function rankingBanner(props) {
 	return (
 		<div className="rankingBanner">
-			<Container id="bannerContainer">
+			<div className="rankingbanner_section">
 				<div className="bannerContainerText">
 					<h2 className="bannerContainerTitle">펫짱 랭킹</h2>
 					<br />
@@ -19,9 +19,10 @@ function rankingBanner(props) {
 						펫짱 커뮤니티에서 활동해보세요
 					</p>
 				</div>
-
-			
-			</Container>
+			</div>
+			<div className="banner_circle">
+				<img src={bannerDogImage} alt="weekly" />
+			</div>
 		</div>
 	);
 }

@@ -2,6 +2,7 @@ import "../../pages/ranking/Ranking.css"
 import crown from "../../assets/crown.png"
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
+import Rankingimg from "./Rankingimg";
 
 function Mainranking(props) {
     const now=new Date();
@@ -17,6 +18,14 @@ function Mainranking(props) {
     const [Isbtn, setIsbtn]=useState(true);
 
     // axios 써야함
+    const data = [
+		{id:0, img: '../../img/dog1.png', content: '내용1'},
+		{id:1, img: '../../img/dog2.png', content: '내용2'},
+		{id:2, img: '../../img/dog1.png', content: '내용3'},
+		{id:3, img: '../../img/dog2.png', content: '내용4'},
+		{id:4, img: '../../img/dog1.png', content: '내용5'},
+		{id:5, img: '../../img/dog2.png', content: '내용6'},
+	]
     
 	return (
         <>
@@ -38,6 +47,7 @@ function Mainranking(props) {
             </div>
         </div>
         {/* map 으로 순위 8개 component들 불러오기  */}
+        <Rankingimg data={data}/>
         </>
 	);
 }
