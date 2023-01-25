@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import ReactQuill from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
+//이미지 크기 조정을 위한 Image Resize 모듈(quill-image-resize) 적용
+import ImageResize from "quill-image-resize";
+Quill.register("modules/ImageResize", ImageResize);
 
-class EditorComponent extends Component {
+class QuillEditor extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -10,7 +13,7 @@ class EditorComponent extends Component {
 	modules = {
 		toolbar: [
 			//[{ 'font': [] }],
-			[{ header: [1, 2, false] }],
+			[{ header: [1, 2, 3, false] }],
 			["bold", "italic", "underline", "strike", "blockquote"],
 			[
 				{ list: "ordered" },
@@ -22,6 +25,10 @@ class EditorComponent extends Component {
 			[{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
 			["clean"],
 		],
+
+		ImageResize: {
+			parchment: Quill.import("parchment"),
+		},
 	};
 
 	formats = [
@@ -60,4 +67,4 @@ class EditorComponent extends Component {
 		);
 	}
 }
-export default EditorComponent;
+export default QuillEditor;
