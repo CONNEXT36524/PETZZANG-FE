@@ -25,7 +25,7 @@ export const OffcanvasSlice = createSlice({
         Unchecked_All_Animal: (state, action) => {
             //console.log(action.payload)
             state.animalTypeArr = action.payload
-            console.log(...state.animalTypeArr)
+            //console.log(...state.animalTypeArr)
         },
 
 
