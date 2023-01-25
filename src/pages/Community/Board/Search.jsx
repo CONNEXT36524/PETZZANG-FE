@@ -1,16 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import { Container } from "react-bootstrap";
+import axios from "axios";
 import './Daily.css';
 import SearchSectionDiv from "../../../components/community/SearchSectionDiv.js";
 import SearchDailyCard from "../../../components/community/SearchDailyCard.js";
 import SearchQuestionCard from "../../../components/community/SearchQuestionCard.js";
+import Paging from "../../../components/community/Paging.js";
+
 
 
 function Search() {
+    // 상단 navbar 색깔 바꾸기
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(changepagetype("community"))
@@ -20,17 +24,13 @@ function Search() {
     let getLink = window.location.search;
     let getKeyword = getLink.split('=')[1];	//분리한 배열 중 두번째 요소 변수에 넣기
     let keyword = decodeURI(getKeyword)
-    console.log(keyword);
+    //console.log(keyword);
 
 
-    // const [searchList, setSearchList] = useState([]);
-    // const [query, setQuery] = useSearchParams();
-    // let [error, setError] = useState("");
-    
-    // useEffect(()=>{
-    //     getSearch()
-    // },[query])
-        
+    const [searchList, setSearchList] = useState([]);
+    useEffect(()=>{
+        getSearch()
+    }, [])
 
     // const getSearch = async() => {
     //     let searchQuery = query.get('q') || "";
@@ -47,6 +47,22 @@ function Search() {
     //     setSearchList(data)
     // }
 
+    
+    //api통신 test
+	const getSearch = async() => {
+
+        await axios.get(
+            '/api/community/board/search', {
+                params:{
+                    keyword : keyword
+                }
+            }
+        ).then((response) => 
+            setSearchList(response.data)
+        ).catch(error => console.log(error))
+	}
+    console.log(searchList)
+
 
     return (
         <>
@@ -58,7 +74,7 @@ function Search() {
                 <div className='searchResultTextDiv'> 
                     <h3>검색어 '</h3>
                     <h3 className='searchResultText'>{keyword}</h3>
-                    <h3>' 에 대한 전체 '0'개의 결과를 찾았습니다.</h3>
+                    <h3>' 에 대한 전체 '{searchList.length}'개의 결과를 찾았습니다.</h3>
                 </div>
                 {/* { 
                   error
@@ -68,17 +84,21 @@ function Search() {
                     )
                 } */}
 
+                {searchList.map((item) => (
+                    <>
+                        <SearchSectionDiv props={item.boardType}/>
+                        {
+                            item.boardType === 'daily' || item.boardType === 'boast'
+                            ? (<SearchDailyCard data={item}/>)
+                            : (<SearchQuestionCard data={item}/>)
+                        }
+                    </>
+                ))}
                 
-                <SearchSectionDiv boardName={"일상"}/>
-                <SearchDailyCard/>
                 
 
-                
-                <SearchSectionDiv boardName={"질문"}/>
-                <SearchQuestionCard/>
-                
-
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <br/><br/>
+                <Paging/> 
 
                 
             </div>

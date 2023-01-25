@@ -11,8 +11,8 @@ function ImgCard(props) {
                 ? null
                 : 
                     <div className="card">
-                        <p id="imgContent0"> {props.item.content} </p>
-                        <img src={props.item.img} className="card-img" alt="이미지"/>
+                        <p id="imgContent"> {props.item.titleName} </p>
+                        <img src={props.item.thumbnail} className="card-img" alt="이미지"/>
                     </div>
             }
         </>

@@ -119,8 +119,6 @@ const SidebarData = (props) => {
       dispatch(Unchecked_All_Sex([])) //리덕스
     }
   }
-  // console.log(checkTypes);
-  // console.log(checkItems);
 
   return (
     <>
