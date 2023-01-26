@@ -20,14 +20,14 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#imgContent0, #imgContent1, #imgContent2, #imgContent3{ 
+#imgContent{ 
     opacity: 0; 
     position: absolute;
     width: 100%;
     line-height: 290px;
     text-align: center;
 }
-#imgContent0:hover, #imgContent1:hover, #imgContent2:hover, #imgContent3:hover {
+#imgContent:hover {
     opacity: 0.5;
     position: absolute;
     width: 100%;

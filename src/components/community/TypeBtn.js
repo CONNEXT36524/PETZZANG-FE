@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import '../../pages/Community/Board/Daily.css'
 
@@ -18,14 +18,14 @@ function TypeBtn (props) {
   
   if (props.data.length === 1) {
     // 강아지가 클릭되었을때
-    if (props.data.includes(0)) {
+    if (props.data.includes('강아지')) {
       typeData = ['시츄', '말티즈', '시바견','비숑', '포메라니안', '그레이하운드', '푸들', 
       '보더콜리', '웰시코기', '리트리버', '진돗개', '귀한 종', '이외 견종'
       ]
     }
 
     // 고양이가 클릭되었을때
-    else if (props.data.includes(1)) {
+    else if (props.data.includes('고양이')) {
       typeData = ['러시안 블루', '먼치킨', '터키시 앙고라', '엑조틱', '메인쿤', '스핑크스', '랙돌', 
       '코리안 숏헤어', '아메리칸 숏헤어', '브리티시 숏헤어', '페르시안', '귀한 종', '이외 묘종'
       ]
@@ -35,6 +35,15 @@ function TypeBtn (props) {
     
   const [checkBtn, setOrders] = useState([]);
   //console.log(checkBtn)
+
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      props.setTypeBtn(checkBtn) //TypeBtn에서 Daily로 데이터보내기
+    }
+  }, [checkBtn]);
   
   const onClickHandler = selectedItem => {
     // 이미 선택되어 있을때
@@ -70,7 +79,7 @@ function TypeBtn (props) {
     <>
     <div className='TypeBtnDiv'>
       {
-        props.data.length === 1 && (props.data.includes(1) || props.data.includes(0))
+        props.data.length === 1 && (props.data.includes('강아지') || props.data.includes('고양이'))
         ? <StyledBtn className={
             checkBtn.length === typeData.length+1
             ? "menu-item-active"

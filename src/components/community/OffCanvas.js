@@ -65,17 +65,26 @@ const SidebarData = (props) => {
     }
   }, [animalTypeArr]);
 
+  const mounted2 = useRef(false);
+  useEffect(() => {
+    if (!mounted2.current) {
+      mounted2.current = true;
+    } else {
+      props.setValue2(sexTypeArr)
+    }
+  }, [sexTypeArr]);
+
 
   ////////////////////////////  동물 종류  ////////////////////////////////////////
   // 체크박스 단일 선택
-  const handleSingleCheck = (checked, id) => {
+  const handleSingleCheck = (checked, title) => {
     if (checked) {
       // 단일 선택 시 체크된 아이템을 배열에 추가
-      dispatch(Checked_Animal(id)) //리덕스
+      dispatch(Checked_Animal(title)) //리덕스
       
     } else {
       // 단일 선택 해제 시 체크된 아이템을 제외한 배열 (필터)
-      dispatch(Unchecked_Animal(id)) //리덕스
+      dispatch(Unchecked_Animal(title)) //리덕스
     }
   };
 
@@ -84,7 +93,7 @@ const SidebarData = (props) => {
     if(checked) {
       // 전체 선택 클릭 시 데이터의 모든 아이템(id)를 담은 배열로 상태 업데이트
       const idArray = [];
-      data1.forEach((el) => idArray.push(el.id));
+      data1.forEach((el) => idArray.push(el.title));
       dispatch(Checked_All_Animal(idArray)) //리덕스
     }
     else {
@@ -95,14 +104,14 @@ const SidebarData = (props) => {
 
   ////////////////////////////  성별  ////////////////////////////////////////
   // 체크박스 단일 선택
-  const handleSingleCheck2 = (checked, id) => {
+  const handleSingleCheck2 = (checked, title) => {
     if (checked) {
       // 단일 선택 시 체크된 아이템을 배열에 추가
-      dispatch(Checked_Sex(id)) //리덕스
+      dispatch(Checked_Sex(title)) //리덕스
       
     } else {
       // 단일 선택 해제 시 체크된 아이템을 제외한 배열 (필터)
-      dispatch(Unchecked_Sex(id)) //리덕스
+      dispatch(Unchecked_Sex(title)) //리덕스
     }
   };
 
@@ -111,7 +120,7 @@ const SidebarData = (props) => {
     if(checked) {
       // 전체 선택 클릭 시 데이터의 모든 아이템(id)를 담은 배열로 checkItems 상태 업데이트
       const idArray = [];
-      data2.forEach((el) => idArray.push(el.id));
+      data2.forEach((el) => idArray.push(el.title));
       dispatch(Checked_All_Sex(idArray)) //리덕스
     }
     else {
@@ -119,8 +128,6 @@ const SidebarData = (props) => {
       dispatch(Unchecked_All_Sex([])) //리덕스
     }
   }
-  // console.log(checkTypes);
-  // console.log(checkItems);
 
   return (
     <>
@@ -143,9 +150,9 @@ const SidebarData = (props) => {
           <tr key={key}>
             <td>
               <input type='checkbox' name={`select-${data.id}`}
-              onChange={(e) => handleSingleCheck(e.target.checked, data.id)}
+              onChange={(e) => handleSingleCheck(e.target.checked, data.title)}
               // 체크된 아이템 배열에 해당 아이템이 있을 경우 선택 활성화, 아닐 시 해제
-              checked={animalTypeArr.includes(data.id) ? true : false} />
+              checked={animalTypeArr.includes(data.title) ? true : false} />
             </td>
             <td className='second-row'>{data.title}</td>
           </tr>
@@ -172,9 +179,9 @@ const SidebarData = (props) => {
           <tr key={key}>
             <td>
               <input type='checkbox' name={`select-${data.id}`}
-              onChange={(e) => handleSingleCheck2(e.target.checked, data.id)}
+              onChange={(e) => handleSingleCheck2(e.target.checked, data.title)}
               // 체크된 아이템 배열에 해당 아이템이 있을 경우 선택 활성화, 아닐 시 해제
-              checked={sexTypeArr.includes(data.id) ? true : false} />
+              checked={sexTypeArr.includes(data.title) ? true : false} />
             </td>
             <td className='second-row'>{data.title}</td>
           </tr>
@@ -186,8 +193,8 @@ const SidebarData = (props) => {
 };
 
 function OffCanvas(props) {
-  const [idValue, setValue] = useState(""); // SidebarData에서 OffCanvas로 데이터 가져오기
-  
+  const [idValue, setValue] = useState(""); // SidebarData에서 OffCanvas로 typeValue 데이터 가져오기
+  const [idValue2, setValue2] = useState(""); // SidebarData에서 OffCanvas로 sexValue 데이터 가져오기
   const [show, setShow] = useState(false);
   
   
@@ -201,6 +208,15 @@ function OffCanvas(props) {
     }
   }, [idValue]);
 
+  const mounted2 = useRef(false);
+  useEffect(() => {
+    if (!mounted2.current) {
+      mounted2.current = true;
+    } else {
+      console.log(idValue2);
+      props.setSexValue(idValue2) //OffCanvas에서 Daily로 데이터보내기
+    }
+  }, [idValue2]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -211,16 +227,14 @@ function OffCanvas(props) {
         ≡
       </Button>
 
-      {/* offcanvas가 열리면 원래 페이지 스크롤 불가능, offcanvas 밖에 화면을 클릭해도 offcanvas 지우지 못하게 */}
-      <Offcanvas show={show} onHide={handleClose} scroll={false} backdrop={false} restoreFocus={false} id="offcanvasMain">
+      {/* offcanvas가 열리면 원래 페이지 스크롤 가능, offcanvas 밖에 화면을 클릭해도 offcanvas 지우지 못하게 */}
+      <Offcanvas show={show} onHide={handleClose} scroll={true} backdrop={false} restoreFocus={false} id="offcanvasMain">
         <Offcanvas.Header closeButton>
           옵션 선택
         </Offcanvas.Header>
 
         <Offcanvas.Body>
-
-          <SidebarData setValue={setValue}/>
-          
+          <SidebarData setValue={setValue} setValue2={setValue2}/>
         </Offcanvas.Body>
       </Offcanvas>
     </>

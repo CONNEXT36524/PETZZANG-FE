@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
@@ -11,6 +11,9 @@ import Paging from "../../../components/community/Paging.js";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import WriteButton from "../../../components/button/WriteButton";
 import { rpaging } from "../../../Slice/PagingSlice";
+import NoContent from "./NoContent";
+import axios from "axios";
+
 const StyledTable = styled.table`
 	border-collapse: collapse;
 	thead {
@@ -41,45 +44,31 @@ const StyledTable = styled.table`
 	}
 `;
 
-// 공지글은 qNum을 마이너스값으로 해서 sort했을때 가장 위에 오게 하고 싶은데
-// 데이터베이스에서 sort해서 가져올수 있나?
-const questionData = [
-	{
-		qNum: 0,
-		qTitle: "강아지가 계속 발을 핥아요",
-		qWriter: "소금엄마",
-		qDate: "2023.01.09",
-		qClickNum: "987",
-		qLikeNum: "32",
-	},
-	{
-		qNum: 1,
-		qTitle: "다들 산책훈련 어떻게 하시나요?",
-		qWriter: "라라",
-		qDate: "2023.01.08",
-		qClickNum: "631",
-		qLikeNum: "27",
-	},
-	{
-		qNum: -1,
-		qTitle: "질문 게시판 이용시 주의사항",
-		qWriter: "관리자",
-		qDate: "2023.01.01",
-		qClickNum: "1234",
-		qLikeNum: "0",
-	},
-];
-
 function Question() {
+	// 상단 navbar 색깔 바꾸기
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(changepagetype("community"));
 		dispatch(rpaging(setPage));
 	}, [dispatch]);
 
+
+	//데이터 가져오기
+	const [qList, setqList] = useState([]);
+	useEffect(() => {
+		axios.get('/api/community/board/question')
+		.then((respondList)=>{
+			//console.log(respondList.data)
+			setqList(respondList.data)
+		})
+		.catch(error => console.log(error))
+	}, []);
+
+
 	const navigate = useNavigate();
 
 	const questionClick = (props) => {
+		//console.log(props)
 		navigate("/community/posts", {
 			state: {
 				title: "a",
@@ -87,6 +76,8 @@ function Question() {
 		});
 	};
 
+
+	// 하단 pagination 설정
 	const currentPage = useSelector(state => state.PagingR.page);
     const cntPerPage = useSelector(state => state.PagingR.cntPerPage);
     const total = useSelector(state => state.PagingR.total);
@@ -114,51 +105,57 @@ function Question() {
 
 			<Container>
 				<div className="questionMain">
-					<h2 className="boardName">질문 게시판</h2> <br />
-					<br />
-					<StyledTable className="tableDiv">
-						<thead>
-							<tr>
-								<th> No. </th>
-								<th className="second-col"> 제목 </th>
-								<th> 글쓴이 </th>
-								<th> 작성 날짜 </th>
-								<th> 조회수 </th>
-								<th> 좋아요수 </th>
-							</tr>
-						</thead>
+					<h2 className="boardName">질문 게시판</h2> <br/><br/>
 
-						<tbody className="tbodyDiv">
-							{questionData.map((data, num) => (
-								<tr
-									num={num}
-									//추후 게시글 id 넘기기
-									onClick={() => questionClick(data.qNum)}
-								>
-									{data.qNum < 0 ? (
-										<td> 공지 </td>
-									) : (
-										<td> {data.qNum + 1} </td>
-									)}
-
-									<td className="second-col">
-										{" "}
-										{data.qTitle}{" "}
-									</td>
-									<td> {data.qWriter} </td>
-									<td> {data.qDate} </td>
-									<td> {data.qClickNum} </td>
-									<td> {data.qLikeNum} </td>
+					{
+						qList.length === 0
+						? <NoContent/>
+						:
+						<>
+						<StyledTable className="tableDiv">
+							<thead>
+								<tr>
+									<th> No. </th>
+									<th className="second-col"> 제목 </th>
+									<th> 글쓴이 </th>
+									<th> 작성 날짜 </th>
+									<th> 조회수 </th>
+									<th> 좋아요수 </th>
 								</tr>
-							))}
-						</tbody>
-					</StyledTable>{" "}
-					<br />
-					<br />
-					<div className="writeBtnDiv">
-						<Paging />
-						<WriteButton content="HOME>커뮤니티>질문>게시글 작성" />
-					</div>
+							</thead>
+
+							<tbody className="tbodyDiv">
+								{qList.map((data, num) => (
+									<tr num={num} key={num}
+										//추후 게시글 id 넘기기
+										onClick={() => questionClick(data.postId)}
+									>
+										{data.postId < 0 ? (
+											<td> 공지 </td>
+										) : (
+											<td> {num+1} </td>
+										)}
+
+										<td className="second-col">
+											{" "}{data.titleName}{" "}
+										</td>
+										{/* 일단 userCode(숫자) 넣어놓음  */}
+										<td> {data.userCode} </td> 
+										<td> {data.createTime} </td>
+										<td> {data.views} </td>
+										<td> {data.likeNum} </td>
+									</tr>
+								))}
+							</tbody>
+						</StyledTable>{" "}
+						<br/><br/>
+						<div className="writeBtnDiv">
+							<Paging />
+							<WriteButton content="HOME>커뮤니티>질문>게시글 작성" />
+						</div>
+						</>
+					}
+					
 				</div>
 			</Container>
 		</>

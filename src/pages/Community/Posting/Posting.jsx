@@ -3,19 +3,32 @@ import "./Posting.css";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
-import Form from "react-bootstrap/Form";
-import Editor from "../../../components/editor/EditorComponent";
+import Editor from "../../../components/editor/QuillEditor";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
+import TitleInput from "../../../components/form/control/TitleInput";
+import FileInput from "../../../components/form/control/FileInput";
 import SelectBoard from "../../../components/form/select/SelectBoard";
 import SelectPostingType from "../../../components/form/select/SelectPostingType";
+
 function Posting(props) {
+	const getTitle = (x) => {
+		console.log(x);
+	};
+
+	const getBoardType = (x) => {
+		console.log(x);
+	};
+
 	//Editor
 	const [desc, setDesc] = useState("");
 	function onEditorChange(value) {
 		setDesc(value);
 	}
 
+	function setContentsShow() {
+		console.log(desc);
+	}
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
 
@@ -32,32 +45,21 @@ function Posting(props) {
 			<Container className="posting">
 				<br />
 				<div className="containerHeader">
-					<Form.Group
-						className="mb-3"
-						controlId="exampleForm.ControlInput1"
-					>
-						<Form.Label>제목</Form.Label>
-						<Form.Control
-							size="lg"
-							type="email"
-							placeholder="제목을 입력하세요"
-						/>
-					</Form.Group>
+					<div></div>
+					<TitleInput getTitle={getTitle} />
 					<br />
-					<hr size="30" />
-					<Form.Group controlId="formFileLg" className="mb-3">
-						<Form.Label>썸네일 사진 첨부</Form.Label>
-						<Form.Control type="file" />
-					</Form.Group>
+					<FileInput />
 					<br />
-					<hr size="50" />
-					<SelectBoard />
+					<SelectBoard getBoardType={getBoardType} />
 					<SelectPostingType />
 					<br />
-					<hr size="50" />
 				</div>
 				<br />
 				<div>
+					<Button variant="warning" onClick={() => setContentsShow()}>
+						check contents
+					</Button>
+
 					<Editor
 						id="textEditor"
 						value={desc}
@@ -65,7 +67,6 @@ function Posting(props) {
 					/>
 				</div>
 				<br />
-				<hr size="50" />
 				<div className="containerFooter">
 					<Button
 						className="postingBtn"
