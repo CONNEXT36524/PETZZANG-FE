@@ -7,11 +7,10 @@
 
 .selection {
 	width: 300px;
-	margin: 10px;
 }
 
 .selectBoardType {
-	margin: 10px;
+	margin-bottom: 10px;
 }
 
 #selection1 {

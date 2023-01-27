@@ -30,10 +30,35 @@
 .bannerContainerImage {
 	height: 100%;
 	display: flex;
+	margin-right: 80px;
 	flex: 2;
 	flex-direction: row-reverse;
 }
 
 .bannerDogImage {
+	align-self: flex-end;
+}
+.rankingbanner_section{
+	height: 446px;
+	margin-top: 0px;
+	margin-right: 250px;
+	display: flex;
+	justify-self: center;
+	align-items: center;
+	flex-direction: row;
+	margin-left: 10px;
+}
+
+.banner_circle {
+	width : 400px;
+	height : 400px;
+	margin-top: 25px;
+	border-radius: 50%;
+	background-color: white;
+	align-items: center;
+}
+.bannerCircleDogImage {
+	width : 100%;
+	height : 100%;
 	align-self: flex-end;
 }
