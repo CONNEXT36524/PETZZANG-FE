@@ -42,12 +42,65 @@
     transform: translateY(5px);
 }
 
-.imgdiv {
-    margin-left : 10px;
-    width: 5rem;
- }
- 
+.circle {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background-color: #E5F4E0;
+    margin:20px;
+    position : relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+div img.profile {
+    position: absolute;
+    margin:20px; 
+    object-fit : fill;
+    text-align:center;
+    
+}
+
+.nickname {
+    display: flex;
+}
+.modify div{
+    margin: 20px;
+}
+.saveBtn{
+    margin-bottom: 10px;
+    width: 7rem;
+    color: rgb(77, 77, 77);
+    background-color: #facb9a;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 3rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+.profileInput{
+    /* display: none; */
+}
+.duplicateBtn{
+    margin-bottom: 10px;
+    width: 7rem;
+    color: rgb(77, 77, 77);
+    background-color: #facb9a;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 4rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
 @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
