@@ -1,23 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./Posting.css";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
+import "../../../components/form/select/PostingSelection.css";
+import { Form, Button, Container } from "react-bootstrap";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import Editor from "../../../components/editor/QuillEditor";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
-import TitleInput from "../../../components/form/control/TitleInput";
-import FileInput from "../../../components/form/control/FileInput";
-import SelectBoard from "../../../components/form/select/SelectBoard";
-import SelectPostingType from "../../../components/form/select/SelectPostingType";
 
 function Posting(props) {
-	const getTitle = (x) => {
-		console.log(x);
+	//Posting Inputs
+	const [inputs, setInputs] = useState({
+		value: "",
+		boardType: "",
+		pet: "",
+		kind: "",
+		sex: "",
+	});
+	const { title, boardType, pet, kind, sex } = inputs;
+
+	const onChange = (e) => {
+		setInputs({
+			...inputs,
+			[e.target.name]: e.target.value,
+		});
 	};
 
-	const getBoardType = (x) => {
-		console.log(x);
+	//File Input
+	const [imgFile, setImgFile] = useState("");
+	const imgRef = useRef();
+
+	// 이미지 업로드 input의 onChange
+	const showImgFile = () => {
+		const file = imgRef.current.files[0];
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onloadend = () => {
+			setImgFile(reader.result);
+		};
 	};
 
 	//Editor
@@ -27,31 +46,196 @@ function Posting(props) {
 	}
 
 	function setContentsShow() {
-		console.log(desc);
+		console.log(pet);
+		console.log(kind);
+		console.log(sex);
 	}
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
 
+	//Posting Type Options
+	const BoardOptions = [
+		{ key: 1, value: "🖼 일상 게시판" },
+		{ key: 2, value: "👏 자랑 게시판 " },
+		{ key: 3, value: "🙋 질문 게시판" },
+		{ key: 4, value: "🎁 제품 추천 게시판" },
+	];
+
+	const PetSpeciesOptions = [
+		{ key: 1, value: "강아지" },
+		{ key: 2, value: "고양이" },
+		{ key: 3, value: "관상어" },
+		{ key: 4, value: "햄스터" },
+		{ key: 5, value: "토끼" },
+		{ key: 6, value: "새" },
+		{ key: 7, value: "거북이" },
+		{ key: 8, value: "기타" },
+	];
+
+	let PetKindOptions = [];
+
+	if (pet.length === 3) {
+		// 강아지가 클릭되었을때
+		if (pet.includes("강아지")) {
+			PetKindOptions = [
+				{ key: 1, value: "시츄" },
+				{ key: 2, value: "말티즈" },
+				{ key: 3, value: "시바견" },
+				{ key: 4, value: "비숑" },
+				{ key: 5, value: "포메라니안" },
+				{ key: 6, value: "그레이하운드" },
+				{ key: 7, value: "푸들" },
+				{ key: 8, value: "보더콜리" },
+				{ key: 9, value: "웰시코기" },
+				{ key: 10, value: "리트리버" },
+				{ key: 11, value: "진돗개" },
+				{ key: 12, value: "귀한 종" },
+				{ key: 13, value: "이외 견종" },
+			];
+		}
+
+		// 고양이가 클릭되었을때
+		else if (pet.includes("고양이")) {
+			PetKindOptions = [
+				{ key: 1, value: "러시안 블루" },
+				{ key: 2, value: "먼치킨" },
+				{ key: 3, value: "터키시 앙고라" },
+				{ key: 4, value: "엑조틱" },
+				{ key: 5, value: "메인쿤" },
+				{ key: 6, value: "스핑크스" },
+				{ key: 7, value: "랙돌" },
+				{ key: 8, value: "코리안 숏헤어" },
+				{ key: 9, value: "아메리칸 숏헤어" },
+				{ key: 10, value: "브리티시 숏헤어" },
+				{ key: 11, value: "페르시안" },
+				{ key: 12, value: "귀한 종" },
+				{ key: 13, value: "이외 묘종" },
+			];
+		}
+	}
+
+	const PetSexOptions = [
+		{ key: 1, value: "수컷" },
+		{ key: 2, value: "암컷" },
+	];
+
 	//MNB 정보
 	//const location = useLocation();
-	const content = "HOME>커뮤니티>게시글 작성";
 
 	return (
 		<div>
 			<PostingBanner />
 
-			<MiddleNav contents={content} />
+			<MiddleNav contents={"HOME>커뮤니티>게시글 작성"} />
 
 			<Container className="posting">
 				<br />
 				<div className="containerHeader">
-					<div></div>
-					<TitleInput getTitle={getTitle} />
+					<Form.Group className="mb-3">
+						<Form.Label className="formLabel">제목</Form.Label>
+						<Form.Control
+							type="text"
+							size="lg"
+							placeholder="제목을 입력하세요"
+							name="title"
+							onChange={onChange}
+							value={title || ""}
+						/>
+					</Form.Group>
 					<br />
-					<FileInput />
+					<Form.Group className="mb-3" id="FileInputForm">
+						<div>
+							<img
+								// require()를 통해 이미지 불러오긴
+								src={
+									imgFile
+										? imgFile
+										: require("../../../assets/noImage.png")
+								}
+								alt="프로필 이미지"
+								className="thumbnailImg"
+							/>
+						</div>
+						<div>
+							<Form.Label className="formLabel">
+								썸네일 사진 첨부
+							</Form.Label>
+
+							<Form.Control
+								type="file"
+								//accept="image/*"
+								id="thumbnailImg"
+								onChange={showImgFile}
+								ref={imgRef}
+							/>
+						</div>
+					</Form.Group>
 					<br />
-					<SelectBoard getBoardType={getBoardType} />
-					<SelectPostingType />
+					<Form.Select
+						name="boardType"
+						className="selectBoardType"
+						aria-label="Board Type Selection"
+						onChange={onChange}
+						value={boardType}
+						required
+					>
+						<option>커뮤니티 게시판</option>
+						{BoardOptions.map((item, index) => (
+							<option key={item.key} value={item.value}>
+								{item.value}
+							</option>
+						))}
+					</Form.Select>
+					<div className="selectPostingType">
+						<Form.Select
+							name="pet"
+							id="selection1"
+							className="selection"
+							aria-label="Pet Species"
+							onChange={onChange}
+							value={pet}
+							required
+						>
+							<option>동물</option>
+							{PetSpeciesOptions.map((item, index) => (
+								<option key={item.key} value={item.value}>
+									{item.value || ""}
+								</option>
+							))}
+						</Form.Select>
+
+						<Form.Select
+							name="kind"
+							id="selection2"
+							className="selection"
+							aria-label="Pet Kind"
+							onChange={onChange}
+							value={kind}
+						>
+							<option>종</option>
+							{PetKindOptions.map((item, index) => (
+								<option key={item.key} value={item.value}>
+									{item.value}
+								</option>
+							))}
+						</Form.Select>
+
+						<Form.Select
+							name="sex"
+							id="selection3"
+							className="selection"
+							aria-label="Pet Sex"
+							onChange={onChange}
+							value={sex}
+						>
+							<option>성별</option>
+							{PetSexOptions.map((item, index) => (
+								<option key={item.key} value={item.value}>
+									{item.value}
+								</option>
+							))}
+						</Form.Select>
+					</div>
 					<br />
 				</div>
 				<br />
