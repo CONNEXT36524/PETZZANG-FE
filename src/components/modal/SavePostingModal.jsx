@@ -16,11 +16,13 @@ function SavePostingModal(props) {
 			</Modal.Header>
 			<Modal.Body>
 				<h4>업로드하시겠습니까?</h4>
-				<p>해당 글은 00게시판에 업로드됩니다.</p>
+				<p>해당 글은 일상 게시판에 업로드됩니다.</p>
 			</Modal.Body>
 			<Modal.Footer>
 				<Button onClick={props.onHide}>취소</Button>
-				<Button variant="primary">확인</Button>
+				<Button onClick={props.onUpload} variant="primary">
+					확인
+				</Button>
 			</Modal.Footer>
 		</Modal>
 	);

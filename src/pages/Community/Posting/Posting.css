@@ -15,8 +15,14 @@
 	font-weight: 600;
 }
 
+#FileInputForm {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
 .thumbnailImg {
-	margin: 25px;
+	margin-right: 100px;
 	max-width: 200px;
 }
 #textEditor {

@@ -79,6 +79,8 @@ function Posting(props) {
 					<SavePostingModal
 						show={modalShow}
 						onHide={() => setModalShow(false)}
+						//업로드 함수 구현하기
+						onUpload={() => setModalShow(false)}
 					/>
 				</div>
 			</Container>
