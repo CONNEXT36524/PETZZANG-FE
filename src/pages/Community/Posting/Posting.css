@@ -24,6 +24,8 @@
 .thumbnailImg {
 	margin-right: 100px;
 	max-width: 200px;
+	border-color: rgb(215, 215, 215);
+	border-style: solid;
 }
 #textEditor {
 	height: 10px;
