@@ -17,8 +17,6 @@ import axios from "axios";
 
 function CallImgCard(props) {
 	//console.log(props)
-	//typeValue가 0이면 강아지 / 1이면 고양이 ...
-
 	var arr = [];
 
 	for(let divNum=0; divNum<props.propsData.length; divNum=divNum+4) {
@@ -41,23 +39,35 @@ function Daily() {
 		dispatch(rpaging(setPage));
 	}, [dispatch]);
 
-	const [typeValue, setTypeValue] = useState(""); //OffCanvas에서 Daily로 데이터가져오기
-	// console.log(typeValue);
-
+	const [typeValue, setTypeValue] = useState([]); //OffCanvas에서 Daily로 데이터가져오기
+	//console.log(typeValue);
+	const [sexValue, setSexValue] = useState([]); //OffCanvas에서 Daily로 데이터가져오기
+	//console.log(sexValue);
 	const [typeBtn, setTypeBtn] = useState([]); //TypeBtn에서 Daily로 데이터가져오기
 	//console.log(typeBtn)
 
-	//데이터 가져오기
+	//typeValue, typeBtn 값이 변경될때마다 백엔드에서 새로 데이터 가져오기
 	const [dList, setdList] = useState([]);
 	useEffect(() => {
-		axios.get('/api/community/board/daily')
-		.then((respondList)=>{
-			//console.log(respondList.data)
-			setdList(respondList.data)
-		})
-		.catch(error => console.log(error))
-	}, []);
-
+		let completed = false; 
+		async function get() {
+			await axios.get('/api/community/board/daily', {
+				params:{
+					typeValue : typeValue.join(","),
+					typeBtn : typeBtn.join(","),
+					sexValue : sexValue.join(","),
+				}
+			}).then((respondList)=>{
+				//console.log(respondList.data)
+				setdList(respondList.data)
+			}).catch(error => console.log(error))
+		}
+		get()
+		return () => {
+			completed = true;
+		};
+	}, [typeValue, typeBtn, sexValue]);
+	console.log(dList)
 
 
 	// pagination 설정
@@ -90,12 +100,17 @@ function Daily() {
 
 					{
 						dList.length === 0
-						? <NoContent/>
+						? 
+						<>
+							<Offcanvas setTypeValue={setTypeValue} setSexValue={setSexValue}/>
+							<TypeBtn data={typeValue} setTypeBtn={setTypeBtn}/>
+							<NoContent/>
+						</>
 						: 
 						<>
-							{/* Offcanvas에서 받은 데이터를 TypeBtn에 보내고 
+							 {/* Offcanvas에서 받은 데이터를 TypeBtn에 보내고 
 								TypeBtn에서 선택된 값들로 필터링해서 callImgCard 호출..  */}
-							<Offcanvas setTypeValue={setTypeValue} />
+							<Offcanvas setTypeValue={setTypeValue} setSexValue={setSexValue}/>
 							<TypeBtn data={typeValue} setTypeBtn={setTypeBtn}/>
 							<CallImgCard propsData={dList} typeValue={typeValue} typeBtn={typeBtn}/>
 							<br/> <br/>
@@ -106,7 +121,6 @@ function Daily() {
 							</div>
 						</>
 					}
-					
 					
 				</div>
 			</Container>

@@ -34,22 +34,40 @@ function Boast() {
 
     const dispatch = useDispatch();
     useEffect(()=>{
-        dispatch(changepagetype("community"))
+        dispatch(changepagetype("community"));
+		dispatch(rpaging(setPage));
     },[dispatch])
 
-    const [typeValue, setTypeValue] = useState(""); //OffCanvas에서 boast로 데이터가져오기
-	console.log(typeValue);
+    const [typeValue, setTypeValue] = useState([]); //OffCanvas에서 boast로 데이터가져오기
+	//console.log(typeValue);
+	const [sexValue, setSexValue] = useState([]); //OffCanvas에서 boast로 데이터가져오기
+	//console.log(sexValue);
+	const [typeBtn, setTypeBtn] = useState([]); //TypeBtn에서 boast로 데이터가져오기
+	//console.log(typeBtn)
 
+	
     //데이터 가져오기
 	const [bList, setbList] = useState([]);
 	useEffect(() => {
-		axios.get('/api/community/board/boast')
-		.then((respondList)=>{
-			//console.log(respondList.data)
-			setbList(respondList.data)
-		})
-		.catch(error => console.log(error))
-	}, []);
+		let completed = false; 
+		async function get() {
+			await axios.get('/api/community/board/boast', {
+				params:{
+					typeValue : typeValue.join(","),
+					typeBtn : typeBtn.join(","),
+					sexValue : sexValue.join(","),
+				}
+			}).then((respondList)=>{
+				//console.log(respondList.data)
+				setbList(respondList.data)
+			}).catch(error => console.log(error))
+		}
+		get()
+		return () => {
+			completed = true;
+		};
+	}, [typeValue, typeBtn, sexValue]);
+	console.log(bList)
 
 
     const currentPage = useSelector(state => state.PagingR.page);
@@ -73,12 +91,17 @@ function Boast() {
 
                 {
 					bList.length === 0
-					? <NoContent/>
+					? 
+					<>
+						<Offcanvas setTypeValue={setTypeValue} setSexValue={setSexValue}/>
+						<TypeBtn data={typeValue} setTypeBtn={setTypeBtn}/>
+						<NoContent/>
+					</>
 					: 
 					<>
-						<Offcanvas setTypeValue={setTypeValue} />
-						<TypeBtn data={typeValue} />
-						<CallImgCard propsData={bList}/>
+						<Offcanvas setTypeValue={setTypeValue} setSexValue={setSexValue}/>
+						<TypeBtn data={typeValue} setTypeBtn={setTypeBtn}/>
+						<CallImgCard propsData={bList} typeValue={typeValue} typeBtn={typeBtn}/>
 						<br/> <br/>
 
 						<div className="writeBtnDiv">

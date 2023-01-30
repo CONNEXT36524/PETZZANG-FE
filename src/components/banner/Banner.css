@@ -5,7 +5,6 @@
 	width: 100%;
 	height: 446px;
 	margin-top: 0px;
-	margin-right: 500px;
 	display: flex;
 	justify-self: center;
 	align-items: center;
@@ -31,6 +30,7 @@
 .bannerContainerImage {
 	height: 100%;
 	display: flex;
+	margin-right: 80px;
 	flex: 2;
 	flex-direction: row-reverse;
 }
@@ -41,7 +41,7 @@
 .rankingbanner_section{
 	height: 446px;
 	margin-top: 0px;
-	margin-right: 430px;
+	margin-right: 250px;
 	display: flex;
 	justify-self: center;
 	align-items: center;
@@ -56,5 +56,9 @@
 	border-radius: 50%;
 	background-color: white;
 	align-items: center;
-  
-  }
+}
+.bannerCircleDogImage {
+	width : 100%;
+	height : 100%;
+	align-self: flex-end;
+}
