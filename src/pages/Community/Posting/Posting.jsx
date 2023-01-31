@@ -11,13 +11,13 @@ import PostingService from "../../../service/PostingService";
 function Posting(props) {
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
-		title: "",
+		titleName: "",
 		boardType: "",
 		pet: "",
 		kind: "",
 		sex: "",
 	});
-	const { title, boardType, pet, kind, sex } = inputs;
+	const { titleName, boardType, pet, kind, sex } = inputs;
 
 	const onChange = (e) => {
 		setInputs({
