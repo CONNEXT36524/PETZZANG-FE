@@ -81,10 +81,10 @@ function Posting(props) {
 	}
 	//Posting Type Options
 	const BoardOptions = [
-		{ key: 1, value: "🖼 일상 게시판" },
-		{ key: 2, value: "👏 자랑 게시판 " },
-		{ key: 3, value: "🙋 질문 게시판" },
-		{ key: 4, value: "🎁 제품 추천 게시판" },
+		{ key: "daily", value: "🖼 일상 게시판" },
+		{ key: "boast", value: "👏 자랑 게시판 " },
+		{ key: "question", value: "🙋 질문 게시판" },
+		{ key: "recommendation", value: "🎁 제품 추천 게시판" },
 	];
 
 	const PetSpeciesOptions = [
@@ -162,9 +162,9 @@ function Posting(props) {
 							type="text"
 							size="lg"
 							placeholder="제목을 입력하세요"
-							name="title"
+							name="titleName"
 							onChange={onChange}
-							value={title || ""}
+							value={titleName || ""}
 						/>
 					</Form.Group>
 					<br />
@@ -206,7 +206,7 @@ function Posting(props) {
 					>
 						<option>커뮤니티 게시판</option>
 						{BoardOptions.map((item, index) => (
-							<option key={item.key} value={item.value}>
+							<option key={item.key} value={item.key}>
 								{item.value}
 							</option>
 						))}
