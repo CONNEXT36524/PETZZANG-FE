@@ -6,11 +6,12 @@ import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import Editor from "../../../components/editor/QuillEditor";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
+import PostingService from "../../../service/PostingService";
 
 function Posting(props) {
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
-		value: "",
+		title: "",
 		boardType: "",
 		pet: "",
 		kind: "",
@@ -43,16 +44,41 @@ function Posting(props) {
 	const [desc, setDesc] = useState("");
 	function onEditorChange(value) {
 		setDesc(value);
+		//여기서 desc는 description
 	}
 
+	//input 데이터 확인용 함수
 	function setContentsShow() {
 		console.log(pet);
-		console.log(kind);
-		console.log(sex);
+		console.log(imgFile);
 	}
+
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
 
+	//Posting Upload State
+	const [uploadedState, setUploadedState] =
+		useState("업로드를 하시겠습니까?");
+
+	//axios로 input 데이터 보내기
+	async function onUpload() {
+		PostingService.createPosts(inputs)
+			.then(function (response) {
+				console.log(response.data);
+				// response
+				//useState 업데이트 완료 상태로 바꿔주는 코드 작성하기!
+				setUploadedState("업로드가 안료되었습니다.");
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+				setUploadedState(
+					"업로드 중 오류가 발생했습니다.\n다시 시도해주세요."
+				);
+			})
+			.then(function () {
+				// 항상 실행
+			});
+	}
 	//Posting Type Options
 	const BoardOptions = [
 		{ key: 1, value: "🖼 일상 게시판" },
@@ -118,7 +144,6 @@ function Posting(props) {
 		{ key: 1, value: "수컷" },
 		{ key: 2, value: "암컷" },
 	];
-
 	//MNB 정보
 	//const location = useLocation();
 
@@ -163,7 +188,7 @@ function Posting(props) {
 
 							<Form.Control
 								type="file"
-								//accept="image/*"
+								accept="image/*"
 								id="thumbnailImg"
 								onChange={showImgFile}
 								ref={imgRef}
@@ -264,7 +289,9 @@ function Posting(props) {
 						show={modalShow}
 						onHide={() => setModalShow(false)}
 						//업로드 함수 구현하기
-						onUpload={() => setModalShow(false)}
+						onUpload={() => onUpload()}
+						//setModalShow를 axios 관련 쪽으로 넘기기
+						uploadedState={uploadedState}
 					/>
 				</div>
 			</Container>
