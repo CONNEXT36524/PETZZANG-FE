@@ -10,7 +10,12 @@ class CommunityService {
 
 	//게시글 업로드하기
 	createPosts(posting) {
-		return axios.post(COMMUNITY_API_BASE_URL + "/posting", posting);
+		return axios.post(COMMUNITY_API_BASE_URL + "/posting", posting, {
+			headers: {
+				//"X-AUTH-TOKEN": token,
+				"Content-Type": `multipart/form-data`,
+			},
+		});
 	}
 }
 
