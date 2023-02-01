@@ -35,14 +35,7 @@ const Sub =styled.div`
     border: 1px solid rgb(234, 234, 234);
     flex-direction: row;
 `
-const Detail = styled.div`
-    
-    width: 130vh;
-    height: 10vh;
-    background-color: rgb(255, 255, 254);
-    border-bottom: 1px solid #e0e0e0;
-    display: flex;
-`   
+
 
 const Awards=()=>{
     

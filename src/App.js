@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Home from "./pages/Home/Home";
@@ -28,6 +28,7 @@ function App() {
 	const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
 	const rest_api_key = process.env.REACT_APP_REST_API_KEY;
 	const KAKAO_AUTH_URL = process.env.REACT_APP_KAKAO_AUTH_URL;
+	const [islogin, setlogin] = useState(false);
 
 	// 검색
 	const [searchText, setSearchText] = useState("");
@@ -47,6 +48,15 @@ function App() {
 		}
 	};
 
+	useEffect(() => {
+		if (sessionStorage.getItem('userName'))
+		setlogin(true);
+		else 
+		setlogin(false);
+	},[])
+	const userImg = window.sessionStorage.getItem("userImg");
+	console.log(islogin)
+	console.log(userImg)
 	return (
 		<Router>
 			<Navbar collapseOnSelect fixed="top" className="menu" id={pagetype}>
@@ -100,19 +110,32 @@ function App() {
 							{" "}
 							<FiSearch />{" "}
 						</button>
+
+						
+						
+					<div>
+						{
+
+						islogin ? 
+						<div className="user">
+							<img className="user-logo" src={userImg}/>
+							<NavDropdown title="" id={`mypageDropdown`}>
+								<NavDropdown.Item href="/mypage/notification">
+									마이페이지
+								</NavDropdown.Item>
+								<NavDropdown.Item href="/logout">
+									로그아웃
+								</NavDropdown.Item>
+							</NavDropdown>
+						</div>
+						:
 						<Nav.Link
-							className="user-logo"
-							href={KAKAO_AUTH_URL}
-						></Nav.Link>
+								className="user-logo"
+								href={KAKAO_AUTH_URL}
+							></Nav.Link>
+						}
 					</div>
-					<NavDropdown title="" id={`mypageDropdown`}>
-						<NavDropdown.Item href="/mypage/notification">
-							마이페이지
-						</NavDropdown.Item>
-						<NavDropdown.Item href="/logout">
-							로그아웃
-						</NavDropdown.Item>
-					</NavDropdown>
+					</div>
 				</Container>
 			</Navbar>
 
