@@ -88,7 +88,7 @@ function App() {
 					</NavDropdown>
 
 					<NavDropdown title="랭킹" id={`rankingDropdown`}>
-						<NavDropdown.Item href="/Ranking" >
+						<NavDropdown.Item href="/Ranking">
 							주간 랭킹
 						</NavDropdown.Item>
 						<NavDropdown.Item href="/Ranking">
@@ -148,17 +148,38 @@ function App() {
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/boast" element={<Boast />} />
-					<Route exact path="/community/question" element={<Question />} />
-					<Route exact path="/community/recommendation" element={<Recommendation />} />
+					<Route
+						exact
+						path="/community/question"
+						element={<Question />}
+					/>
+					<Route
+						exact
+						path="/community/recommendation"
+						element={<Recommendation />}
+					/>
 					<Route exact path="/community/daily" element={<Daily />} />
-					<Route exact path="/community/search" element={<Search />} />
+					<Route
+						exact
+						path="/community/search"
+						element={<Search />}
+					/>
 					{/* <Route exact path="/logout" element={<Logout />} /> */}
-					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
-					<Route path="/mypage/notification" element={<Notification />} />
+					<Route
+						path="/oauth/callback/kakao"
+						element={<KakaoLogin />}
+					/>
+					<Route
+						path="/mypage/notification"
+						element={<Notification />}
+					/>
 					<Route path="/mypage/history" element={<History />} />
 					<Route path="/mypage/awards" element={<Awards />} />
 					<Route path="/mypage/account" element={<Account />} />
-					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
+					<Route
+						path="/oauth/callback/kakao"
+						element={<KakaoLogin />}
+					/>
 
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}

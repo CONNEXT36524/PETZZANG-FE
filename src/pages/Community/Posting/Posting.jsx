@@ -55,7 +55,7 @@ function Posting(props) {
 	data.append("key", inputs);
 	//input 데이터 확인용 함수
 	function setContentsShow() {
-		console.log(desc);
+		console.log(formData.values());
 		//console.log(inputs.thumbnail);
 	}
 
@@ -63,12 +63,23 @@ function Posting(props) {
 	const [modalShow, setModalShow] = React.useState(false);
 
 	//Posting Upload State
-	const [uploadedState, setUploadedState] =
+	const [uploadedstate, setUploadedState] =
 		useState("업로드를 하시겠습니까?");
+
+	const formData = new FormData();
+
+	//formData에 데이터 담기
+	formData.append("titleName", titleName);
+	formData.append("boardType", boardType);
+	formData.append("pet", pet);
+	formData.append("kind", kind);
+	formData.append("sex", sex);
+	formData.append("thumbnail", imgFile);
+	//formData.append("content", desc);
 
 	//axios로 input 데이터 보내기
 	async function onUpload() {
-		PostingService.createPosts(inputs)
+		PostingService.createPosts(formData)
 			.then(function (response) {
 				console.log(response.data);
 				// response
@@ -298,7 +309,7 @@ function Posting(props) {
 						//업로드 함수 구현하기
 						onUpload={() => onUpload()}
 						//setModalShow를 axios 관련 쪽으로 넘기기
-						uploadedState={uploadedState}
+						uploadedstate={uploadedstate}
 					/>
 				</div>
 			</Container>
