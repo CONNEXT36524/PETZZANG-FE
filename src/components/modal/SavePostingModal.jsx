@@ -19,7 +19,7 @@ function SavePostingModal(props) {
 				<h4>{uploadedState}</h4>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button onClick={props.onHide} variant="warning">
+				<Button onClick={props.onHide} variant="dark">
 					취소
 				</Button>
 				<Button onClick={props.onUpload} variant="primary">
