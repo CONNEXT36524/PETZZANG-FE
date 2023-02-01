@@ -20,7 +20,7 @@ export const PagingSlice = createSlice({
         rpaging:(state, action) => {
            state.cntPerPage = action.payload.cntPerPage
            state.total = action.payload.total
-           state.rang  = action.payload.range
+           state.range  = action.payload.range
         }
     }
 });

@@ -15,7 +15,12 @@ const Home=()=>{
         <>
         <div className="first_section">
             <div className="first_section_ment">
-                반갑습니다~
+                <p className="homeText1">세상에서 제일 귀여운 😍<br/>
+                당신의 반려동물을 자랑해보세요!</p>
+                <p className="homeText2">우리 강아지가 제일 귀여워요!<br/>
+                우리집 고양이가 제일 예뻐요!<br/>
+                매주 바뀌는 랭킹에 도전해보세요!</p>
+                
             </div>
         </div> 
 

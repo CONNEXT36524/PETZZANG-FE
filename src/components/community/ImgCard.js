@@ -13,11 +13,11 @@ function ImgCard(props) {
                     <div className="card">
                         <p id="imgContent"> {props.item.titleName} </p>
                         <img src={props.item.thumbnail} className="card-img" alt="이미지"/>
+                        {/* <img src="../img/dog1.png" className="card-img" alt="이미지"/>  */}
                     </div>
             }
         </>
-        
-    );
+    )
 }
 
 export default ImgCard;

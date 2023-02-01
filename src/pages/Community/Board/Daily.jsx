@@ -121,7 +121,7 @@ function Daily() {
 							</div>
 						</>
 					}
-					
+					<br/><br/>
 				</div>
 			</Container>
 		</>

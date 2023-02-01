@@ -12,6 +12,14 @@
     /* cardDiv 가로로 */
     display: inline-flex; 
     margin: 10px;
+    box-shadow: 0 3px 3px -3px #333,
+              -3px 0 3px -3px #333, 
+              3px 0 3px -3px #333;
+              
+}
+.card:hover{
+    transition: transform .3s;
+    transform:scale(1.02);
 }
 .card-img {
     width: 250px;
@@ -36,6 +44,7 @@
     background-color: #ffffff;
     color: black;
     font-weight: 700;
+    
 }
 /* 화면 가로가 1200이하 크기가 되면 imgContent 안보이게 하기 */
 @media (max-width: 1200px) {

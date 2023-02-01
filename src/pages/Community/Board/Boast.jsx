@@ -81,6 +81,14 @@ function Boast() {
         range : 5 
     }
 
+	// 백엔드에서 게시글 list 받아와서 questionData 대신 sliceList를 map에 사용	 
+	// const sliceList = () =>{ 
+    //     setPage.total = bList.length
+    //     dispatch(rpaging(setPage))
+    //     return bList.slice(cntPerPage*(currentPage-1), cntPerPage*currentPage);
+    // } 
+	// console.log(bList.length)
+	
     return (
         <>
         <CommunityBanner />
@@ -110,6 +118,8 @@ function Boast() {
 						</div>
 					</>
 				}
+
+				<br/><br/>
             </div>
         </Container>
         </>

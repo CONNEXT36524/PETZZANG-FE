@@ -16,6 +16,8 @@ const Paging = () => {
   const range = useSelector(state => state.PagingR.range);
 
 
+  // 이전/다음 페이지로 이동
+  // 현재 페이지 번호 바꿔주기 = setCurPage
   const handlePageChange = (page) => {
 
     dispatch(setCurPage(page));
