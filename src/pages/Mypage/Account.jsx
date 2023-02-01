@@ -12,6 +12,7 @@ import Sidebar from "../../components/mypage/Sidebar";
 import styled from "styled-components";
 import myImage from "../../assets/default_profile.png";
 import DeleteAccountModal from "../../components/modal/DeleteAccountModal";
+import axios from "axios";
 
 const Center = styled.div`
   height: 92vh;
@@ -53,12 +54,41 @@ const Account=()=>{
 
 
 	const [modalShow, setModalShow] = useState(false);
-    const [Image, setImage] = useState(myImage)
+    const [userImg, setUserImg] = useState(myImage)
     const profileInputRef = useRef();
- 
+    const token = sessionStorage.getItem("token")
+
     const uploadImageBtnClick = (event) =>{
         event.preventDefault();
-        profileInputRef.current.click();
+        (async () => {
+            try {
+                const file = profileInputRef.current.files[0];
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+       
+                const res = await axios(
+                    {
+                        method: 'put',
+                        url: '/api/profile',
+                        data: profileInputRef.current.files[0],
+                        headers: {
+                            Authorization: token,
+                        },
+                      }
+                    )
+                    // response from backend server
+                    .then((response) => {
+                        console.log("ok response", response);
+                        // const token = response.headers.authorization;
+    
+                    }).catch(function(e){
+                        console.log(e)
+                      });
+            } catch (e) {
+                // response fail error message
+                console.log(e);
+            }
+        })();
     }
 
     const uploadImageChange = async (e) =>{
@@ -66,9 +96,15 @@ const Account=()=>{
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-        setImage(reader.result);
+        setUserImg(reader.result);
+
     }
     }
+
+    useEffect (()=>{
+      if (sessionStorage.getItem("userImg"))
+      setUserImg(sessionStorage.getItem("userImg")) 
+    }, [])
 
     // 중복확인 
     const duplicateCheck = () => {
@@ -107,7 +143,7 @@ const Account=()=>{
                     <Sub>
                     <div className = "circle" 
                     onClick={()=>{profileInputRef.current.click()}}>
-                    <img className="profile" src={Image ? Image : {myImage}}/>
+                    <img className="profile" src={userImg ? userImg : {myImage}}/>
                     <input style={{ display: "none" }} type="file" accept="image/*" className="profileInput" ref={profileInputRef} onChange={uploadImageChange} />
                     </div>
                     <div className="modify">
