@@ -16,13 +16,17 @@ function Posting(props) {
 		pet: "",
 		kind: "",
 		sex: "",
+		thumbnail: "",
 	});
-	const { titleName, boardType, pet, kind, sex } = inputs;
+
+	// 비구조화 할당을 통해 값 추출
+	const { titleName, boardType, pet, kind, sex, thumbnail } = inputs;
 
 	const onChange = (e) => {
+		const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
 		setInputs({
-			...inputs,
-			[e.target.name]: e.target.value,
+			...inputs, // 기존의 input 객체를 전개 구문으로 펼쳐서 복사한 뒤
+			[name]: value, // name 키를 가진 값을 value 로 설정 (이때 [name]은 계산된 속성명 구문 사용),
 		});
 	};
 
@@ -47,10 +51,12 @@ function Posting(props) {
 		//여기서 desc는 description
 	}
 
+	const data = new FormData();
+	data.append("key", inputs);
 	//input 데이터 확인용 함수
 	function setContentsShow() {
-		console.log(pet);
-		console.log(imgFile);
+		console.log(desc);
+		//console.log(inputs.thumbnail);
 	}
 
 	//Modal
@@ -187,6 +193,7 @@ function Posting(props) {
 							</Form.Label>
 
 							<Form.Control
+								name="thumnail"
 								type="file"
 								accept="image/*"
 								id="thumbnailImg"
