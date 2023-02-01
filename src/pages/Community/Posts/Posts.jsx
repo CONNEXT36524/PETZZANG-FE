@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import "./Posting.css";
+import "./Posts.css";
 import "../../../components/form/select/PostingSelection.css";
 import { Form, Button, Container } from "react-bootstrap";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
