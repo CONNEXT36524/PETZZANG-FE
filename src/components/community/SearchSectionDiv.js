@@ -17,7 +17,7 @@ function SearchSectionDiv(props) {
             <hr/>
             <div className='sectionDiv'>
                 <button className='section'> | </button>
-                <h5> {boardName} 게시판</h5>
+                <h4> {boardName} 게시판</h4>
             </div>
         </div>
     );
