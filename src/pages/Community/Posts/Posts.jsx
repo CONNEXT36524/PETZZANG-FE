@@ -8,14 +8,21 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Container from "react-bootstrap/Container";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import PostService from "../../../service/PostService";
+import { useLocation } from "react-use";
 
 function Posts(props) {
+	const location = useLocation();
+	const postId = location.state.usr.postId;
+
 	//Editor
 	const [desc, setDesc] = useState("");
 	function onEditorChange(value) {
 		setDesc(value);
 	}
 
+	function check() {
+		console.log(location.state.usr.postId);
+	}
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
 
@@ -23,7 +30,7 @@ function Posts(props) {
 	//const location = useLocation();
 	const content = "HOME>커뮤니티>일상";
 
-	console.log(PostService.getPosts(props.postId));
+	console.log(PostService.getPosts(postId));
 	return (
 		<div>
 			<CommunityBanner />
@@ -67,7 +74,11 @@ function Posts(props) {
 					<div contentEditable="true" className="writeCommentContent">
 						댓글을 남겨주세요.
 					</div>
-					<Button variant="warning" className="writeCommentBtn">
+					<Button
+						variant="warning"
+						className="writeCommentBtn"
+						onClick={check}
+					>
 						작성
 					</Button>
 
