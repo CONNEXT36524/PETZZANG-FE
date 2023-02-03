@@ -1,309 +1,88 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "./Posts.css";
-import "../../../components/form/select/PostingSelection.css";
-import { Form, Button, Container } from "react-bootstrap";
+import postImg from "../../../assets/maltese1.png";
+import CommunityBanner from "../../../components/banner/CommunityBanner";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Container from "react-bootstrap/Container";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
-import Editor from "../../../components/editor/QuillEditor";
-import PostingBanner from "../../../components/banner/PostingBanner";
-import SavePostingModal from "../../../components/modal/SavePostingModal";
-import PostingService from "../../../service/PostingService";
 
-function Posting(props) {
-	//Posting Inputs
-	const [inputs, setInputs] = useState({
-		titleName: "",
-		boardType: "",
-		pet: "",
-		kind: "",
-		sex: "",
-		thumbnail: "",
-	});
-
-	// 비구조화 할당을 통해 값 추출
-	const { titleName, boardType, pet, kind, sex, thumbnail } = inputs;
-
-	const onChange = (e) => {
-		const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
-		setInputs({
-			...inputs, // 기존의 input 객체를 전개 구문으로 펼쳐서 복사한 뒤
-			[name]: value, // name 키를 가진 값을 value 로 설정 (이때 [name]은 계산된 속성명 구문 사용),
-		});
-	};
-
-	//File Input
-	const [imgFile, setImgFile] = useState("");
-	const imgRef = useRef();
-
-	// 이미지 업로드 input의 onChange
-	const showImgFile = () => {
-		const file = imgRef.current.files[0];
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onloadend = () => {
-			setImgFile(reader.result);
-		};
-	};
-
+function Posts(props) {
 	//Editor
 	const [desc, setDesc] = useState("");
 	function onEditorChange(value) {
 		setDesc(value);
-		//여기서 desc는 description
-	}
-
-	const data = new FormData();
-	data.append("key", inputs);
-	//input 데이터 확인용 함수
-	function setContentsShow() {
-		console.log(desc);
-		//console.log(inputs.thumbnail);
 	}
 
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
 
-	//Posting Upload State
-	const [uploadedState, setUploadedState] =
-		useState("업로드를 하시겠습니까?");
-
-	//axios로 input 데이터 보내기
-	async function onUpload() {
-		PostingService.createPosts(inputs)
-			.then(function (response) {
-				console.log(response.data);
-				// response
-				//useState 업데이트 완료 상태로 바꿔주는 코드 작성하기!
-				setUploadedState("업로드가 안료되었습니다.");
-			})
-			.catch(function (error) {
-				// 오류발생시 실행
-				setUploadedState(
-					"업로드 중 오류가 발생했습니다.\n다시 시도해주세요."
-				);
-			})
-			.then(function () {
-				// 항상 실행
-			});
-	}
-	//Posting Type Options
-	const BoardOptions = [
-		{ key: "daily", value: "🖼 일상 게시판" },
-		{ key: "boast", value: "👏 자랑 게시판 " },
-		{ key: "question", value: "🙋 질문 게시판" },
-		{ key: "recommendation", value: "🎁 제품 추천 게시판" },
-	];
-
-	const PetSpeciesOptions = [
-		{ key: 1, value: "강아지" },
-		{ key: 2, value: "고양이" },
-		{ key: 3, value: "관상어" },
-		{ key: 4, value: "햄스터" },
-		{ key: 5, value: "토끼" },
-		{ key: 6, value: "새" },
-		{ key: 7, value: "거북이" },
-		{ key: 8, value: "기타" },
-	];
-
-	let PetKindOptions = [];
-
-	if (pet.length === 3) {
-		// 강아지가 클릭되었을때
-		if (pet.includes("강아지")) {
-			PetKindOptions = [
-				{ key: 1, value: "시츄" },
-				{ key: 2, value: "말티즈" },
-				{ key: 3, value: "시바견" },
-				{ key: 4, value: "비숑" },
-				{ key: 5, value: "포메라니안" },
-				{ key: 6, value: "그레이하운드" },
-				{ key: 7, value: "푸들" },
-				{ key: 8, value: "보더콜리" },
-				{ key: 9, value: "웰시코기" },
-				{ key: 10, value: "리트리버" },
-				{ key: 11, value: "진돗개" },
-				{ key: 12, value: "귀한 종" },
-				{ key: 13, value: "이외 견종" },
-			];
-		}
-
-		// 고양이가 클릭되었을때
-		else if (pet.includes("고양이")) {
-			PetKindOptions = [
-				{ key: 1, value: "러시안 블루" },
-				{ key: 2, value: "먼치킨" },
-				{ key: 3, value: "터키시 앙고라" },
-				{ key: 4, value: "엑조틱" },
-				{ key: 5, value: "메인쿤" },
-				{ key: 6, value: "스핑크스" },
-				{ key: 7, value: "랙돌" },
-				{ key: 8, value: "코리안 숏헤어" },
-				{ key: 9, value: "아메리칸 숏헤어" },
-				{ key: 10, value: "브리티시 숏헤어" },
-				{ key: 11, value: "페르시안" },
-				{ key: 12, value: "귀한 종" },
-				{ key: 13, value: "이외 묘종" },
-			];
-		}
-	}
-
-	const PetSexOptions = [
-		{ key: 1, value: "수컷" },
-		{ key: 2, value: "암컷" },
-	];
 	//MNB 정보
 	//const location = useLocation();
+	const content = "HOME>커뮤니티>일상";
 
 	return (
 		<div>
-			<PostingBanner />
+			<CommunityBanner />
 
-			<MiddleNav contents={"HOME>커뮤니티>게시글 작성"} />
+			<MiddleNav contents={content} />
 
-			<Container className="posting">
+			<Container className="articles">
 				<br />
-				<div className="containerHeader">
-					<Form.Group className="mb-3">
-						<Form.Label className="formLabel">제목</Form.Label>
-						<Form.Control
-							type="text"
-							size="lg"
-							placeholder="제목을 입력하세요"
-							name="titleName"
-							onChange={onChange}
-							value={titleName || ""}
-						/>
-					</Form.Group>
-					<br />
-					<Form.Group className="mb-3" id="FileInputForm">
-						<div>
-							<img
-								// require()를 통해 이미지 불러오긴
-								src={
-									imgFile
-										? imgFile
-										: require("../../../assets/noImage.png")
-								}
-								alt="프로필 이미지"
-								className="thumbnailImg"
-							/>
-						</div>
-						<div>
-							<Form.Label className="formLabel">
-								썸네일 사진 첨부
-							</Form.Label>
 
-							<Form.Control
-								name="thumnail"
-								type="file"
-								accept="image/*"
-								id="thumbnailImg"
-								onChange={showImgFile}
-								ref={imgRef}
-							/>
-						</div>
-					</Form.Group>
-					<br />
-					<Form.Select
-						name="boardType"
-						className="selectBoardType"
-						aria-label="Board Type Selection"
-						onChange={onChange}
-						value={boardType}
-						required
-					>
-						<option>커뮤니티 게시판</option>
-						{BoardOptions.map((item, index) => (
-							<option key={item.key} value={item.key}>
-								{item.value}
-							</option>
-						))}
-					</Form.Select>
-					<div className="selectPostingType">
-						<Form.Select
-							name="pet"
-							id="selection1"
-							className="selection"
-							aria-label="Pet Species"
-							onChange={onChange}
-							value={pet}
-							required
-						>
-							<option>동물</option>
-							{PetSpeciesOptions.map((item, index) => (
-								<option key={item.key} value={item.value}>
-									{item.value || ""}
-								</option>
-							))}
-						</Form.Select>
-
-						<Form.Select
-							name="kind"
-							id="selection2"
-							className="selection"
-							aria-label="Pet Kind"
-							onChange={onChange}
-							value={kind}
-						>
-							<option>종</option>
-							{PetKindOptions.map((item, index) => (
-								<option key={item.key} value={item.value}>
-									{item.value}
-								</option>
-							))}
-						</Form.Select>
-
-						<Form.Select
-							name="sex"
-							id="selection3"
-							className="selection"
-							aria-label="Pet Sex"
-							onChange={onChange}
-							value={sex}
-						>
-							<option>성별</option>
-							{PetSexOptions.map((item, index) => (
-								<option key={item.key} value={item.value}>
-									{item.value}
-								</option>
-							))}
-						</Form.Select>
+				<div className="articleHeaderTop">
+					<div className="aht-section1"></div>
+					<div className="aht-section2">
+						<h1 className="aht-title">
+							인형인가 말티즈인가우리 아이 너무 인형처럼 생기지
+							않았나요?!나요?!
+							나요?!나요?!나요?!나요?!나요?!이름은 소금이에요!
+						</h1>
 					</div>
-					<br />
+					<div className="aht-section3">
+						<h6 className="aht-viewNum">조회수 29</h6>
+					</div>
+				</div>
+				<hr size="0" />
+				<div className="articleHeaderBottom">
+					<h6>소금엄마 | 2022.01.04 16:08:29</h6>
 				</div>
 				<br />
-				<div>
-					<Button variant="warning" onClick={() => setContentsShow()}>
-						check contents
-					</Button>
-
-					<Editor
-						id="textEditor"
-						value={desc}
-						onChange={onEditorChange}
-					/>
+				<div className="articleBody">
+					<img className="postImg" src={postImg}></img>
+					<p>
+						우리 아이 너무 인형처럼 생기지 않았나요?! <br />
+						이름은 소금이에요!
+					</p>
 				</div>
-				<br />
-				<div className="containerFooter">
-					<Button
-						className="postingBtn"
-						variant="primary"
-						onClick={() => setModalShow(true)}
-					>
-						✏️ 작성하기
+			</Container>
+
+			<Container className="comments">
+				<h5>❤️ 2 💭 0</h5>
+				<div>comments 공간</div>
+				<div className="writeCommentBox">
+					<div contentEditable="true" className="writeCommentContent">
+						댓글을 남겨주세요.
+					</div>
+					<Button variant="warning" className="writeCommentBtn">
+						작성
 					</Button>
 
-					<SavePostingModal
-						show={modalShow}
-						onHide={() => setModalShow(false)}
-						//업로드 함수 구현하기
-						onUpload={() => onUpload()}
-						//setModalShow를 axios 관련 쪽으로 넘기기
-						uploadedState={uploadedState}
-					/>
+					<InputGroup className="mb-3">
+						<Form.Control
+							placeholder="댓글을 남겨주세요."
+							aria-label="댓글"
+							aria-describedby="writer"
+						/>
+						<Button variant="outline-secondary" id="button-addon2">
+							작성
+						</Button>
+					</InputGroup>
 				</div>
 			</Container>
 		</div>
 	);
 }
 
-export default Posting;
+export default Posts;
