@@ -10,8 +10,7 @@ import SearchSectionDiv from "../../../components/community/SearchSectionDiv.js"
 import SearchDailyCard from "../../../components/community/SearchDailyCard.js";
 import SearchQuestionCard from "../../../components/community/SearchQuestionCard.js";
 import Paging from "../../../components/community/Paging.js";
-
-
+import { addBoardType } from "../../../Slice/SearchSlice";
 
 function Search() {
     // 상단 navbar 색깔 바꾸기
@@ -52,7 +51,7 @@ function Search() {
 	const getSearch = async() => {
 
         await axios.get(
-            '/api/community/board/search', {
+            '/api/community/search', {
                 params:{
                     keyword : keyword
                 }
@@ -62,6 +61,12 @@ function Search() {
         ).catch(error => console.log(error))
 	}
     console.log(searchList)
+
+
+    // BoardType 리덕스에 저장
+    // {searchList.map((item) => (
+    //     dispatch(addBoardType(item.boardType))
+    // ))}
 
 
     return (
@@ -83,9 +88,18 @@ function Search() {
                         <Card/>))
                     )
                 } */}
+                
+                
 
                 {searchList.map((item) => (
                     <>
+                        {/* {
+                            item.boardType === 'daily' || item.boardType === 'boast'
+                            ? <> <SearchSectionDiv props={item.boardType}/>  
+                                <SearchDailyCard data={item}/> </>
+                            : <> <SearchSectionDiv props={item.boardType}/> 
+                                <SearchQuestionCard data={item}/> </>
+                        } */}
                         <SearchSectionDiv props={item.boardType}/>
                         {
                             item.boardType === 'daily' || item.boardType === 'boast'
