@@ -55,7 +55,9 @@ const Account=()=>{
 
 	const [modalShow, setModalShow] = useState(false);
     const [userImg, setUserImg] = useState(myImage)
+    const [uploadImg, setUploadImg] = useState(null)
     const profileInputRef = useRef();
+    
     const token = sessionStorage.getItem("token")
 
     const uploadImageBtnClick = (event) =>{
@@ -70,7 +72,7 @@ const Account=()=>{
                     {
                         method: 'put',
                         url: '/api/profile',
-                        data: profileInputRef.current.files[0],
+                        data: setUploadImg,
                         headers: {
                             Authorization: token,
                         },
@@ -97,7 +99,7 @@ const Account=()=>{
         reader.readAsDataURL(file);
         reader.onloadend = () => {
         setUserImg(reader.result);
-
+        setUploadImg(profileInputRef.current.files[0])
     }
     }
 
