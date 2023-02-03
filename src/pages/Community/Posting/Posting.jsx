@@ -74,8 +74,10 @@ function Posting(props) {
 	formData.append("pet", pet);
 	formData.append("kind", kind);
 	formData.append("sex", sex);
-	formData.append("thumbnail", imgFile);
-	//formData.append("content", desc);
+	//formData.append("thumbnail", imgFile);
+	formData.append("content", desc);
+	formData.append("views", 0);
+	formData.append("likeNum", 0);
 
 	//axios로 input 데이터 보내기
 	async function onUpload() {
