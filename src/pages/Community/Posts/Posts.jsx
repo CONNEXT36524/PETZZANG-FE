@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Container from "react-bootstrap/Container";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
+import PostService from "../../../service/PostService";
 
 function Posts(props) {
 	//Editor
@@ -22,6 +23,7 @@ function Posts(props) {
 	//const location = useLocation();
 	const content = "HOME>커뮤니티>일상";
 
+	console.log(PostService.getPosts(props.postId));
 	return (
 		<div>
 			<CommunityBanner />
