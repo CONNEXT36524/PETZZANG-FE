@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Posts.css";
+import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import postImg from "../../../assets/maltese1.png";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import Button from "react-bootstrap/Button";
@@ -11,6 +12,7 @@ import PostService from "../../../service/PostService";
 import { useLocation } from "react-use";
 
 function Posts(props) {
+	GlobalNavColor("community");
 	const location = useLocation();
 	const postId = location.state.usr.postId;
 	let postData = {};
