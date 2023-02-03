@@ -2,7 +2,7 @@ import axios from "axios";
 
 const COMMUNITY_API_BASE_URL = "http://localhost:8080/api/community";
 
-class CommunityService {
+class PostingService {
 	//게시글 불러오기
 	getPosts() {
 		return axios.get(COMMUNITY_API_BASE_URL + "/posts");
@@ -19,4 +19,4 @@ class CommunityService {
 	}
 }
 
-export default new CommunityService();
+export default new PostingService();
