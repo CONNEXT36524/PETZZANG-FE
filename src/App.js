@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Home from "./pages/Home/Home";
@@ -28,6 +28,7 @@ function App() {
 	const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
 	const rest_api_key = process.env.REACT_APP_REST_API_KEY;
 	const KAKAO_AUTH_URL = process.env.REACT_APP_KAKAO_AUTH_URL;
+	const [islogin, setlogin] = useState(false);
 
 	// 검색
 	const [searchText, setSearchText] = useState("");
@@ -47,6 +48,15 @@ function App() {
 		}
 	};
 
+	useEffect(() => {
+		if (sessionStorage.getItem('userName'))
+		setlogin(true);
+		else 
+		setlogin(false);
+	},[])
+	const userImg = window.sessionStorage.getItem("userImg");
+	console.log(islogin)
+	console.log(userImg)
 	return (
 		<Router>
 			<Navbar collapseOnSelect fixed="top" className="menu" id={pagetype}>
@@ -78,7 +88,7 @@ function App() {
 					</NavDropdown>
 
 					<NavDropdown title="랭킹" id={`rankingDropdown`}>
-						<NavDropdown.Item href="/Ranking" >
+						<NavDropdown.Item href="/Ranking">
 							주간 랭킹
 						</NavDropdown.Item>
 						<NavDropdown.Item href="/Ranking">
@@ -100,19 +110,32 @@ function App() {
 							{" "}
 							<FiSearch />{" "}
 						</button>
+
+						
+						
+					<div>
+						{
+
+						islogin ? 
+						<div className="user">
+							<img className="user-logo" src={userImg}/>
+							<NavDropdown title="" id={`mypageDropdown`}>
+								<NavDropdown.Item href="/mypage/notification">
+									마이페이지
+								</NavDropdown.Item>
+								<NavDropdown.Item href="/logout">
+									로그아웃
+								</NavDropdown.Item>
+							</NavDropdown>
+						</div>
+						:
 						<Nav.Link
-							className="user-logo"
-							href={KAKAO_AUTH_URL}
-						></Nav.Link>
+								className="user-logo"
+								href={KAKAO_AUTH_URL}
+							></Nav.Link>
+						}
 					</div>
-					<NavDropdown title="" id={`mypageDropdown`}>
-						<NavDropdown.Item href="/mypage/notification">
-							마이페이지
-						</NavDropdown.Item>
-						<NavDropdown.Item href="/logout">
-							로그아웃
-						</NavDropdown.Item>
-					</NavDropdown>
+					</div>
 				</Container>
 			</Navbar>
 
@@ -125,17 +148,38 @@ function App() {
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/boast" element={<Boast />} />
-					<Route exact path="/community/question" element={<Question />} />
-					<Route exact path="/community/recommendation" element={<Recommendation />} />
+					<Route
+						exact
+						path="/community/question"
+						element={<Question />}
+					/>
+					<Route
+						exact
+						path="/community/recommendation"
+						element={<Recommendation />}
+					/>
 					<Route exact path="/community/daily" element={<Daily />} />
-					<Route exact path="/community/search" element={<Search />} />
+					<Route
+						exact
+						path="/community/search"
+						element={<Search />}
+					/>
 					{/* <Route exact path="/logout" element={<Logout />} /> */}
-					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
-					<Route path="/mypage/notification" element={<Notification />} />
+					<Route
+						path="/oauth/callback/kakao"
+						element={<KakaoLogin />}
+					/>
+					<Route
+						path="/mypage/notification"
+						element={<Notification />}
+					/>
 					<Route path="/mypage/history" element={<History />} />
 					<Route path="/mypage/awards" element={<Awards />} />
 					<Route path="/mypage/account" element={<Account />} />
-					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
+					<Route
+						path="/oauth/callback/kakao"
+						element={<KakaoLogin />}
+					/>
 
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
