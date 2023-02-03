@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import "./Posting.css";
 import "../../../components/form/select/PostingSelection.css";
 import { Form, Button, Container } from "react-bootstrap";
@@ -9,6 +10,7 @@ import SavePostingModal from "../../../components/modal/SavePostingModal";
 import PostingService from "../../../service/PostingService";
 
 function Posting(props) {
+	GlobalNavColor("community");
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		titleName: "",
@@ -74,8 +76,10 @@ function Posting(props) {
 	formData.append("pet", pet);
 	formData.append("kind", kind);
 	formData.append("sex", sex);
-	formData.append("thumbnail", imgFile);
-	//formData.append("content", desc);
+	//formData.append("thumbnail", imgFile);
+	formData.append("content", desc);
+	formData.append("views", 0);
+	formData.append("likeNum", 0);
 
 	//axios로 input 데이터 보내기
 	async function onUpload() {
