@@ -55,8 +55,18 @@ const Account=()=>{
 
 	const [modalShow, setModalShow] = useState(false);
     const [userImg, setUserImg] = useState(myImage)
+    const [uploadImg, setUploadImg] = useState(null)
     const profileInputRef = useRef();
+    
     const token = sessionStorage.getItem("token")
+    // const encodeFileToBase64 = (image: File) => {
+    //     return new Promise((resolve, reject) => {
+    //       const reader = new FileReader();
+    //       reader.readAsDataURL(image);
+    //       reader.onload = (event: any) => resolve(event.target.result);
+    //       reader.onerror = (error) => reject(error);
+    //     });
+    //   };
 
     const uploadImageBtnClick = (event) =>{
         event.preventDefault();
@@ -65,12 +75,15 @@ const Account=()=>{
                 const file = profileInputRef.current.files[0];
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
-       
+                console.log(userImg)
+                const formdata = new FormData();
+                formdata.append('uploadImg', uploadImg)
+
                 const res = await axios(
                     {
                         method: 'put',
                         url: '/api/profile',
-                        data: profileInputRef.current.files[0],
+                        data: userImg,
                         headers: {
                             Authorization: token,
                         },
@@ -89,7 +102,7 @@ const Account=()=>{
                 console.log(e);
             }
         })();
-    }
+    };
 
     const uploadImageChange = async (e) =>{
         const file = profileInputRef.current.files[0];
@@ -97,7 +110,7 @@ const Account=()=>{
         reader.readAsDataURL(file);
         reader.onloadend = () => {
         setUserImg(reader.result);
-
+        setUploadImg(profileInputRef.current.files[0])
     }
     }
 
