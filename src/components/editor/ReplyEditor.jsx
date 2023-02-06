@@ -48,7 +48,7 @@ function ReplyEditor() {
 
 	return (
 		<div className="ReplyEditorBox">
-			댓글 작성하기
+			<b>댓글 작성하기</b>
 			<hr />
 			<FloatingLabel controlId="floatingTextarea2" label="Comments">
 				<Form.Control
