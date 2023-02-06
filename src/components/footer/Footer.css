@@ -1,0 +1,25 @@
+.footer {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background-color: #fff4ea;
+}
+
+#footerContainer {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.footerLeft {
+	flex-grow: 2;
+}
+
+.footerRight {
+	flex-grow: 5;
+}
+
+#footerBottom {
+	display: flex;
+	justify-content: center;
+	font: rgb(109, 107, 107);
+}

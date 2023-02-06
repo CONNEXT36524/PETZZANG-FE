@@ -19,7 +19,7 @@ import Awards from "./pages/Mypage/Awards";
 import Account from "./pages/Mypage/Account";
 import { FiSearch } from "react-icons/fi";
 import logoImg from "./assets/logo192.png";
-
+import Footer from "./components/footer/Footer";
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
 function App() {
@@ -49,14 +49,12 @@ function App() {
 	};
 
 	useEffect(() => {
-		if (sessionStorage.getItem('userName'))
-		setlogin(true);
-		else 
-		setlogin(false);
-	},[])
+		if (sessionStorage.getItem("userName")) setlogin(true);
+		else setlogin(false);
+	}, []);
 	const userImg = window.sessionStorage.getItem("userImg");
-	console.log(islogin)
-	console.log(userImg)
+	console.log(islogin);
+	console.log(userImg);
 	return (
 		<Router>
 			<Navbar collapseOnSelect fixed="top" className="menu" id={pagetype}>
@@ -111,30 +109,26 @@ function App() {
 							<FiSearch />{" "}
 						</button>
 
-						
-						
-					<div>
-						{
-
-						islogin ? 
-						<div className="user">
-							<img className="user-logo" src={userImg}/>
-							<NavDropdown title="" id={`mypageDropdown`}>
-								<NavDropdown.Item href="/mypage/notification">
-									마이페이지
-								</NavDropdown.Item>
-								<NavDropdown.Item href="/logout">
-									로그아웃
-								</NavDropdown.Item>
-							</NavDropdown>
+						<div>
+							{islogin ? (
+								<div className="user">
+									<img className="user-logo" src={userImg} />
+									<NavDropdown title="" id={`mypageDropdown`}>
+										<NavDropdown.Item href="/mypage/notification">
+											마이페이지
+										</NavDropdown.Item>
+										<NavDropdown.Item href="/logout">
+											로그아웃
+										</NavDropdown.Item>
+									</NavDropdown>
+								</div>
+							) : (
+								<Nav.Link
+									className="user-logo"
+									href={KAKAO_AUTH_URL}
+								></Nav.Link>
+							)}
 						</div>
-						:
-						<Nav.Link
-								className="user-logo"
-								href={KAKAO_AUTH_URL}
-							></Nav.Link>
-						}
-					</div>
 					</div>
 				</Container>
 			</Navbar>
@@ -185,6 +179,7 @@ function App() {
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
 				</Routes>
 			</main>
+			<Footer />
 		</Router>
 	);
 }
