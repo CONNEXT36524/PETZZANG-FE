@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Posts.css";
+import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import postImg from "../../../assets/maltese1.png";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import Button from "react-bootstrap/Button";
@@ -11,8 +12,43 @@ import PostService from "../../../service/PostService";
 import { useLocation } from "react-use";
 
 function Posts(props) {
+	GlobalNavColor("community");
 	const location = useLocation();
 	const postId = location.state.usr.postId;
+	let postData = {};
+
+	const [inputs, setInputs] = useState({
+		titleName: "",
+		boardType: "",
+		pet: "",
+		kind: "",
+		sex: "",
+		thumbnail: "",
+		content: "",
+		views: 0,
+		likeNum: 0,
+		update_time: "",
+		userCode: 0,
+	});
+
+	// 비구조화 할당을 통해 값 추출
+	const {
+		titleName,
+		boardType,
+		pet,
+		kind,
+		sex,
+		thumbnail,
+		content,
+		views,
+		likeNum,
+		update_time,
+		userCode,
+	} = inputs;
+
+	const onChange = (e) => {
+		const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+	};
 
 	//Editor
 	const [desc, setDesc] = useState("");
@@ -20,22 +56,47 @@ function Posts(props) {
 		setDesc(value);
 	}
 
-	function check() {
-		console.log(location.state.usr.postId);
-	}
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
 
 	//MNB 정보
 	//const location = useLocation();
-	const content = "HOME>커뮤니티>일상";
 
-	console.log(PostService.getPosts(postId));
+	PostService.getPosts(postId)
+		.then(function (response) {
+			// 성공 핸들링
+			postData = response.data;
+			setInputs({
+				...inputs, // 기존의 input 객체를 전개 구문으로 펼쳐서 복사한 뒤
+				titleName: postData["titleName"],
+				boardType: postData["boardType"],
+				pet: postData["pet"],
+				kind: postData["kind"],
+				sex: postData["sex"],
+				thumbnail: postData["thumbnail"],
+				content: postData["content"],
+				views: postData["views"],
+				likeNum: postData["likeNum"],
+				update_time: postData["update_time"],
+				userCode: postData["userCode"],
+			});
+		})
+		.catch(function (error) {
+			// 에러 핸들링
+			console.log(error);
+		})
+		.then(function () {
+			// 항상 실행되는 영역
+		});
+
+	function check() {
+		console.log(postData["titleName"]);
+	}
 	return (
 		<div>
 			<CommunityBanner />
 
-			<MiddleNav contents={content} />
+			<MiddleNav contents={"HOME>커뮤니티>일상"} />
 
 			<Container className="articles">
 				<br />
@@ -43,14 +104,10 @@ function Posts(props) {
 				<div className="articleHeaderTop">
 					<div className="aht-section1"></div>
 					<div className="aht-section2">
-						<h1 className="aht-title">
-							인형인가 말티즈인가우리 아이 너무 인형처럼 생기지
-							않았나요?!나요?!
-							나요?!나요?!나요?!나요?!나요?!이름은 소금이에요!
-						</h1>
+						<h1 className="aht-title">{titleName}</h1>
 					</div>
 					<div className="aht-section3">
-						<h6 className="aht-viewNum">조회수 29</h6>
+						<h6 className="aht-viewNum">조회수 {views}</h6>
 					</div>
 				</div>
 				<hr size="0" />
@@ -66,32 +123,43 @@ function Posts(props) {
 					</p>
 				</div>
 			</Container>
+			<Container>
+				<Button variant="warning" className="likeBtn">
+					👍 좋아요
+				</Button>
+			</Container>
 
 			<Container className="comments">
-				<h5>❤️ 2 💭 0</h5>
+				<h5>❤️ {likeNum} 💭 0</h5>
 				<div>comments 공간</div>
 				<div className="writeCommentBox">
-					<div contentEditable="true" className="writeCommentContent">
-						댓글을 남겨주세요.
+					<div class="card my-4">
+						<h5 class="card-header">Leave a Comment:</h5>
+						<div class="card-body">
+							<form
+								name="comment-form"
+								action="/board/comment/write"
+								method="post"
+								autocomplete="off"
+							>
+								<div class="form-group">
+									<input
+										type="hidden"
+										name="idx"
+										//th:value="*{idx}"
+									/>
+									<textarea
+										name="content"
+										class="form-control"
+										rows="3"
+									></textarea>
+								</div>
+								<Button type="submit" class="btn btn-primary">
+									Submit
+								</Button>
+							</form>
+						</div>
 					</div>
-					<Button
-						variant="warning"
-						className="writeCommentBtn"
-						onClick={check}
-					>
-						작성
-					</Button>
-
-					<InputGroup className="mb-3">
-						<Form.Control
-							placeholder="댓글을 남겨주세요."
-							aria-label="댓글"
-							aria-describedby="writer"
-						/>
-						<Button variant="outline-secondary" id="button-addon2">
-							작성
-						</Button>
-					</InputGroup>
 				</div>
 			</Container>
 		</div>
