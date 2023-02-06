@@ -75,7 +75,7 @@ function Posts(props) {
 						kind: postData["kind"],
 						sex: postData["sex"],
 						thumbnail: postData["thumbnail"],
-						content: postData["content"],
+						content: parse(postData["content"]),
 						views: postData["views"],
 						likeNum: postData["likeNum"],
 						update_time: postData["update_time"],
@@ -164,7 +164,7 @@ function Posts(props) {
 					<h6>소금엄마 | 2022.01.04 16:08:29</h6>
 				</div>
 				<br />
-				<div className="articleBody">parse(content)</div>
+				<div className="articleBody">{content}</div>
 			</Container>
 			<Container className="likeDiv">
 				<Button variant="success" className="likeBtn">
@@ -174,7 +174,7 @@ function Posts(props) {
 
 			<Container className="comments">
 				<h5>
-					❤️ {likeNum} 💭 {0}
+					❤️ {likeNum} 💭 {replies.length}
 				</h5>
 				<div className="replyListBox">
 					{replies.length === 0 ? (

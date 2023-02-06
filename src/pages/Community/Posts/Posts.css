@@ -5,7 +5,7 @@
 .articles {
 	background-color: white;
 	margin-top: 80px;
-	margin-bottom: 50px;
+	margin-bottom: 2px;
 	border-radius: 20px;
 	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 	padding: 20px;
@@ -56,10 +56,10 @@
 }
 
 .likeDiv {
-	margin-bottom: 50px;
+	margin-bottom: 20px;
 	display: flex;
 	justify-content: center;
-	margin-top: 100px;
+	margin-top: 50px;
 }
 
 .replyListBox {
