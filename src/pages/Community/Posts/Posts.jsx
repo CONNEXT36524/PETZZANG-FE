@@ -7,8 +7,9 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import PostService from "../../../service/PostService";
-import ReplyList from "../../../components/reply/ReplyList";
-import ReplyEditor from "../../../components/reply/ReplyEditor";
+
+import ReplyEditor from "../../../components/editor/ReplyEditor";
+import ReplyList from "../../../components/list/ReplyList";
 import { useLocation } from "react-use";
 
 function Posts(props) {
