@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Posts.css";
 import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import postImg from "../../../assets/maltese1.png";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import Container from "react-bootstrap/Container";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import PostService from "../../../service/PostService";
+import ReplyList from "../../../components/reply/ReplyList";
+import ReplyEditor from "../../../components/reply/ReplyEditor";
 import { useLocation } from "react-use";
 
 function Posts(props) {
@@ -62,38 +62,45 @@ function Posts(props) {
 	//MNB 정보
 	//const location = useLocation();
 
-	PostService.getPosts(postId)
-		.then(function (response) {
-			// 성공 핸들링
-			postData = response.data;
-			setInputs({
-				...inputs, // 기존의 input 객체를 전개 구문으로 펼쳐서 복사한 뒤
-				titleName: postData["titleName"],
-				boardType: postData["boardType"],
-				pet: postData["pet"],
-				kind: postData["kind"],
-				sex: postData["sex"],
-				thumbnail: postData["thumbnail"],
-				content: postData["content"],
-				views: postData["views"],
-				likeNum: postData["likeNum"],
-				update_time: postData["update_time"],
-				userCode: postData["userCode"],
-			});
-		})
-		.catch(function (error) {
-			// 에러 핸들링
-			console.log(error);
-		})
-		.then(function () {
-			// 항상 실행되는 영역
-		});
+	useEffect(() => {
+		let completed = false;
+		async function get() {
+			await PostService.getPosts(postId)
+				.then(function (response) {
+					// 성공 핸들링
+					postData = response.data;
+					setInputs({
+						...inputs, // 기존의 input 객체를 전개 구문으로 펼쳐서 복사한 뒤
+						titleName: postData["titleName"],
+						boardType: postData["boardType"],
+						pet: postData["pet"],
+						kind: postData["kind"],
+						sex: postData["sex"],
+						thumbnail: postData["thumbnail"],
+						content: postData["content"],
+						views: postData["views"],
+						likeNum: postData["likeNum"],
+						update_time: postData["update_time"],
+						userCode: postData["userCode"],
+					});
+				})
+				.catch(function (error) {
+					// 에러 핸들링
+					console.log(error);
+				})
+				.then(function () {
+					// 항상 실행되는 영역
+				});
+		}
+		get();
+		return () => {
+			completed = true;
+			console.log(completed);
+		};
+	}, []);
 
-	function check() {
-		console.log(postData["titleName"]);
-	}
 	return (
-		<div>
+		<div className="posts">
 			<CommunityBanner />
 
 			<MiddleNav contents={"HOME>커뮤니티>일상"} />
@@ -130,37 +137,12 @@ function Posts(props) {
 			</Container>
 
 			<Container className="comments">
-				<h5>❤️ {likeNum} 💭 0</h5>
-				<div>comments 공간</div>
-				<div className="writeCommentBox">
-					<div class="card my-4">
-						<h5 class="card-header">Leave a Comment:</h5>
-						<div class="card-body">
-							<form
-								name="comment-form"
-								action="/board/comment/write"
-								method="post"
-								autocomplete="off"
-							>
-								<div class="form-group">
-									<input
-										type="hidden"
-										name="idx"
-										//th:value="*{idx}"
-									/>
-									<textarea
-										name="content"
-										class="form-control"
-										rows="3"
-									></textarea>
-								</div>
-								<Button type="submit" class="btn btn-primary">
-									Submit
-								</Button>
-							</form>
-						</div>
-					</div>
-				</div>
+				<h5>
+					❤️ {likeNum} 💭 {views}
+				</h5>
+				<div>리플 공간</div>
+				<ReplyList />
+				<ReplyEditor />
 			</Container>
 		</div>
 	);
