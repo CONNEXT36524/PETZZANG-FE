@@ -10,7 +10,7 @@ function SearchDailyCard(props) {
   return (
     <div className='searchCardContainer'
       onClick={() => onClickHandler(props.data)}>
-      <img src="../../img/dog1.png" className="searchCardImg" />
+      <img src={props.data.thumbnail} className="searchCardImg" alt="이미지"/>
       <div className='searchCardContent'>
         <h3>{props.data.titleName}</h3>
         <h5>{props.data.content}</h5>
