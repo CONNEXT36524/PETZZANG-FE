@@ -11,7 +11,6 @@ import Daily from "./pages/Community/Board/Daily";
 import Boast from "./pages/Community/Board/Boast";
 import Question from "./pages/Community/Board/Question";
 import Search from "./pages/Community/Board/Search";
-import ImgUpload from "./pages/Community/Board/ImgUpload";
 import Recommendation from "./pages/Community/Board/Recommendation";
 import KakaoLogin from "./pages/Login/KakaoLogin";
 import History from "./pages/Mypage/History";
@@ -161,7 +160,6 @@ function App() {
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/boast" element={<Boast />} />
-					<Route exact path="/ImgUpload" element={<ImgUpload/>} />
 					<Route
 						exact
 						path="/community/question"
