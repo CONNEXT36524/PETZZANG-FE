@@ -11,13 +11,14 @@ import Daily from "./pages/Community/Board/Daily";
 import Boast from "./pages/Community/Board/Boast";
 import Question from "./pages/Community/Board/Question";
 import Search from "./pages/Community/Board/Search";
+import ImgUpload from "./pages/Community/Board/ImgUpload";
 import Recommendation from "./pages/Community/Board/Recommendation";
 import KakaoLogin from "./pages/Login/KakaoLogin";
 import History from "./pages/Mypage/History";
 import Notification from "./pages/Mypage/Notification";
 import Awards from "./pages/Mypage/Awards";
 import Account from "./pages/Mypage/Account";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiUser } from "react-icons/fi";
 import logoImg from "./assets/logo192.png";
 
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
@@ -46,6 +47,10 @@ function App() {
 		if (e === "클릭") {
 			window.location.href = `/community/search?q=${searchText}`;
 		}
+	};
+
+	const loginBtn = (e) => {
+		window.location.href = KAKAO_AUTH_URL;
 	};
 
 	useEffect(() => {
@@ -96,45 +101,54 @@ function App() {
 						</NavDropdown.Item>
 					</NavDropdown>
 
-					<div className="user">
-						<input
-							className="searchBar"
-							type="text"
-							onChange={onChangeSearchText}
-							onKeyDown={(e) => search(e)}
-						/>
-						<button
-							className="searchBtn"
-							onClick={(e) => search("클릭")}
-						>
-							{" "}
-							<FiSearch />{" "}
-						</button>
-
-						
-						
-					<div>
-						{
-
-						islogin ? 
-						<div className="user">
-							<img className="user-logo" src={userImg}/>
-							<NavDropdown title="" id={`mypageDropdown`}>
-								<NavDropdown.Item href="/mypage/notification">
-									마이페이지
-								</NavDropdown.Item>
-								<NavDropdown.Item href="/logout">
-									로그아웃
-								</NavDropdown.Item>
-							</NavDropdown>
+					<div className="right">
+						<div className="searchBarDiv">
+							<input
+								className="searchBar"
+								type="text"
+								onChange={onChangeSearchText}
+								onKeyDown={(e) => search(e)}
+							/>
+							<button
+								className="searchBtn"
+								onClick={(e) => search("클릭")}
+							>
+								{" "} <FiSearch />{" "}
+								
+							</button>
 						</div>
-						:
-						<Nav.Link
-								className="user-logo"
-								href={KAKAO_AUTH_URL}
-							></Nav.Link>
-						}
-					</div>
+						
+						<div className="userDiv">
+							{
+							islogin ? 
+							<>
+								<div className="user1">
+									<img className="user-logo1" src={userImg}/>
+								</div>
+								<div className="user1Dropdown">
+									<NavDropdown title="" id={`mypageDropdown`}>
+										<NavDropdown.Item href="/mypage/notification">
+											마이페이지
+										</NavDropdown.Item>
+										<NavDropdown.Item href="/logout">
+											로그아웃
+										</NavDropdown.Item>
+									</NavDropdown>
+								</div>
+							</>
+							:
+								<button className="user2" onClick={(e) => loginBtn()} > 
+									<FiUser/> 
+								</button>
+									
+								
+								// <img className="user-logo" src="./assets/user_icon.png"/>
+								// <Nav.Link
+								// 	className="user-logo2"
+								// 	href={KAKAO_AUTH_URL}
+								// ></Nav.Link>
+							}
+						</div>
 					</div>
 				</Container>
 			</Navbar>
@@ -148,6 +162,7 @@ function App() {
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/boast" element={<Boast />} />
+					<Route exact path="/ImgUpload" element={<ImgUpload/>} />
 					<Route
 						exact
 						path="/community/question"
