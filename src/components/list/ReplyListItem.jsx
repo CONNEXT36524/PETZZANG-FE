@@ -4,6 +4,7 @@ import trashIcon from "../../assets/trash.png";
 import editIcon from "../../assets/pencil.png";
 import { Button, Container, Row, Col, Stack, Collapse } from "react-bootstrap";
 import { useState } from "react";
+import NReplyEditor from "../editor/NReplyEditor";
 
 function ReplyListItem({ reply }) {
 	//data <- postId
@@ -39,6 +40,7 @@ function ReplyListItem({ reply }) {
 							onClick={() => setOpen(!open)}
 							aria-controls="example-collapse-text"
 							aria-expanded={open}
+							variant="outline-primary"
 						>
 							대댓글 쓰기
 						</Button>
@@ -48,10 +50,7 @@ function ReplyListItem({ reply }) {
 					</Stack>
 					<Collapse in={open}>
 						<div id="example-collapse-text">
-							Anim pariatur cliche reprehenderit, enim eiusmod
-							high life accusamus terry richardson ad squid. Nihil
-							anim keffiyeh helvetica, craft beer labore wes
-							anderson cred nesciunt sapiente ea proident.
+							<NReplyEditor />
 						</div>
 					</Collapse>
 				</Container>
