@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import "./Posting.css";
 import "../../../components/form/select/PostingSelection.css";
@@ -8,9 +8,14 @@ import Editor from "../../../components/editor/QuillEditor";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
 import PostingService from "../../../service/PostingService";
+import UserService from "../../../service/UserService";
 
 function Posting(props) {
 	GlobalNavColor("community");
+
+	let userCode = window.sessionStorage.getItem("userCode");
+	console.log(userCode);
+
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		titleName: "",
@@ -57,8 +62,7 @@ function Posting(props) {
 	data.append("key", inputs);
 	//input 데이터 확인용 함수
 	function setContentsShow() {
-		console.log(formData.values());
-		//console.log(inputs.thumbnail);
+		console.log("testing");
 	}
 
 	//Modal
@@ -80,7 +84,7 @@ function Posting(props) {
 	formData.append("content", desc);
 	formData.append("views", 0);
 	formData.append("likeNum", 0);
-
+	formData.append("userCode", parseInt(userCode));
 	//axios로 input 데이터 보내기
 	async function onUpload() {
 		PostingService.createPosts(formData)

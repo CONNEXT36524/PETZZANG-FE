@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Posts.css";
 import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import postImg from "../../../assets/maltese1.png";
@@ -7,9 +7,11 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import PostService from "../../../service/PostService";
-import ReplyList from "../../../components/reply/ReplyList";
-import ReplyEditor from "../../../components/reply/ReplyEditor";
+import ReplyService from "../../../service/ReplyService";
+import ReplyList from "../../../components/list/ReplyList";
+import ReplyEditor from "../../../components/editor/ReplyEditor";
 import { useLocation } from "react-use";
+import parse from "html-react-parser";
 
 function Posts(props) {
 	GlobalNavColor("community");
@@ -52,16 +54,11 @@ function Posts(props) {
 
 	//Editor
 	const [desc, setDesc] = useState("");
-	function onEditorChange(value) {
-		setDesc(value);
-	}
-
-	//Modal
-	const [modalShow, setModalShow] = React.useState(false);
 
 	//MNB 정보
 	//const location = useLocation();
 
+	//게시글 정보 가져오기
 	useEffect(() => {
 		let completed = false;
 		async function get() {
@@ -69,6 +66,7 @@ function Posts(props) {
 				.then(function (response) {
 					// 성공 핸들링
 					postData = response.data;
+					//console.log(postData); //게시들 데이터 확인
 					setInputs({
 						...inputs, // 기존의 input 객체를 전개 구문으로 펼쳐서 복사한 뒤
 						titleName: postData["titleName"],
@@ -77,7 +75,7 @@ function Posts(props) {
 						kind: postData["kind"],
 						sex: postData["sex"],
 						thumbnail: postData["thumbnail"],
-						content: postData["content"],
+						content: parse(postData["content"]),
 						views: postData["views"],
 						likeNum: postData["likeNum"],
 						update_time: postData["update_time"],
@@ -99,6 +97,50 @@ function Posts(props) {
 		};
 	}, []);
 
+	//댓글 기능
+	const [replies, setReplies] = useState([]);
+
+	//게시글 정보 가져오기
+	useEffect(() => {
+		let completed = false;
+		async function get() {
+			await ReplyService.getReplies(postId)
+				.then(function (response) {
+					// 성공 핸들링
+					setReplies(response.data);
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					// 에러 핸들링
+					console.log(error);
+				})
+				.then(function () {
+					// 항상 실행되는 영역
+				});
+		}
+		get();
+		return () => {
+			completed = true;
+			console.log(completed);
+		};
+	}, []);
+
+	const nextId = useRef(0);
+
+	const handleSubmit = (text) => {
+		// setReplies([...replies, text]);
+		const todo = {
+			id: nextId.current,
+			text,
+			checked: false,
+		};
+		setReplies(replies.concat(todo));
+		nextId.current += 1;
+	};
+
+	const onRemove = (id) => {
+		setReplies(replies.filter((todo) => todo.id !== id));
+	};
 	return (
 		<div className="posts">
 			<CommunityBanner />
@@ -122,27 +164,35 @@ function Posts(props) {
 					<h6>소금엄마 | 2022.01.04 16:08:29</h6>
 				</div>
 				<br />
-				<div className="articleBody">
-					<img className="postImg" src={postImg}></img>
-					<p>
-						우리 아이 너무 인형처럼 생기지 않았나요?! <br />
-						이름은 소금이에요!
-					</p>
-				</div>
+				<div className="articleBody">{content}</div>
 			</Container>
-			<Container>
-				<Button variant="warning" className="likeBtn">
+			<Container className="likeDiv">
+				<Button variant="success" className="likeBtn">
 					👍 좋아요
 				</Button>
 			</Container>
 
 			<Container className="comments">
 				<h5>
-					❤️ {likeNum} 💭 {views}
+					❤️ {likeNum} 💭 {replies.length}
 				</h5>
-				<div>리플 공간</div>
-				<ReplyList />
-				<ReplyEditor />
+				<div className="replyListBox">
+					{replies.length === 0 ? (
+						<>
+							{/* <NoContent/> */}
+							컨텐츠 없음
+						</>
+					) : (
+						<>
+							<ReplyList replies={replies} onRemove={onRemove} />
+						</>
+					)}
+				</div>
+				<ReplyEditor
+					postId={postId}
+					boardType={boardType}
+					onSubmit={handleSubmit}
+				/>
 			</Container>
 		</div>
 	);
