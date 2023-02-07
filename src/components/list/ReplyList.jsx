@@ -1,16 +1,16 @@
 import ReplyListItem from "./ReplyListItem";
 import { Container } from "react-bootstrap";
 
-function ReplyList(replies) {
-	console.log(replies.replies);
+function ReplyList(props) {
+	console.log(props.replies);
 	return (
 		<div className="ReplyListBox">
-			{replies.replies.map((item, idx) => (
+			{props.replies.map((item, idx) => (
 				<div key={idx}>
 					<ReplyListItem
 						reply={item}
 						key={idx}
-						onRemove={replies.onRemove}
+						onRemove={props.onRemove}
 					/>
 				</div>
 			))}

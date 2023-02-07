@@ -188,7 +188,11 @@ function Posts(props) {
 						</>
 					)}
 				</div>
-				<ReplyEditor onSubmit={handleSubmit} />
+				<ReplyEditor
+					postId={postId}
+					boardType={boardType}
+					onSubmit={handleSubmit}
+				/>
 			</Container>
 		</div>
 	);
