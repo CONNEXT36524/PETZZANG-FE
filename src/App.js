@@ -20,7 +20,7 @@ import Awards from "./pages/Mypage/Awards";
 import Account from "./pages/Mypage/Account";
 import { FiSearch, FiUser } from "react-icons/fi";
 import logoImg from "./assets/logo192.png";
-
+import Footer from "./components/footer/Footer";
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
 function App() {
@@ -54,14 +54,12 @@ function App() {
 	};
 
 	useEffect(() => {
-		if (sessionStorage.getItem('userName'))
-		setlogin(true);
-		else 
-		setlogin(false);
-	},[])
+		if (sessionStorage.getItem("userName")) setlogin(true);
+		else setlogin(false);
+	}, []);
 	const userImg = window.sessionStorage.getItem("userImg");
-	console.log(islogin)
-	console.log(userImg)
+	console.log(islogin);
+	console.log(userImg);
 	return (
 		<Router>
 			<Navbar collapseOnSelect fixed="top" className="menu" id={pagetype}>
@@ -126,6 +124,7 @@ function App() {
 									<img className="user-logo1" src={userImg}/>
 								</div>
 								<div className="user1Dropdown">
+
 									<NavDropdown title="" id={`mypageDropdown`}>
 										<NavDropdown.Item href="/mypage/notification">
 											마이페이지
@@ -200,6 +199,7 @@ function App() {
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
 				</Routes>
 			</main>
+			<Footer />
 		</Router>
 	);
 }
