@@ -100,7 +100,7 @@ function Posts(props) {
 	//댓글 기능
 	const [replies, setReplies] = useState([]);
 
-	//게시글 정보 가져오기
+	//댓글 정보 가져오기
 	useEffect(() => {
 		let completed = false;
 		async function get() {
@@ -179,12 +179,16 @@ function Posts(props) {
 				<div className="replyListBox">
 					{replies.length === 0 ? (
 						<>
-							{/* <NoContent/> */}
-							컨텐츠 없음
+							{/* <NoContent/> */}이 글의 댓글 첫 주인공이
+							되어보세요 !
 						</>
 					) : (
 						<>
-							<ReplyList replies={replies} onRemove={onRemove} />
+							<ReplyList
+								postId={postId}
+								replies={replies}
+								onRemove={onRemove}
+							/>
 						</>
 					)}
 				</div>

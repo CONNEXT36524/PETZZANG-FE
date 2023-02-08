@@ -13,9 +13,10 @@ class ReplyService {
 	}
 
 	//대댓글 불러오기
-	getNreplies(bundleId) {
+	getNReplies(postId, bundleId) {
 		return axios.get(COMMUNITY_API_BASE_URL + "/get-nreplies", {
 			params: {
+				postId: postId,
 				bundleId: bundleId,
 			},
 		});
