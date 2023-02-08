@@ -6,6 +6,7 @@ import { Button } from "react-bootstrap";
 import ReplyService from "../../service/ReplyService";
 
 function ReplyEditor(props) {
+	const userCode = window.sessionStorage.getItem("userCode");
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		content: "",
@@ -32,6 +33,9 @@ function ReplyEditor(props) {
 	formData.append("bundleOrder", bundleOrder);
 	formData.append("postId", props.postId);
 	formData.append("boardType", props.boardType);
+	formData.append("userCode", parseInt(userCode));
+
+	console.log(parseInt(userCode));
 	//axios로 input 데이터 보내기
 	async function onUpload() {
 		ReplyService.createReplies(formData)
