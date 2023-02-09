@@ -4,8 +4,7 @@ import { useDispatch} from "react-redux/";
 import { changepagetype } from "../../Slice/Navslice";
 import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
+import MiddleNav from "../../components/navbar/MNB/MiddleNav";
 import MypageBanner from "../../components/banner/MypageBanner";
 import Sidebar from "../../components/mypage/Sidebar";
 import styled from "styled-components";
@@ -47,21 +46,7 @@ const Awards=()=>{
     return(
         <>
             <MypageBanner/>
-            <Navbar bg="light"  >
-            <Container id="mypage_container">
-                <Navbar.Brand href="/" id="mypage_address">
-                    HOME
-                </Navbar.Brand>
-                {">"}
-                <Navbar.Brand href="/Ranking" id="ranking_address">
-                    마이페이지
-                </Navbar.Brand>
-                {">"}
-                <Navbar.Brand href="/Ranking" id="ranking_address">
-                    알림
-                </Navbar.Brand>
-             </Container>
-            </Navbar>
+            <MiddleNav contents="HOME>마이페이지>펫짱 수상기록" />
             <Center>
                 <Sidebar/>
                 <Content>

@@ -79,7 +79,7 @@ function MiddleNav(props) {
 						<Nav.Link href="">{">"}</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
-						<Nav.Link eventKey={""} disabled={"true"}>
+						<Nav.Link href="" eventKey={""}>
 							{contents[1]}
 						</Nav.Link>
 					</Nav.Item>

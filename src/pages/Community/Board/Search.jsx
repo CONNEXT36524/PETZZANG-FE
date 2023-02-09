@@ -86,7 +86,7 @@ function Search() {
 
                 {searchList.map((item, index) => (
                     <>
-                        <SearchSectionDiv props={item.boardType} key={index}/>
+                        <SearchSectionDiv boardName={item.boardType} key={index}/>
                         {
                             item.boardType === 'daily' || item.boardType === 'boast'
                             ? (<SearchDailyCard data={item} />)
