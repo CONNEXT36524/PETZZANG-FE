@@ -1,6 +1,4 @@
 import ReplyListItem from "./ReplyListItem";
-import NReplyListItem from "./NReplyListItem";
-import { Container } from "react-bootstrap";
 
 function ReplyList(props) {
 	return (

@@ -10,13 +10,12 @@ function NReplyEditor(props) {
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		content: "",
-		bundleId: props.bundleId,
 		bundleOrder: 0,
 		isDeleted: false,
 	});
 
 	// 비구조화 할당을 통해 값 추출
-	const { content, bundleId, bundleOrder, isDeleted } = inputs;
+	const { content, bundleOrder, isDeleted } = inputs;
 
 	const onChange = (e) => {
 		const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
@@ -30,7 +29,7 @@ function NReplyEditor(props) {
 
 	//formData에 데이터 담기
 	formData.append("content", content);
-	formData.append("bundleId", bundleId);
+	formData.append("bundleId", props.bundleId);
 	formData.append("bundleOrder", bundleOrder);
 	formData.append("postId", props.postId);
 	formData.append("boardType", props.boardType);

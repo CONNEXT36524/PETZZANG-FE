@@ -7,15 +7,16 @@ import NReplyList from "./NReplyList";
 function ReplyListItem({ reply }) {
 	//대댓글 기능
 	const [nReplies, setNReplies] = useState([]);
-
+	console.log(reply);
 	//대댓글 정보 가져오기
 	useEffect(() => {
 		let completed = false;
 		async function get() {
-			await NReplyService.getReplies(reply.postId)
+			await NReplyService.getNReplies(reply.postId, reply.bundleId)
 				.then(function (response) {
 					// 성공 핸들링
 					setNReplies(response.data);
+					console.log(response.data);
 				})
 				.catch(function (error) {
 					// 에러 핸들링
@@ -87,8 +88,7 @@ function ReplyListItem({ reply }) {
 							</div>
 						</Collapse>
 					</div>
-					{nReplies.length === 0 ||
-					nReplies[0].bundleId !== reply.bundleId ? null : (
+					{nReplies.length === 0 ? null : (
 						<>
 							<NReplyList
 								nReplies={nReplies}
