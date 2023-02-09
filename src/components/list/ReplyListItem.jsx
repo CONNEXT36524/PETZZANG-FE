@@ -1,7 +1,4 @@
 import "./ReplyList.css";
-import profileIcon from "../../assets/user.png";
-import trashIcon from "../../assets/trash.png";
-import editIcon from "../../assets/pencil.png";
 import { Button, Container, Row, Col, Stack, Collapse } from "react-bootstrap";
 import NReplyEditor from "../editor/NReplyEditor";
 import { useState, useEffect } from "react";
@@ -15,11 +12,10 @@ function ReplyListItem({ reply }) {
 	useEffect(() => {
 		let completed = false;
 		async function get() {
-			await NReplyService.getNReplies(reply.postId, reply.bundleId)
+			await NReplyService.getReplies(reply.postId)
 				.then(function (response) {
 					// 성공 핸들링
 					setNReplies(response.data);
-					console.log(response.data);
 				})
 				.catch(function (error) {
 					// 에러 핸들링
@@ -91,9 +87,13 @@ function ReplyListItem({ reply }) {
 							</div>
 						</Collapse>
 					</div>
-					{nReplies.length === 0 ? null : (
+					{nReplies.length === 0 ||
+					nReplies[0].bundleId !== reply.bundleId ? null : (
 						<>
-							<NReplyList nReplies={nReplies} />
+							<NReplyList
+								nReplies={nReplies}
+								replyId={reply.bundleId}
+							/>
 						</>
 					)}
 				</Container>

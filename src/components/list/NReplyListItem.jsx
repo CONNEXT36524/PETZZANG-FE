@@ -1,7 +1,4 @@
 import "./NReplyList.css";
-import profileIcon from "../../assets/user.png";
-import trashIcon from "../../assets/trash.png";
-import editIcon from "../../assets/pencil.png";
 import { Button, Container, Collapse } from "react-bootstrap";
 import { useState } from "react";
 import NReplyEditor from "../editor/NReplyEditor";
@@ -17,7 +14,7 @@ function NReplyListItem({ nReply }) {
 
 	return (
 		<>
-			{nReply === undefined || nReply.bundleOrder === 0 ? null : (
+			{nReply === undefined ? null : (
 				<Container
 					className="nReply-item"
 					onClick={() => onRemove(nReply.postId)}
