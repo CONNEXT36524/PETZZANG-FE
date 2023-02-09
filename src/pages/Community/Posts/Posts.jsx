@@ -7,8 +7,6 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import PostService from "../../../service/PostService";
-import ReplyList from "../../../components/reply/ReplyList";
-import ReplyEditor from "../../../components/reply/ReplyEditor";
 import { useLocation } from "react-use";
 
 function Posts(props) {
@@ -141,8 +139,7 @@ function Posts(props) {
 					❤️ {likeNum} 💭 {views}
 				</h5>
 				<div>리플 공간</div>
-				<ReplyList />
-				<ReplyEditor />
+		
 			</Container>
 		</div>
 	);
