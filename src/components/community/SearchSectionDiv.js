@@ -1,14 +1,14 @@
 import './Search.css';
 
-function SearchSectionDiv(props) {  
-    let boardName = ''
-    if(props.props === "daily") {
+const SearchSectionDiv = ({boardName}) => {  
+    // let boardName = ''
+    if(boardName === "daily") {
         boardName = '일상'
-    } else if(props.props === "boast") {
+    } else if(boardName === "boast") {
         boardName = '자랑'
-    } else if(props.props === "question") {
+    } else if(boardName === "question") {
         boardName = '질문'
-    } else if(props.props === "recommendation") {
+    } else if(boardName === "recommendation") {
         boardName = '제품 추천'
     }
     

@@ -1,5 +1,5 @@
 import SearchSectionDiv from "../components/community/SearchSectionDiv";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 // 기본 예제 버튼
 // describe("Button 컴포넌트 (@testing-library/react)", () => {
@@ -15,6 +15,10 @@ describe('props 전달 테스트', () => {
     
     const renderState = render(<SearchSectionDiv props={{data:'daily'}}/>);
     expect(renderState).not.toBe(null);
+
+    // 특정 텍스트가 작성되는지
+    const element = screen.getByText('게시판');
+    expect(element).toBeInTheDocument();
      
   });
     // render(<SearchSectionDiv props={{data:'daily'}}/>);

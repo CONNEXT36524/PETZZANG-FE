@@ -193,6 +193,8 @@ function Posts(props) {
 					boardType={boardType}
 					onSubmit={handleSubmit}
 				/>
+				<div>리플 공간</div>
+		
 			</Container>
 		</div>
 	);

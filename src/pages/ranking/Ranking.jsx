@@ -18,31 +18,27 @@ const Ranking=()=>{
     return(
         <>
             <RankingBanner/>
-
             <Navbar bg="light"  >
-            <Container id="ranking_container">
-                <Navbar.Brand href="/" id="ranking_address">
-                    HOME
-                </Navbar.Brand>
-                {">"}
-                <Navbar.Brand href="/Ranking" id="ranking_address">
-                    랭킹
-                </Navbar.Brand>
-                {">"}
-                <Navbar.Brand href="/Ranking" id="ranking_address">
-                    주간랭킹
-                </Navbar.Brand>
-            
-            </Container>
-                <div>
+                <Container id="ranking_container">
+                    <Navbar.Brand href="/" id="ranking_address">
+                        HOME
+                    </Navbar.Brand>
+                    {">"}
+                    <Navbar.Brand href="/Ranking" id="ranking_address">
+                        랭킹
+                    </Navbar.Brand>
+                    {">"}
+                    <Navbar.Brand href="/Ranking" id="ranking_address">
+                        주간랭킹
+                    </Navbar.Brand>
+                </Container>
+                <h3 className="bestAnimal">
                     이주의 반려동물
-                </div>
+                </h3>
             </Navbar>
 
             <div className="ranking_section">
-                
                 <Mainranking/>
-
             </div>
         </>
     );
