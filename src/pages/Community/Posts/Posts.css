@@ -61,7 +61,14 @@
 	justify-content: center;
 	margin-top: 50px;
 }
-
+.noContents {
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: larger;
+	font-weight: 600;
+}
 .replyListBox {
 	border-radius: 5px;
 	padding: 20px;

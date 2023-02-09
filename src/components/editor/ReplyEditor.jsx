@@ -6,15 +6,17 @@ import { Button } from "react-bootstrap";
 import ReplyService from "../../service/ReplyService";
 
 function ReplyEditor(props) {
+	const userCode = window.sessionStorage.getItem("userCode");
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		content: "",
-		bundleId: 0,
+		bundleId: 1,
 		bundleOrder: 0,
+		isDeleted: false,
 	});
 
 	// 비구조화 할당을 통해 값 추출
-	const { content, bundleId, bundleOrder } = inputs;
+	const { content, bundleId, bundleOrder, isDeleted } = inputs;
 
 	const onChange = (e) => {
 		const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
@@ -32,6 +34,9 @@ function ReplyEditor(props) {
 	formData.append("bundleOrder", bundleOrder);
 	formData.append("postId", props.postId);
 	formData.append("boardType", props.boardType);
+	formData.append("isDeleted", isDeleted);
+	formData.append("userCode", parseInt(userCode));
+
 	//axios로 input 데이터 보내기
 	async function onUpload() {
 		ReplyService.createReplies(formData)

@@ -100,7 +100,7 @@ function Posts(props) {
 	//댓글 기능
 	const [replies, setReplies] = useState([]);
 
-	//게시글 정보 가져오기
+	//댓글 정보 가져오기
 	useEffect(() => {
 		let completed = false;
 		async function get() {
@@ -127,16 +127,9 @@ function Posts(props) {
 
 	const nextId = useRef(0);
 
-	const handleSubmit = (text) => {
-		// setReplies([...replies, text]);
-		const todo = {
-			id: nextId.current,
-			text,
-			checked: false,
-		};
-		setReplies(replies.concat(todo));
-		nextId.current += 1;
-	};
+	function handleSubmit() {
+		console.log("hello");
+	}
 
 	const onRemove = (id) => {
 		setReplies(replies.filter((todo) => todo.id !== id));
@@ -148,6 +141,10 @@ function Posts(props) {
 			<MiddleNav contents={"HOME>커뮤니티>일상"} />
 
 			<Container className="articles">
+				<p>
+					{pet} {">"} {kind} {">"} {sex}
+				</p>
+
 				<br />
 
 				<div className="articleHeaderTop">
@@ -178,13 +175,16 @@ function Posts(props) {
 				</h5>
 				<div className="replyListBox">
 					{replies.length === 0 ? (
-						<>
-							{/* <NoContent/> */}
-							컨텐츠 없음
-						</>
+						<div className="noContents">
+							이 글의 첫 댓글 주인공이 되어보세요 !
+						</div>
 					) : (
 						<>
-							<ReplyList replies={replies} onRemove={onRemove} />
+							<ReplyList
+								postId={postId}
+								replies={replies}
+								onRemove={onRemove}
+							/>
 						</>
 					)}
 				</div>
