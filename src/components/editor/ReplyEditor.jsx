@@ -12,7 +12,7 @@ function ReplyEditor(props) {
 		content: "",
 		bundleId: 1,
 		bundleOrder: 0,
-		isDeleted: true,
+		isDeleted: false,
 	});
 
 	// 비구조화 할당을 통해 값 추출
