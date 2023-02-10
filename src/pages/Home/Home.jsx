@@ -5,6 +5,7 @@ import { changepagetype } from "../../Slice/Navslice";
 import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import home_cat from "../../assets/home_cat.png"
+import HomeRankImg from "../../components/ranking/homeRankImg"
 
 const Home=()=>{
     const dispatch = useDispatch();
@@ -25,35 +26,37 @@ const Home=()=>{
         </div> 
     {/* ###################################################### */}
         <div className="second_section">
-            <div className="second_textsection">
-                <p className="homeranking_font">
-                    펫짱 랭킹
-                </p>
-            </div>
-            <div className="second_textsection">
+            
+            <br/><br/>
+            <h2>
+                PETZZANG RANKING (펫짱 랭킹)
+            </h2><br/>
+            <div className="HomeRankImgDiv">
+                <HomeRankImg/>
+            </div> <br/><br/><br/><br/><br/>
             <Link to="/Ranking">
-                <Button variant="warning">
+                <Button variant="warning" size='lg'>
                     랭킹 더보기
                 </Button>
             </Link>
-            </div>
         </div>
     {/* ###################################################### */}
         <div className="third_section">
             <div className="third_write">
-                <p className="homeranking_font">
-                    일상 자랑 질문 등으로 <br></br>커뮤니티 공간을 채워보세요!
-                    </p>
-                    <p className="third_detailwrite">
+                <p className="third_section_text">
+                    일상, 자랑, 질문 등으로 <br></br>
+                    커뮤니티 공간을 채워보세요!
+                </p>
+                <p className="third_detailwrite">
                     사랑스러운 반려동물을 자랑할 수 있는 공간, <br></br>
                     반려동물을 키우며 궁금했던 점을 질문하는 공간, <br></br>
                     펫짱 커뮤니티에서 활동해보세요
-                    </p>
-                    <Link to="/Community/daily">
-                     <Button variant="danger" size="lg">
+                </p>
+                <Link to="/Community/daily">
+                    <Button variant="danger" size="lg">
                     게시판 둘러보기
                     </Button>
-                    </Link>
+                </Link>
             </div>
             <div className="third_circle">
                 <div className="third_image">

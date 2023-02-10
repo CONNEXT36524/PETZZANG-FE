@@ -124,7 +124,7 @@ function Recommendation() {
 											? <td> 공지 </td>
 											: <td> {data.rNum + 1} </td>
 										}
-										<td> {" "} <img src="../../img/dog1.png" className="recommendationImg" alt="이미지"/>{" "} </td>
+										<td> {" "} <img src={data.thumbnail} className="recommendationImg" alt="이미지"/>{" "} </td>
 										<td> {data.rTitle} </td>
 										<td> {data.rWriter} </td>
 										<td> {data.rDate} </td>
