@@ -202,7 +202,7 @@ function Posts(props) {
 		<div className="posts-page">
 			<CommunityBanner />
 
-			<MiddleNav contents={"HOME>커뮤니티>일상"} />
+			<MiddleNav contents={"HOME>커뮤니티>일상"} boardType={boardType} />
 
 			<Container className="posts">
 				<div className="articles">
