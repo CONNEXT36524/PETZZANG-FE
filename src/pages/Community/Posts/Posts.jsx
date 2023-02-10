@@ -150,6 +150,54 @@ function Posts(props) {
 				// 항상 실행
 			});
 	}
+
+	useEffect(() => {
+		let completed = false;
+		async function get() {
+			await ReplyService.getReplies(postId)
+				.then(function (response) {
+					// 성공 핸들링
+					setReplies(response.data);
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					// 에러 핸들링
+					console.log(error);
+				})
+				.then(function () {
+					// 항상 실행되는 영역
+				});
+		}
+		get();
+		return () => {
+			completed = true;
+			console.log(completed);
+		};
+	}, []);
+
+	//	조회수 올리기
+	useEffect(() => {
+		let completed = false;
+		async function get() {
+			await PostService.updateView(postId)
+				.then(function (response) {
+					// 성공 핸들링
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					// 에러 핸들링
+					console.log(error);
+				})
+				.then(function () {
+					// 항상 실행되는 영역
+				});
+		}
+		get();
+		return () => {
+			completed = true;
+			console.log(completed);
+		};
+	}, []);
 	return (
 		<div className="posts-page">
 			<CommunityBanner />
@@ -175,7 +223,9 @@ function Posts(props) {
 					</div>
 					<hr size="0" />
 					<div className="articleHeaderBottom">
-						<h6>소금엄마 | 2022.01.04 16:08:29</h6>
+						<h6>
+							{userCode} | {update_time}
+						</h6>
 					</div>
 					<br />
 					<div className="articleBody">{content}</div>

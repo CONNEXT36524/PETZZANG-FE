@@ -22,6 +22,17 @@ class PostService {
 			},
 		});
 	}
+
+	updateView(postId) {
+		return axios.post(COMMUNITY_API_BASE_URL + "/view", postId, {
+			headers: {
+				//"X-AUTH-TOKEN": token,
+			},
+			params: {
+				postId: postId,
+			},
+		});
+	}
 }
 
 export default new PostService();
