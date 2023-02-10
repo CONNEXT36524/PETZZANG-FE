@@ -12,6 +12,15 @@ class PostService {
 		});
 	}
 
+	//글 삭제
+	deletePosts(postId) {
+		return axios.delete(COMMUNITY_API_BASE_URL + "/posts", {
+			params: {
+				postId: postId,
+			},
+		});
+	}
+
 	updateLikeNum(postId) {
 		return axios.post(COMMUNITY_API_BASE_URL + "/likeNum", postId, {
 			headers: {

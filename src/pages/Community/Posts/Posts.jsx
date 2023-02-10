@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Posts.css";
 import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import postImg from "../../../assets/maltese1.png";
+import { Modal } from "react-bootstrap";
 import { Badge } from "react-bootstrap";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import Button from "react-bootstrap/Button";
@@ -13,6 +14,7 @@ import ReplyList from "../../../components/list/ReplyList";
 import ReplyEditor from "../../../components/editor/ReplyEditor";
 import { useLocation } from "react-use";
 import parse from "html-react-parser";
+import { useNavigate } from "react-router-dom";
 
 function Posts(props) {
 	GlobalNavColor("community");
@@ -132,10 +134,29 @@ function Posts(props) {
 		console.log("hello");
 	}
 
-	const onRemove = (id) => {
-		setReplies(replies.filter((todo) => todo.id !== id));
-	};
+	const [show, setShow] = useState(false);
+	const navigate = useNavigate();
 
+	const handleClose = () => {
+		setShow(false);
+		navigate(`/community/daily`);
+	};
+	const handleShow = () => setShow(true);
+
+	async function onRemove() {
+		setShow(true);
+		await PostService.deletePosts(postId)
+			.then(function (response) {
+				console.log(response.data);
+				// response
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+			})
+			.then(function () {
+				// 항상 실행
+			});
+	}
 	//axios로 input 데이터 보내기
 	async function onUpload() {
 		PostService.updateLikeNum(postId)
@@ -249,11 +270,7 @@ function Posts(props) {
 							</div>
 						) : (
 							<>
-								<ReplyList
-									postId={postId}
-									replies={replies}
-									onRemove={onRemove}
-								/>
+								<ReplyList postId={postId} replies={replies} />
 							</>
 						)}
 					</div>
@@ -263,6 +280,20 @@ function Posts(props) {
 						onSubmit={handleSubmit}
 					/>
 				</div>
+			</Container>
+			<Container className="article-footer">
+				<Button className="ms-auto" onClick={onRemove}>
+					<b>글 삭제</b>
+				</Button>
+
+				<Modal show={show} onHide={handleClose}>
+					<Modal.Body>글이 삭제 되었습니다.</Modal.Body>
+					<Modal.Footer>
+						<Button variant="secondary" onClick={handleClose}>
+							Close
+						</Button>
+					</Modal.Footer>
+				</Modal>
 			</Container>
 		</div>
 	);
