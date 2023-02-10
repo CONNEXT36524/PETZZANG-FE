@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Posts.css";
 import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import postImg from "../../../assets/maltese1.png";
+import { Badge } from "react-bootstrap";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -134,67 +135,84 @@ function Posts(props) {
 	const onRemove = (id) => {
 		setReplies(replies.filter((todo) => todo.id !== id));
 	};
+
+	//axios로 input 데이터 보내기
+	async function onUpload() {
+		PostService.updateLikeNum(postId)
+			.then(function (response) {
+				console.log(response.data);
+				// response
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+			})
+			.then(function () {
+				// 항상 실행
+			});
+	}
 	return (
-		<div className="posts">
+		<div className="posts-page">
 			<CommunityBanner />
 
 			<MiddleNav contents={"HOME>커뮤니티>일상"} />
 
-			<Container className="articles">
-				<p>
-					{pet} {">"} {kind} {">"} {sex}
-				</p>
+			<Container className="posts">
+				<div className="articles">
+					<h5>
+						{pet} {">"} {kind} {">"} {sex}
+					</h5>
 
-				<br />
+					<br />
 
-				<div className="articleHeaderTop">
-					<div className="aht-section1"></div>
-					<div className="aht-section2">
-						<h1 className="aht-title">{titleName}</h1>
-					</div>
-					<div className="aht-section3">
-						<h6 className="aht-viewNum">조회수 {views}</h6>
-					</div>
-				</div>
-				<hr size="0" />
-				<div className="articleHeaderBottom">
-					<h6>소금엄마 | 2022.01.04 16:08:29</h6>
-				</div>
-				<br />
-				<div className="articleBody">{content}</div>
-			</Container>
-			<Container className="likeDiv">
-				<Button variant="success" className="likeBtn">
-					👍 좋아요
-				</Button>
-			</Container>
-
-			<Container className="comments">
-				<h5>
-					❤️ {likeNum} 💭 {replies.length}
-				</h5>
-				<div className="replyListBox">
-					{replies.length === 0 ? (
-						<div className="noContents">
-							이 글의 첫 댓글 주인공이 되어보세요 !
+					<div className="articleHeaderTop">
+						<div className="aht-section1"></div>
+						<div className="aht-section2">
+							<h1 className="aht-title">{titleName}</h1>
 						</div>
-					) : (
-						<>
-							<ReplyList
-								postId={postId}
-								replies={replies}
-								onRemove={onRemove}
-							/>
-						</>
-					)}
+						<div className="aht-section3">
+							<h6 className="aht-viewNum">조회수 {views}</h6>
+						</div>
+					</div>
+					<hr size="0" />
+					<div className="articleHeaderBottom">
+						<h6>소금엄마 | 2022.01.04 16:08:29</h6>
+					</div>
+					<br />
+					<div className="articleBody">{content}</div>
 				</div>
-				<ReplyEditor
-					postId={postId}
-					boardType={boardType}
-					onSubmit={handleSubmit}
-				/>
-				<div>리플 공간</div>
-		
+				<Button
+					variant="outline-primary"
+					size="lg"
+					className="ms-auto"
+					onClick={onUpload}
+				>
+					좋아요 버튼 <Badge bg="secondary">💛 {likeNum}</Badge>
+				</Button>
+				<div className="comments">
+					<h5>
+						❤️ 좋아요 {likeNum} 💭 댓글 {replies.length}
+					</h5>
+					<div className="replyListBox">
+						{replies.length === 0 ? (
+							<div className="noContents">
+								이 글의 첫 댓글 주인공이 되어보세요 !
+							</div>
+						) : (
+							<>
+								<ReplyList
+									postId={postId}
+									replies={replies}
+									onRemove={onRemove}
+								/>
+							</>
+						)}
+					</div>
+					<ReplyEditor
+						postId={postId}
+						boardType={boardType}
+						onSubmit={handleSubmit}
+					/>
+				</div>
 			</Container>
 		</div>
 	);

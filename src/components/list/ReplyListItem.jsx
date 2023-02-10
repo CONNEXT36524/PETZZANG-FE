@@ -4,10 +4,10 @@ import NReplyEditor from "../editor/NReplyEditor";
 import { useState, useEffect } from "react";
 import NReplyService from "../../service/ReplyService";
 import NReplyList from "./NReplyList";
+
 function ReplyListItem({ reply }) {
 	//대댓글 기능
 	const [nReplies, setNReplies] = useState([]);
-	console.log(reply);
 	//대댓글 정보 가져오기
 	useEffect(() => {
 		let completed = false;
@@ -16,7 +16,6 @@ function ReplyListItem({ reply }) {
 				.then(function (response) {
 					// 성공 핸들링
 					setNReplies(response.data);
-					console.log(response.data);
 				})
 				.catch(function (error) {
 					// 에러 핸들링

@@ -11,6 +11,17 @@ class PostService {
 			},
 		});
 	}
+
+	updateLikeNum(postId) {
+		return axios.post(COMMUNITY_API_BASE_URL + "/likeNum", postId, {
+			headers: {
+				//"X-AUTH-TOKEN": token,
+			},
+			params: {
+				postId: postId,
+			},
+		});
+	}
 }
 
 export default new PostService();

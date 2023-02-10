@@ -3,7 +3,7 @@
 	padding: 20px;
 	background-color: white;
 	margin-bottom: 50px;
-	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+	border: 0.1rem solid #dddddd;
 	display: flex;
 	flex-direction: column;
 }
