@@ -1,0 +1,10 @@
+FROM node:18.8.0 as builder
+
+WORKDIR "/usr/src/app"
+COPY package.json ./
+RUN npm install
+COPY ./ ./
+
+# 80포트 오픈하고 nginx 실행
+EXPOSE 80
+CMD ["npm", "run", "build"]

@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const USER_API_BASE_URL = "http://localhost:8080/api";
+const COMMUNITY_API_BASE_URL = '/api/community';
 
 class UserService {
 	getProfile(token) {
 		return axios.get(
-			USER_API_BASE_URL + "/me", //수정 필요
+			COMMUNITY_API_BASE_URL+"/me", //수정 필요
 			{
 				headers: {
 					Authorization: token,
@@ -16,7 +16,7 @@ class UserService {
 
 	updateProfile(token, data) {
 		console.log(token)
-		return axios.post(USER_API_BASE_URL + "/profile", data, {
+		return axios.post(COMMUNITY_API_BASE_URL+"/profile", data, {
 			headers: {
 				Authorization: token,
 			},
