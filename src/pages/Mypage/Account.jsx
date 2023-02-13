@@ -53,7 +53,7 @@ const Account=()=>{
     },[dispatch])
 
 
-	const [modalShow, setModalShow] = useState(false);
+   const [modalShow, setModalShow] = useState(false);
     const [userImg, setUserImg] = useState(myImage)
     const [uploadImg, setUploadImg] = useState(null)
     const profileInputRef = useRef();
@@ -75,15 +75,19 @@ const Account=()=>{
                 const file = profileInputRef.current.files[0];
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
-                console.log(userImg)
+             
                 const formdata = new FormData();
-                formdata.append('uploadImg', uploadImg)
+                const formdata1 = new FormData();
+                formdata.append('img', profileInputRef.current.files[0])
+                formdata1.append('img', userImg)
+                
+                console.log(formdata)
 
                 const res = await axios(
                     {
-                        method: 'put',
+                        method: 'post',
                         url: '/api/profile',
-                        data: userImg,
+                        data: formdata,
                         headers: {
                             Authorization: token,
                         },
@@ -110,7 +114,10 @@ const Account=()=>{
         reader.readAsDataURL(file);
         reader.onloadend = () => {
         setUserImg(reader.result);
+
         setUploadImg(profileInputRef.current.files[0])
+        console.log(reader.result)
+        console.log(profileInputRef.current.files[0])
     }
     }
 
@@ -157,7 +164,7 @@ const Account=()=>{
                     <div className = "circle" 
                     onClick={()=>{profileInputRef.current.click()}}>
                     <img className="profile" src={userImg ? userImg : {myImage}}/>
-                    <input style={{ display: "none" }} type="file" accept="image/*" className="profileInput" ref={profileInputRef} onChange={uploadImageChange} />
+                    <input name="test" style={{ display: "none" }} type="file" accept="image/*" className="profileInput" ref={profileInputRef} onChange={uploadImageChange} />
                     </div>
                     <div className="modify">
                         <div>프로필 사진 변경</div>
