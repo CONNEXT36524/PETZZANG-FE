@@ -34,3 +34,7 @@
 .section:hover {
     cursor: initial;
 }
+.sectionBoardName {
+    margin-top: 2px;
+    font-family: "yg-jalnan";
+}

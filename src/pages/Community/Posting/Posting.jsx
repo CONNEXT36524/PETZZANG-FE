@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import "./Posting.css";
 import "../../../components/form/select/PostingSelection.css";
 import { Form, Button, Container } from "react-bootstrap";
@@ -7,8 +8,14 @@ import Editor from "../../../components/editor/QuillEditor";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
 import PostingService from "../../../service/PostingService";
+import UserService from "../../../service/UserService";
 
 function Posting(props) {
+	GlobalNavColor("community");
+
+	let userCode = window.sessionStorage.getItem("userCode");
+	console.log(userCode);
+
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		titleName: "",
@@ -55,20 +62,32 @@ function Posting(props) {
 	data.append("key", inputs);
 	//input 데이터 확인용 함수
 	function setContentsShow() {
-		console.log(desc);
-		//console.log(inputs.thumbnail);
+		console.log("testing");
 	}
 
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
 
 	//Posting Upload State
-	const [uploadedState, setUploadedState] =
+	const [uploadedstate, setUploadedState] =
 		useState("업로드를 하시겠습니까?");
 
+	const formData = new FormData();
+
+	//formData에 데이터 담기
+	formData.append("titleName", titleName);
+	formData.append("boardType", boardType);
+	formData.append("pet", pet);
+	formData.append("kind", kind);
+	formData.append("sex", sex);
+	//formData.append("thumbnail", imgFile);
+	formData.append("content", desc);
+	formData.append("views", 0);
+	formData.append("likeNum", 0);
+	formData.append("userCode", parseInt(userCode));
 	//axios로 input 데이터 보내기
 	async function onUpload() {
-		PostingService.createPosts(inputs)
+		PostingService.createPosts(formData)
 			.then(function (response) {
 				console.log(response.data);
 				// response
@@ -87,7 +106,7 @@ function Posting(props) {
 	}
 	//Posting Type Options
 	const BoardOptions = [
-		{ key: "daily", value: "🖼 일상 게시판" },
+		{ key: "daily", value: "🖼️ 일상 게시판" },
 		{ key: "boast", value: "👏 자랑 게시판 " },
 		{ key: "question", value: "🙋 질문 게시판" },
 		{ key: "recommendation", value: "🎁 제품 추천 게시판" },
@@ -154,12 +173,11 @@ function Posting(props) {
 	//const location = useLocation();
 
 	return (
-		<div>
+		<>
 			<PostingBanner />
-
 			<MiddleNav contents={"HOME>커뮤니티>게시글 작성"} />
-
-			<Container className="posting">
+			<div className="posting">
+			<Container >
 				<br />
 				<div className="containerHeader">
 					<Form.Group className="mb-3">
@@ -298,11 +316,13 @@ function Posting(props) {
 						//업로드 함수 구현하기
 						onUpload={() => onUpload()}
 						//setModalShow를 axios 관련 쪽으로 넘기기
-						uploadedState={uploadedState}
+						uploadedstate={uploadedstate}
 					/>
-				</div>
+				</div><br/>
 			</Container>
-		</div>
+			</div>
+		<br/><br/><br/>
+		</>
 	);
 }
 

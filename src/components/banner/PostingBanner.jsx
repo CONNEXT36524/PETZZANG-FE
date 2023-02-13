@@ -12,7 +12,6 @@ function postingBanner(props) {
 						펫짱 커뮤니티 {">"} 게시글 작성
 					</h2>
 					<br />
-					<br />
 					<p className="bannerContainerContent">
 						사랑스러운 반려동물을 자랑할 수 있는 공간,
 						<br />

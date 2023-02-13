@@ -4,8 +4,7 @@ import { useDispatch, useSelector} from "react-redux/";
 import { changepagetype } from "../../Slice/Navslice";
 import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
+import MiddleNav from "../../components/navbar/MNB/MiddleNav";
 import MypageBanner from "../../components/banner/MypageBanner";
 import Sidebar from "../../components/mypage/Sidebar";
 import styled from "styled-components";
@@ -21,10 +20,8 @@ const Center = styled.div`
 `
 const Content = styled.div`
     position: relative;
-    margin-top: 9rem;
-    margin-left: 10rem;
-    cursor: pointer;
-
+    margin-top: 5rem;
+    margin-left: 8rem;
 `
 const Title = styled.div`
     margin-top: 1rem;
@@ -42,6 +39,7 @@ const Sub =styled.div`
 `
 
 const StyledTable = styled.table`
+    font-family: "Pretendard-Regular";
 	border-collapse: collapse;
 	thead {
 		tr {
@@ -163,26 +161,12 @@ const History=()=>{
     return(
         <>
             <MypageBanner/>
-            <Navbar bg="light"  >
-            <Container id="mypage_container">
-                <Navbar.Brand href="/" id="mypage_address">
-                    HOME
-                </Navbar.Brand>
-                {">"}
-                <Navbar.Brand href="/Ranking" id="ranking_address">
-                    마이페이지
-                </Navbar.Brand>
-                {">"}
-                <Navbar.Brand href="/Ranking" id="ranking_address">
-                    알림
-                </Navbar.Brand>
-             </Container>
-            </Navbar>
+            <MiddleNav contents="HOME>마이페이지>펫짱 수첩" />
             <Center>
                 <Sidebar/>
                 <Content>
                   <Title>
-                        <div className="title">내가 작성한 글 보기</div> 
+                        <div className="title">✍ 내가 작성한 글 보기</div> <br/>
                         <div>
                         {data.map((elm, index) => {   
                             return ( 
@@ -243,9 +227,9 @@ const History=()=>{
 					</StyledTable>
                     <Paging />
                   </Sub>
-                  
+                  <br/><br/>
                   <Title>
-                        <div className="title">내가 작성한 댓글 보기</div>
+                        <div className="title">✍ 내가 작성한 댓글 보기</div> <br/>
                         <div>
                         {data.map((elm, index) => {   
                             return ( 
@@ -265,7 +249,7 @@ const History=()=>{
                   </Sub>
                 </Content>
             </Center>
-      
+            <br/><br/><br/>
             
         </>
     );

@@ -96,7 +96,7 @@ function Daily() {
 			<MiddleNav contents="HOME>커뮤니티>일상" />
 			<Container>
 				<div className="dailyMain">
-					<h2 className="boardName"> 일상 게시판</h2> <br/>
+					<h2 className="boardName">🖼️ 일상 게시판</h2> <br/>
 
 					{
 						dList.length === 0

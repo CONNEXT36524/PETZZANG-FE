@@ -52,7 +52,7 @@ function Search() {
 	const getSearch = async() => {
 
         await axios.get(
-            '/api/community/board/search', {
+            '/api/community/search', {
                 params:{
                     keyword : keyword
                 }
@@ -84,13 +84,13 @@ function Search() {
                     )
                 } */}
 
-                {searchList.map((item) => (
+                {searchList.map((item, index) => (
                     <>
-                        <SearchSectionDiv props={item.boardType}/>
+                        <SearchSectionDiv boardName={item.boardType} key={index}/>
                         {
                             item.boardType === 'daily' || item.boardType === 'boast'
-                            ? (<SearchDailyCard data={item}/>)
-                            : (<SearchQuestionCard data={item}/>)
+                            ? (<SearchDailyCard data={item} />)
+                            : (<SearchQuestionCard data={item} />)
                         }
                     </>
                 ))}
@@ -99,10 +99,11 @@ function Search() {
 
                 <br/><br/>
                 <Paging/> 
-                <br/><br/>
+
                 
             </div>
         </Container>
+        <br/><br/>
         </>
     );
 }

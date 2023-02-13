@@ -1,0 +1,9 @@
+.ReplyEditorBox {
+	border-radius: 5px;
+	padding: 20px;
+	background-color: white;
+	margin-bottom: 50px;
+	border: 0.1rem solid #dddddd;
+	display: flex;
+	flex-direction: column;
+}

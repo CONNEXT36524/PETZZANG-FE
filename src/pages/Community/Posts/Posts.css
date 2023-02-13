@@ -1,13 +1,26 @@
+.posts-page {
+	padding-bottom: 100px;
+	font-family: 'Pretendard-Regular';
+}
+
+.posts {
+	background-color: white;
+	margin-top: 80px;
+	margin-bottom: 2px;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	min-height: 1000px;
+}
 .articles {
 	background-color: white;
-	margin-top: 100px;
-	margin-bottom: 100px;
+	margin-top: 50px;
+	margin-bottom: 2px;
 	border-radius: 20px;
-	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
-	min-height: 500px;
+	min-height: 700px;
 }
 
 .articleHeaderTop {
@@ -42,34 +55,70 @@
 
 .articleBody {
 	display: flex;
+	text-align: center;
+	margin-top: 50px;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	font-size: xx-large;
 }
 
 .postImg {
 	max-width: 50%;
 }
 
-.writeCommentBox {
+.likeDiv {
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	margin-top: 50px;
+}
+.noContents {
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: larger;
+	font-weight: 600;
+}
+.replyListBox {
 	border-radius: 5px;
 	padding: 20px;
 	background-color: white;
-	margin-bottom: 100px;
-	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+	margin-bottom: 50px;
 	display: flex;
 	flex-direction: column;
 }
-.writeCommentContent {
-	border-radius: 5px;
-	margin-bottom: 10px;
-	color: gray;
+
+.article-footer {
+	background-color: white;
+	margin-top: 50px;
+	margin-bottom: 2px;
+	border-radius: 20px;
+	padding: 20px;
 	display: flex;
+	flex-direction: column;
 }
 
-.writeCommentBtn {
-	justify-self: end;
-	width: 75px;
-
+.likeBtnActive {
+	background-color: #73BFFF;
+	color: white;
+	border: none;
+	border-radius: 10px;
+	height: 40px;
+	width: 10rem;
+	font-size: x-large;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+.likeBtn {
+	background-color: #FFF4EA;
+	color: black;
+	border: none;
+	border-radius: 10px;
+	height: 40px;
+	width: 10rem;
+	font-size: x-large;
+	margin-left: auto;
+	margin-right: auto;
 	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }

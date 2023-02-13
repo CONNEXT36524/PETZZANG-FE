@@ -2,12 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import SidebarItem from "./SidebarItem.jsx";
-import "./Mypage.css"
+
 // import profile from "../assets/profile.png";
 
 const Side = styled.div`
-
-  display: flex;
+  display: inline-block;
   border-right: 1px solid #e0e0e0;
   flex-direction: column;
   align-items: center;
@@ -20,13 +19,13 @@ const Side = styled.div`
 //   border-radius: 100%;
 // `
 const Menu = styled.div`
-  margin-top: 30px;
-  margin-left: 50px;
+  margin-top: 150px;
+  margin-left: 100px;
   width: 200px;
   display: flex;
   flex-direction: column;
-  font-family : Pretendard-Regular;
-  font-size : 18px;
+  font-family: Gmarket-Bold;
+  font-size : 22px;
 `
 
 

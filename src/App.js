@@ -17,9 +17,9 @@ import History from "./pages/Mypage/History";
 import Notification from "./pages/Mypage/Notification";
 import Awards from "./pages/Mypage/Awards";
 import Account from "./pages/Mypage/Account";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiUser } from "react-icons/fi";
 import logoImg from "./assets/logo192.png";
-
+import Footer from "./components/footer/Footer";
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 
 function App() {
@@ -48,15 +48,17 @@ function App() {
 		}
 	};
 
+	const loginBtn = (e) => {
+		window.location.href = KAKAO_AUTH_URL;
+	};
+
 	useEffect(() => {
-		if (sessionStorage.getItem('userName'))
-		setlogin(true);
-		else 
-		setlogin(false);
-	},[])
+		if (sessionStorage.getItem("userName")) setlogin(true);
+		else setlogin(false);
+	}, []);
 	const userImg = window.sessionStorage.getItem("userImg");
-	console.log(islogin)
-	console.log(userImg)
+	console.log(islogin);
+	console.log(userImg);
 	return (
 		<Router>
 			<Navbar collapseOnSelect fixed="top" className="menu" id={pagetype}>
@@ -88,7 +90,7 @@ function App() {
 					</NavDropdown>
 
 					<NavDropdown title="랭킹" id={`rankingDropdown`}>
-						<NavDropdown.Item href="/Ranking" >
+						<NavDropdown.Item href="/Ranking">
 							주간 랭킹
 						</NavDropdown.Item>
 						<NavDropdown.Item href="/Ranking">
@@ -96,45 +98,55 @@ function App() {
 						</NavDropdown.Item>
 					</NavDropdown>
 
-					<div className="user">
-						<input
-							className="searchBar"
-							type="text"
-							onChange={onChangeSearchText}
-							onKeyDown={(e) => search(e)}
-						/>
-						<button
-							className="searchBtn"
-							onClick={(e) => search("클릭")}
-						>
-							{" "}
-							<FiSearch />{" "}
-						</button>
-
-						
-						
-					<div>
-						{
-
-						islogin ? 
-						<div className="user">
-							<img className="user-logo" src={userImg}/>
-							<NavDropdown title="" id={`mypageDropdown`}>
-								<NavDropdown.Item href="/mypage/notification">
-									마이페이지
-								</NavDropdown.Item>
-								<NavDropdown.Item href="/logout">
-									로그아웃
-								</NavDropdown.Item>
-							</NavDropdown>
+					<div className="right">
+						<div className="searchBarDiv">
+							<input
+								className="searchBar"
+								type="text"
+								onChange={onChangeSearchText}
+								onKeyDown={(e) => search(e)}
+							/>
+							<button
+								className="searchBtn"
+								onClick={(e) => search("클릭")}
+							>
+								{" "} <FiSearch />{" "}
+								
+							</button>
 						</div>
-						:
-						<Nav.Link
-								className="user-logo"
-								href={KAKAO_AUTH_URL}
-							></Nav.Link>
-						}
-					</div>
+						
+						<div className="userDiv">
+							{
+							islogin ? 
+							<>
+								<div className="user1">
+									<img className="user-logo1" src={userImg}/>
+								</div>
+								<div className="user1Dropdown">
+
+									<NavDropdown title="" id={`mypageDropdown`}>
+										<NavDropdown.Item href="/mypage/notification">
+											마이페이지
+										</NavDropdown.Item>
+										<NavDropdown.Item href="/logout">
+											로그아웃
+										</NavDropdown.Item>
+									</NavDropdown>
+								</div>
+							</>
+							:
+								<button className="user2" onClick={(e) => loginBtn()} > 
+									<FiUser/> 
+								</button>
+									
+								
+								// <img className="user-logo" src="./assets/user_icon.png"/>
+								// <Nav.Link
+								// 	className="user-logo2"
+								// 	href={KAKAO_AUTH_URL}
+								// ></Nav.Link>
+							}
+						</div>
 					</div>
 				</Container>
 			</Navbar>
@@ -148,22 +160,44 @@ function App() {
 					<Route exact path="/Ranking" element={<Ranking />} />
 					<Route exact path="/community/daily" element={<Daily />} />
 					<Route exact path="/community/boast" element={<Boast />} />
-					<Route exact path="/community/question" element={<Question />} />
-					<Route exact path="/community/recommendation" element={<Recommendation />} />
+					<Route
+						exact
+						path="/community/question"
+						element={<Question />}
+					/>
+					<Route
+						exact
+						path="/community/recommendation"
+						element={<Recommendation />}
+					/>
 					<Route exact path="/community/daily" element={<Daily />} />
-					<Route exact path="/community/search" element={<Search />} />
+					<Route
+						exact
+						path="/community/search"
+						element={<Search />}
+					/>
 					{/* <Route exact path="/logout" element={<Logout />} /> */}
-					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
-					<Route path="/mypage/notification" element={<Notification />} />
+					<Route
+						path="/oauth/callback/kakao"
+						element={<KakaoLogin />}
+					/>
+					<Route
+						path="/mypage/notification"
+						element={<Notification />}
+					/>
 					<Route path="/mypage/history" element={<History />} />
 					<Route path="/mypage/awards" element={<Awards />} />
 					<Route path="/mypage/account" element={<Account />} />
-					<Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
+					<Route
+						path="/oauth/callback/kakao"
+						element={<KakaoLogin />}
+					/>
 
 					{/* <Route path="*" element={<NotFound />} /> */}
 					{/* 지정하지 않은 주소로 들어올 때는 NotFound가 뜬다. */}
 				</Routes>
 			</main>
+			<Footer />
 		</Router>
 	);
 }

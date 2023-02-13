@@ -1,6 +1,3 @@
-#banner {
-}
-
 #bannerContainer {
 	width: 100%;
 	height: 446px;
@@ -12,19 +9,22 @@
 }
 .bannerContainerText {
 	flex: 1;
+	margin-top: 35px;
+	margin-left: 50px;
 }
 .bannerContainerTitle {
-	width: 100%;
+	width: 550px;
 	height: fit-content;
 	color: var(--font-black-color);
 	font-size: 40px;
-	font-weight: bold;
+	font-family: Gmarket-Bold;
 }
 
 .bannerContainerContent {
 	width: 450px;
 	color: white;
-	font-size: medium;
+	font-size: 20px;
+	font-family: Gmarket-Medium;
 }
 
 .bannerContainerImage {
@@ -41,7 +41,7 @@
 .rankingbanner_section{
 	height: 446px;
 	margin-top: 0px;
-	margin-right: 250px;
+	margin-right: 85px;
 	display: flex;
 	justify-self: center;
 	align-items: center;
@@ -50,12 +50,15 @@
 }
 
 .banner_circle {
-	width : 400px;
-	height : 400px;
+	width : 370px;
+	height : 370px;
 	margin-top: 25px;
+	margin-left: 70px;
 	border-radius: 50%;
 	background-color: white;
-	align-items: center;
+	display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .bannerCircleDogImage {
 	width : 100%;

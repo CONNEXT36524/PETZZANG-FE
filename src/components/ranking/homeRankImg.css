@@ -1,0 +1,59 @@
+.homeCardDiv1 {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    display: flex;
+    align-items: flex-start;
+    background-color: #FB901A;
+    border-radius: 15px;
+    box-shadow: 0 7px 7px -7px #333,
+              -7px 0 7px -7px #333, 
+              7px 0 7px -7px #333;
+}
+.homeCardDiv2 {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    display: flex;
+    align-items: flex-start;
+    background-color: #00C27E;
+    border-radius: 15px;
+    box-shadow: 0 7px 7px -7px #333,
+              -7px 0 7px -7px #333, 
+              7px 0 7px -7px #333;
+}
+.homeCardDiv3 {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    display: flex;
+    align-items: flex-start;
+    background-color: #73BFFF;
+    border-radius: 15px;
+    box-shadow: 0 7px 7px -7px #333,
+              -7px 0 7px -7px #333, 
+              7px 0 7px -7px #333;
+}
+.homeCardDiv4 {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    display: flex;
+    align-items: flex-start;
+    background-color: #FABF3E;
+    border-radius: 15px;
+    box-shadow: 0 7px 7px -7px #333,
+              -7px 0 7px -7px #333, 
+              7px 0 7px -7px #333;
+}
+.homeRankImage {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    margin: 20px;
+    border-radius: 5px;
+}

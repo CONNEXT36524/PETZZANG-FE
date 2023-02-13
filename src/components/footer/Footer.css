@@ -1,0 +1,33 @@
+.footer {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background-color: #fff4ea;
+	
+}
+
+#footerContainer {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.footerLeft {
+	flex-grow: 2;
+}
+.footerContainerTitle {
+	font-family: Gmarket-Bold;
+}
+.footerContainerContent {
+	font-family: Gmarket-Medium;
+}
+
+.footerRight {
+	flex-grow: 5;
+}
+
+#footerBottom {
+	display: flex;
+	justify-content: center;
+	font: rgb(109, 107, 107);
+	font-family: Gmarket-Medium;
+}

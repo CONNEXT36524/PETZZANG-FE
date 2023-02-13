@@ -8,6 +8,27 @@ function MiddleNav(props) {
 
 	let urlString = "";
 
+	if (props.boardType == null) {
+		//console.log("boardType is null")
+	}
+	else {
+		if (props.boardType=="daily") {
+			contents[2] = "일상"
+			urlString = "/community/daily";
+		} else if (props.boardType=="boast") {
+			contents[2] = "자랑"
+			urlString = "/community/boast";
+		} else if (props.boardType=="question") {
+			contents[2] = "질문"
+			urlString = "/community/question";
+		} else if (props.boardType=="recommendation") {
+			contents[2] = "제품 추천"
+			urlString = "/community/recommendation";
+		}
+	}
+	
+	
+
 	switch (contents[2]) {
 		case "일상":
 			urlString = "/community/daily";
@@ -30,7 +51,7 @@ function MiddleNav(props) {
 		return (
 			<Navbar id="middleNavigationBar">
 				<Nav className="justify-content-center" activeKey="current">
-					<Nav.Item>
+					<Nav.Item> 
 						<Nav.Link href="/" eventKey={""}>
 							{contents[0]}
 						</Nav.Link>
@@ -79,7 +100,7 @@ function MiddleNav(props) {
 						<Nav.Link href="">{">"}</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
-						<Nav.Link eventKey={""} disabled={"true"}>
+						<Nav.Link href="" eventKey={""}>
 							{contents[1]}
 						</Nav.Link>
 					</Nav.Item>
