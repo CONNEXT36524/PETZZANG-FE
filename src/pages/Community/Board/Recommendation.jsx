@@ -97,7 +97,7 @@ function Recommendation() {
 
 			<Container>
 				<div className="recommendationMain">
-					<h2 className="boardName">제품 추천 게시판</h2> <br/> <br/>
+					<h2 className="boardName">🎁 제품 추천 게시판</h2> <br/> <br/>
 					{
 						rList.length === 0
 						? <NoContent/>

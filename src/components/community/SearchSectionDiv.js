@@ -17,7 +17,7 @@ const SearchSectionDiv = ({boardName}) => {
             <hr/>
             <div className='sectionDiv'>
                 <button className='section'> | </button>
-                <h5> {boardName} 게시판</h5>
+                <h5 className='sectionBoardName'> {boardName} 게시판</h5>
             </div>
         </div>
     );

@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Posts.css";
 import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
-import postImg from "../../../assets/maltese1.png";
 import { Modal } from "react-bootstrap";
-import { Badge } from "react-bootstrap";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -98,7 +96,7 @@ function Posts(props) {
 			completed = true;
 			console.log(completed);
 		};
-	}, []);
+	}, postData["likeNum"]);
 
 	//댓글 기능
 	const [replies, setReplies] = useState([]);
@@ -157,9 +155,15 @@ function Posts(props) {
 				// 항상 실행
 			});
 	}
+
+	let [likeBtnActive, setLikeBtnActive] = useState(false);
 	//axios로 input 데이터 보내기
 	async function onUpload() {
-		PostService.updateLikeNum(postId)
+		if(likeBtnActive==false) {
+			setLikeBtnActive(true)
+
+			// 좋아요 수 +1
+			PostService.plusLikeNum(postId)
 			.then(function (response) {
 				console.log(response.data);
 				// response
@@ -170,7 +174,25 @@ function Posts(props) {
 			.then(function () {
 				// 항상 실행
 			});
-	}
+		
+		} else{
+			setLikeBtnActive(false)
+
+			// 좋아요 수 -1
+			PostService.minusLikeNum(postId)
+			.then(function (response) {
+				console.log(response.data);
+				// response
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+			})
+			.then(function () {
+				// 항상 실행
+			});
+		}
+	}	
+		
 
 	useEffect(() => {
 		let completed = false;
@@ -251,14 +273,13 @@ function Posts(props) {
 					<br />
 					<div className="articleBody">{content}</div>
 				</div>
-				<Button
-					variant="outline-primary"
+				<button
 					size="lg"
-					className="ms-auto"
-					onClick={onUpload}
-				>
-					좋아요 버튼 <Badge bg="secondary">💛 {likeNum}</Badge>
-				</Button>
+					className={likeBtnActive ? "likeBtnActive" : "likeBtn"}
+					onClick={onUpload} >
+					좋아요 👍🏻
+				</button>
+				<br/>
 				<div className="comments">
 					<h5>
 						❤️ 좋아요 {likeNum} 💭 댓글 {replies.length}

@@ -18,7 +18,7 @@ const Ranking=()=>{
     return(
         <>
             <RankingBanner/>
-            <Navbar bg="light"  >
+            <Navbar id="rankingMNB" >
                 <Container id="ranking_container">
                     <Navbar.Brand href="/" id="ranking_address">
                         HOME

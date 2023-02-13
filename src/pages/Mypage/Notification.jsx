@@ -19,10 +19,8 @@ const Center = styled.div`
 `
 const Content = styled.div`
     position: relative;
-    margin-top: 9rem;
-    margin-left: 10rem;
-    cursor: pointer;
-
+    margin-top: 5rem;
+    margin-left: 8rem;
 `
 const Title = styled.div`
     display: flex;
@@ -84,7 +82,7 @@ const Notification=()=>{
                   
                 </Content>
             </Center>
-      
+            <br/><br/><br/>
             
         </>
     );

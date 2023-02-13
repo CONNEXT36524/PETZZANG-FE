@@ -13,6 +13,15 @@ class UserService {
 			}
 		);
 	}
+
+	updateProfile(token, data) {
+		console.log(token)
+		return axios.post(USER_API_BASE_URL + "/profile", data, {
+			headers: {
+				Authorization: token,
+			},
+		});
+	}
 }
 
 export default new UserService();

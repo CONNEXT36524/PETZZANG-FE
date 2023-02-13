@@ -9,7 +9,7 @@ function MiddleNav(props) {
 	let urlString = "";
 
 	if (props.boardType == null) {
-		console.log("boardType is null")
+		//console.log("boardType is null")
 	}
 	else {
 		if (props.boardType=="daily") {
@@ -51,7 +51,7 @@ function MiddleNav(props) {
 		return (
 			<Navbar id="middleNavigationBar">
 				<Nav className="justify-content-center" activeKey="current">
-					<Nav.Item>
+					<Nav.Item> 
 						<Nav.Link href="/" eventKey={""}>
 							{contents[0]}
 						</Nav.Link>

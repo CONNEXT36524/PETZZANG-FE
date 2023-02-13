@@ -102,7 +102,7 @@ const questionClick = (data) => {
 
 			<Container>
 				<div className="questionMain">
-					<h2 className="boardName">질문 게시판</h2> <br />
+					<h2 className="boardName">🙋 질문 게시판</h2> <br />
 					<br />
 					{qList.length === 0 ? (
 						<NoContent />

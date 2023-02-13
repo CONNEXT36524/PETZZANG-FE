@@ -166,6 +166,10 @@
 	/* opacity: 0.5; */
 	
 }
+.main {
+	background-color: var(--bg-light-color);
+	margin-top: 40px;
+}
 
 
 @font-face {
@@ -175,7 +179,18 @@
 	font-weight: normal;
 	font-style: normal;
 }
-.main {
-	margin-top: 50px;
-	background-color: var(--bg-light-color);
+@font-face {
+	font-family: "Gmarket-Bold";
+	src: url("./fonts/GmarketSansTTFBold.ttf");
+}
+@font-face {
+	font-family: "Gmarket-Medium";
+	src: url("./fonts/GmarketSansTTFMedium.ttf");
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
 }

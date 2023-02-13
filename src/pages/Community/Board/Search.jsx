@@ -103,6 +103,7 @@ function Search() {
                 
             </div>
         </Container>
+        <br/><br/>
         </>
     );
 }

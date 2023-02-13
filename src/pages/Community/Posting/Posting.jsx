@@ -106,7 +106,7 @@ function Posting(props) {
 	}
 	//Posting Type Options
 	const BoardOptions = [
-		{ key: "daily", value: "🖼 일상 게시판" },
+		{ key: "daily", value: "🖼️ 일상 게시판" },
 		{ key: "boast", value: "👏 자랑 게시판 " },
 		{ key: "question", value: "🙋 질문 게시판" },
 		{ key: "recommendation", value: "🎁 제품 추천 게시판" },
@@ -173,12 +173,11 @@ function Posting(props) {
 	//const location = useLocation();
 
 	return (
-		<div>
+		<>
 			<PostingBanner />
-
 			<MiddleNav contents={"HOME>커뮤니티>게시글 작성"} />
-
-			<Container className="posting">
+			<div className="posting">
+			<Container >
 				<br />
 				<div className="containerHeader">
 					<Form.Group className="mb-3">
@@ -319,9 +318,11 @@ function Posting(props) {
 						//setModalShow를 axios 관련 쪽으로 넘기기
 						uploadedstate={uploadedstate}
 					/>
-				</div>
+				</div><br/>
 			</Container>
-		</div>
+			</div>
+		<br/><br/><br/>
+		</>
 	);
 }
 

@@ -13,6 +13,7 @@
     margin-left: 35px;
     height: 650px;
     border-style: solid;
+    font-family: Gmarket-Medium;
 }
 
 /* 부트스트랩 기본 css를 바꾸고 싶은데 덮어쓰기가 안되서 id 이용해서 바꿈

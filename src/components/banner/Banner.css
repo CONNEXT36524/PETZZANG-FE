@@ -9,19 +9,22 @@
 }
 .bannerContainerText {
 	flex: 1;
+	margin-top: 35px;
+	margin-left: 50px;
 }
 .bannerContainerTitle {
-	width: 100%;
+	width: 550px;
 	height: fit-content;
 	color: var(--font-black-color);
 	font-size: 40px;
-	font-weight: bold;
+	font-family: Gmarket-Bold;
 }
 
 .bannerContainerContent {
 	width: 450px;
 	color: white;
-	font-size: medium;
+	font-size: 20px;
+	font-family: Gmarket-Medium;
 }
 
 .bannerContainerImage {
@@ -38,7 +41,7 @@
 .rankingbanner_section{
 	height: 446px;
 	margin-top: 0px;
-	margin-right: 250px;
+	margin-right: 85px;
 	display: flex;
 	justify-self: center;
 	align-items: center;

@@ -21,8 +21,19 @@ class PostService {
 		});
 	}
 
-	updateLikeNum(postId) {
-		return axios.post(COMMUNITY_API_BASE_URL + "/likeNum", postId, {
+	plusLikeNum(postId) {
+		return axios.post(COMMUNITY_API_BASE_URL + "/pluslikeNum", postId, {
+			headers: {
+				//"X-AUTH-TOKEN": token,
+			},
+			params: {
+				postId: postId,
+			},
+		});
+	}
+
+	minusLikeNum(postId) {
+		return axios.post(COMMUNITY_API_BASE_URL + "/minuslikeNum", postId, {
 			headers: {
 				//"X-AUTH-TOKEN": token,
 			},

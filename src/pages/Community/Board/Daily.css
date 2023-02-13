@@ -14,6 +14,7 @@
 /* 게시판 이름 */
 .boardName {
     text-align: center;
+    font-family: Gmarket-Bold;
 }
 
 /* 하단 글쓰기 버튼 */
@@ -39,6 +40,7 @@
 /* ################## 일상 게시판 ################## */
 .dailyMain {
     margin-top: 80px;
+    font-family: Gmarket-Medium;
 }
 .TypeBtnDiv{
     text-align: center;
@@ -58,6 +60,7 @@
 /* ################## 자랑 게시판 ################## */
 .boastMain{
     margin-top: 80px;
+    font-family: Gmarket-Medium;
 }
 
 
@@ -65,6 +68,7 @@
 /* ################## 질문 게시판 ################## */
 .questionMain {
     margin-top: 80px;
+    font-family: Gmarket-Medium;
 }
 /* 테이블 가운데 정렬 */
 .tableDiv {
@@ -76,6 +80,7 @@
 /* ################## 추천 게시판 ################## */
 .recommendationMain {
     margin-top: 80px;
+    font-family: Gmarket-Medium;
 }
 .recommendationImg {
     width: 150px;
@@ -88,6 +93,7 @@
 /* ################## 검색 게시판 ################## */
 .searchMain {
     margin-top: 80px;
+    font-family: "Gmarket-Medium";
 }
 .searchResultTextDiv {
     display: flex;
@@ -95,9 +101,11 @@
     margin-left: auto;
     margin-right: auto;
     justify-content : center;
+    font-family: "Gmarket-Bold";
 }
 .searchResultText {
     color: #FB901A;
+    font-family: "yg-jalnan";
 }
 
 
@@ -108,6 +116,7 @@
     background-color: white;
     padding-left: 30px;
     padding-right: 30px;
+    font-family: Gmarket-Medium;
 }
 .noContent {
     padding-top: 100px;
