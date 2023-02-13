@@ -52,7 +52,7 @@ const Account=()=>{
     },[dispatch])
 
 
-	const [modalShow, setModalShow] = useState(false);
+   const [modalShow, setModalShow] = useState(false);
     const [userImg, setUserImg] = useState(myImage)
     const [uploadImg, setUploadImg] = useState(null)
     const profileInputRef = useRef();
@@ -139,10 +139,12 @@ const Account=()=>{
                 const formdata = new FormData();
                 formdata.append('uploadImg', apiImgString);
 
+
                 const res = await axios(
                     {
                         method: 'post',
                         url: '/api/upload/profile',
+
                         data: formdata,
                         headers: {
                             Authorization: token,
