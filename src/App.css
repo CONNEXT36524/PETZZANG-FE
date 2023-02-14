@@ -52,15 +52,7 @@
 	width: 200px;
 	/* height: fit-content; */
 }
-.user-logo {
-	background-image: url("/src/assets/user_icon.png");
-	background-size: 100%;
-	width: 50px;
-	height: 100px;
-	background-repeat: no-repeat;
-	background-position: 50% 70%;
-	background-position: center;
-}
+
 
 .nav {
 	background-color: #fabf3e;
@@ -107,27 +99,80 @@
 	min-width: 140px;
 }
 
-.user {
+.right {
 	margin-left: auto;
-	margin-top: 10px;
 	display: flex;
 }
-
+.searchBarDiv {
+	margin-left: auto;
+	display: flex;
+}
 .searchBar {
-	margin-top: 35px;
+	margin-top: 18px;
 	width: 250px;
 	height: 35px;
 	border-radius: 8px;
 	border-color: #282c34;
 }
 .searchBtn {
-	margin-top: 25px;
+	margin-top: 8px;
 	margin-right: 10px;
 	height: 35px;
 	background-color: transparent;
 	border: none;
 	font-size: xx-large;
 }
+.userDiv{
+	display: flex;
+}
+.userDiv {
+	display: flex;
+}
+.user1 {
+	width: 60px;
+	height: 60px;
+	border-radius: 70%;
+	overflow: hidden;
+	display: flex;
+}
+.user1Dropdown {
+	margin-top: 12px;
+	margin-left: 5px;
+	font-size: x-large;
+}
+.user2 {
+	display: flex;
+	margin-top: 12px;
+	font-size: 38px;
+	background-color: transparent;
+	border: none;
+}
+.user-logo1 {
+	background-size: 100%;
+	background-repeat: no-repeat;
+	/* background-color: #fff; */
+	/* height: fit-content; */
+	background-position: center;
+	/* opacity: 0.5; */
+	
+}
+.user-logo2 {
+	background-image: url("/src/assets/user_icon.png");
+	background-size: 100%;
+	width: 50px;
+	height: 100px;
+	background-repeat: no-repeat;
+	background-position: 50% 70%;
+	/* background-color: #fff; */
+	/* height: fit-content; */
+	background-position: center;
+	/* opacity: 0.5; */
+	
+}
+
+
+
+
 @font-face {
 	font-family: "yg-jalnan";
 	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
