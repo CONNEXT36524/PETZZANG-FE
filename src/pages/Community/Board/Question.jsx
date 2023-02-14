@@ -66,8 +66,8 @@ function Question() {
 
 	const navigate = useNavigate();
 
-const questionClick = (data) => {
-		console.log(data)
+	const questionClick = (data) => {
+		console.log(data);
 		navigate("/community/posts", {
 			state: {
 				postId: data,
