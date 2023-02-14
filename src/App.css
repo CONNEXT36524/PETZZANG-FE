@@ -52,6 +52,15 @@
 	width: 200px;
 	/* height: fit-content; */
 }
+.user-logo {
+	background-image: url("/src/assets/user_icon.png");
+	background-size: 100%;
+	width: 50px;
+	height: 100px;
+	background-repeat: no-repeat;
+	background-position: 50% 70%;
+	background-position: center;
+}
 
 .nav {
 	background-color: #fabf3e;
@@ -98,80 +107,27 @@
 	min-width: 140px;
 }
 
-.right {
-	display: flex;
+.user {
 	margin-left: auto;
-}
-.searchBarDiv {
-	margin-left: auto;
+	margin-top: 10px;
 	display: flex;
 }
 
 .searchBar {
-	margin-top: 18px;
+	margin-top: 35px;
 	width: 250px;
 	height: 35px;
 	border-radius: 8px;
 	border-color: #282c34;
 }
 .searchBtn {
-	margin-top: 8px;
+	margin-top: 25px;
 	margin-right: 10px;
 	height: 35px;
 	background-color: transparent;
 	border: none;
 	font-size: xx-large;
 }
-.userDiv {
-	display: flex;
-}
-.user1 {
-	width: 60px;
-	height: 60px;
-	border-radius: 70%;
-	overflow: hidden;
-	display: flex;
-}
-.user1Dropdown {
-	margin-top: 12px;
-	margin-left: 5px;
-	font-size: x-large;
-}
-.user2 {
-	display: flex;
-	margin-top: 12px;
-	font-size: 38px;
-	background-color: transparent;
-	border: none;
-}
-.user-logo1 {
-	background-size: 100%;
-	background-repeat: no-repeat;
-	/* background-color: #fff; */
-	/* height: fit-content; */
-	background-position: center;
-	/* opacity: 0.5; */
-	
-}
-.user-logo2 {
-	background-image: url("/src/assets/user_icon.png");
-	background-size: 100%;
-	width: 50px;
-	height: 100px;
-	background-repeat: no-repeat;
-	background-position: 50% 70%;
-	/* background-color: #fff; */
-	/* height: fit-content; */
-	background-position: center;
-	/* opacity: 0.5; */
-	
-}
-.main {
-	background-color: var(--bg-light-color);
-	margin-top: 40px;
-}
-
-
 @font-face {
 	font-family: "yg-jalnan";
 	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
@@ -179,18 +135,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
-@font-face {
-	font-family: "Gmarket-Bold";
-	src: url("./fonts/GmarketSansTTFBold.ttf");
-}
-@font-face {
-	font-family: "Gmarket-Medium";
-	src: url("./fonts/GmarketSansTTFMedium.ttf");
-}
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-    font-size: 14px;
+.main {
+	margin-top: 80px;
+	background-color: var(--bg-light-color);
 }

@@ -41,6 +41,7 @@ function Posting(props) {
 	const [imgFile, setImgFile] = useState("");
 	const imgRef = useRef();
 
+	const [upFile, setUpfile] = useState(null);
 	// 이미지 업로드 input의 onChange
 	const showImgFile = () => {
 		const file = imgRef.current.files[0];
@@ -48,6 +49,7 @@ function Posting(props) {
 		reader.readAsDataURL(file);
 		reader.onloadend = () => {
 			setImgFile(reader.result);
+			setUpfile(file);
 		};
 	};
 
@@ -59,10 +61,23 @@ function Posting(props) {
 	}
 
 	const data = new FormData();
-	data.append("key", inputs);
+	data.append("imgFile", upFile);
 	//input 데이터 확인용 함수
-	function setContentsShow() {
-		console.log("testing");
+	async function setContentsShow() {
+		console.log(upFile);
+		console.log(imgFile);
+		PostingService.uploadThumbnail(data)
+			.then(function (response) {
+				console.log(response);
+				// response
+				//useState 업데이트 완료 상태로 바꿔주는 코드 작성하기!
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+			})
+			.then(function () {
+				// 항상 실행
+			});
 	}
 
 	//Modal
@@ -290,6 +305,7 @@ function Posting(props) {
 				</div>
 				<br />
 				<div>
+					<div>{imgFile}</div>
 					<Button variant="warning" onClick={() => setContentsShow()}>
 						check contents
 					</Button>
