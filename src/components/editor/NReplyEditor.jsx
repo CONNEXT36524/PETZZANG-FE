@@ -65,7 +65,7 @@ function NReplyEditor(props) {
 			</FloatingLabel>
 			<br />
 			<Button variant="warning" onClick={onUpload}>
-				수정하기
+				{props.btnType}
 			</Button>
 		</div>
 	);

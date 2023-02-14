@@ -11,7 +11,11 @@ function NReplyListItem({ nReply }) {
 	const nReplyTime = nReplyDate[1].split(".");
 
 	const [open, setOpen] = useState(false);
-
+	const [btnType, setBtnType] = useState("");
+	function handleCollapse(choice) {
+		setOpen(!open);
+		setBtnType(choice);
+	}
 	return (
 		<>
 			{nReply === undefined ? null : (
@@ -36,7 +40,7 @@ function NReplyListItem({ nReply }) {
 						</div>
 						<div>
 							<Button
-								onClick={() => setOpen(!open)}
+								onClick={() => handleCollapse("수정하기")}
 								aria-controls="example-collapse-text"
 								aria-expanded={open}
 								variant="outline-success"
@@ -49,7 +53,12 @@ function NReplyListItem({ nReply }) {
 					<div className="NReplyfooter">
 						<Collapse in={open}>
 							<div id="example-collapse-text">
-								<NReplyEditor />
+								<NReplyEditor
+									postId={nReply.postId}
+									boardType={nReply.boardType}
+									bundleId={nReply.bundleId}
+									btnType={btnType}
+								/>
 							</div>
 						</Collapse>
 					</div>

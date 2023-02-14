@@ -39,8 +39,13 @@ function ReplyListItem({ reply }) {
 	const replyTime = replyDate[1].split(".");
 
 	const [open, setOpen] = useState(false);
+	const [btnType, setBtnType] = useState("");
 
-	function writeNReply() {}
+	function handleCollapse(choice) {
+		setOpen(!open);
+		setBtnType(choice);
+	}
+
 	return (
 		<>
 			{reply === undefined || reply.bundleOrder !== 0 ? null : (
@@ -65,14 +70,21 @@ function ReplyListItem({ reply }) {
 						</div>
 						<div>
 							<Button
-								onClick={() => setOpen(!open)}
+								onClick={() => handleCollapse("작성하기")}
 								aria-controls="example-collapse-text"
 								aria-expanded={open}
 								variant="outline-primary"
 							>
 								대댓글 쓰기
 							</Button>
-							<Button variant="outline-success">수정</Button>
+							<Button
+								onClick={() => handleCollapse("수정하기")}
+								aria-controls="example-collapse-text"
+								aria-expanded={open}
+								variant="outline-success"
+							>
+								수정
+							</Button>
 							<Button variant="outline-danger">삭제</Button>
 						</div>
 					</div>
@@ -83,6 +95,7 @@ function ReplyListItem({ reply }) {
 									postId={reply.postId}
 									boardType={reply.boardType}
 									bundleId={reply.bundleId}
+									btnType={btnType}
 								/>
 							</div>
 						</Collapse>
