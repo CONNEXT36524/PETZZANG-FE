@@ -22,7 +22,7 @@ function Mainranking(props) {
 
     const loadranking =()=>{
         console.log(startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'))
-        axios.get("http://172.16.32.235:8080/api/ranking/load",{params:{date:startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'), type:type}
+        axios.get("/api/ranking/load",{params:{date:startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'), type:type}
     })
         .then((response)=> {
             console.log(response);
