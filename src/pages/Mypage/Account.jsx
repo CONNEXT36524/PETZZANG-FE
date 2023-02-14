@@ -12,7 +12,7 @@ import styled from "styled-components";
 import myImage from "../../assets/default_profile.png";
 import DeleteAccountModal from "../../components/modal/DeleteAccountModal";
 import axios from "axios";
-
+import UserService from "../../service/UserService";
 
 const Center = styled.div`
   height: 92vh;
@@ -21,15 +21,14 @@ const Center = styled.div`
 `
 const Content = styled.div`
     position: relative;
-    margin-top: 9rem;
-    margin-left: 10rem;
-    cursor: pointer;
-
+    margin-top: 5rem;
+    margin-left: 8rem;
 `
 const Title = styled.div`
     display: flex;
 `
-const Sub =styled.div`
+const Sub = styled.div`
+    font-family: "Gmarket-Medium";
     margin-top: 50px;
     left: 1px;
     width: 130vh;
@@ -53,7 +52,7 @@ const Account=()=>{
     },[dispatch])
 
 
-	const [modalShow, setModalShow] = useState(false);
+   const [modalShow, setModalShow] = useState(false);
     const [userImg, setUserImg] = useState(myImage)
     const [uploadImg, setUploadImg] = useState(null)
     const profileInputRef = useRef();
@@ -75,14 +74,18 @@ const Account=()=>{
                 const file = profileInputRef.current.files[0];
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
-                console.log(userImg)
+             
                 const formdata = new FormData();
-                formdata.append('uploadImg', uploadImg);
+                const formdata1 = new FormData();
+                formdata.append('img', profileInputRef.current.files[0])
+                formdata1.append('img', userImg)
+                
+                console.log(formdata)
 
                 const res = await axios(
                     {
-                        method: 'put',
-                        url: 'http://localhost:8080/api/profile',
+                        method: 'post',
+                        url: '/api/profile',
                         data: formdata,
                         headers: {
                             //Authorization: token,
@@ -105,6 +108,7 @@ const Account=()=>{
         })();
     };
 
+
     let objectUrl="";
 
     const uploadImageChange = async (e) =>{
@@ -112,16 +116,14 @@ const Account=()=>{
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-        setUserImg(reader.result);
-        console.log(reader.result);
-        setUploadImg(profileInputRef.current.files[0])
-        console.log(profileInputRef.current.files[0])
-        //set preview image
-        objectUrl = URL.createObjectURL(e.target.files[0])
-        console.log(objectUrl)
-        
-
-    }
+            setUserImg(reader.result);
+            console.log(reader.result);
+            setUploadImg(profileInputRef.current.files[0])
+            console.log(profileInputRef.current.files[0])
+            //set preview image
+            objectUrl = URL.createObjectURL(e.target.files[0])
+            console.log(objectUrl)
+        }
     }
 
     useEffect (()=>{
@@ -146,36 +148,38 @@ const Account=()=>{
             <Center>
                 <Sidebar/>
                 <Content>
-                  <Title>
+                    <Title>
                         <div className="title">나의 계정</div>
-                  </Title>
+                    </Title>
+                    
                     <Sub>
-                    <div className = "circle" 
-                    onClick={()=>{profileInputRef.current.click()}}>
-                    <img className="profile" src={userImg ? userImg : {myImage}}/>
-                    <input style={{ display: "none" }} type="file" accept="image/*" className="profileInput" ref={profileInputRef} onChange={uploadImageChange} />
-                    </div>
-                    <div className="modify">
-                        
-                        <div>프로필 사진 변경</div>
-                        <div className="nickname">
-                            <div>닉네임</div>
-                            <input type="text" />
-                            <button className="duplicateBtn" onClick={duplicateCheck}> 중복확인 </button>
+                        <div className = "circle" 
+                            onClick={()=>{profileInputRef.current.click()}}>
+                        <img className="profile" src={userImg ? userImg : {myImage}}/>
+                        <input style={{ display: "none" }} type="file" accept="image/*" className="profileInput" ref={profileInputRef} onChange={uploadImageChange} />
                         </div>
-                        <button onClick={() => setModalShow(true)}>회원탈퇴</button>
-                        <DeleteAccountModal 
-                            show={modalShow}
-                            onHide={() => setModalShow(false)}
-                            />
-                        <button className="saveBtn" onClick={uploadImageBtnClick}>변경사항 저장</button>
-                        
-                    </div>
-                  </Sub>
-                  
+                        <div className="modify">
+                            <br/><br/><br/>
+                            
+                            <div className="nickname">
+                                <h3>닉네임:</h3>
+                                <input className="nicknameInputTag" type="text" />
+                                <button className="duplicateBtn" onClick={duplicateCheck}> 중복 확인 </button>
+                            </div> 
+
+                            <div className="saveNdeleteBtn">
+                                <button className="saveBtn" onClick={uploadImageBtnClick}>변경사항 저장</button>
+                                <button className="deleteBtn" onClick={() => setModalShow(true)}>회원 탈퇴</button>
+                                <DeleteAccountModal 
+                                    show={modalShow}
+                                    onHide={() => setModalShow(false)}
+                                />
+                            </div>
+                        </div>
+                    </Sub>
                 </Content>
             </Center>
-            
+            <br/><br/><br/>
         </>
     );
 }

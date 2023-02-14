@@ -1,15 +1,29 @@
 .bestAnimal {
-    margin-right: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: "Gmarket-Bold";
+    font-size: x-large;
 }
 /* HOME > 랭킹 > **랭킹 */
+#rankingMNB {
+	background-color: var(--bg-light-color);
+	box-shadow: 0 -10px 5px -5px rgba(0, 0, 0, 0.1),
+		0 8px 5px -5px rgba(0, 0, 0, 0.1);
+	font-family: "Gmarket-Medium";
+}
 #ranking_container{
     width: 10%;
-    margin-left: 0px;
-    margin-right: 900px;
+    margin-left: 100px;
+    margin-right: 810px;
 }
 #ranking_address{
     margin-left: 20px;
     margin-right: 20px;
+    font-size: large;
+    color:gray
+}
+#ranking_address:hover{
+    color:black;
 }
 @media screen and (max-width: 1100px) {
     #ranking_container {
@@ -25,21 +39,22 @@
     color: black;
 }
 .btn_section{
-    margin-top: 100px;
+    margin-top: 70px;
     display: flex;
     justify-content: center;
+    font-family: "Gmarket-Medium";
 }
 #ranking_btn{
     margin-left: 50px;
     margin-right: 50px;
+    font-size: x-large;
 }
 #ranking_btn-active{
     background-color: #fb901a;
 }
 
 .Mainranking_section{
-    padding-top: 100px;
-    
+    padding-top: 30px;
 }
 .img_section{
     display: flex;
@@ -48,18 +63,33 @@
 }
 #date_leftbtn{
     margin-right: 50px;
+    width: 40px;
+    height: 60px;
     font-size: xx-large;
 }
 #date_rightbtn{
     margin-left: 50px;
+    width: 40px;
+    height: 60px;
     font-size: xx-large;
 }
-.date_section{
+.date_section1{
     display: flex;
     justify-content: center;
+    font-family: "Gmarket-Bold";
 }
-.date_font{
-    font-size:xx-large;
+.date_font1{
+    font-size: xx-large;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.date_section2{
+    display: flex;
+    justify-content: center;
+    font-family: "Gmarket-Medium";
+}
+.date_font2{
+    font-size: xx-large;
 }
 .rankingpost_section{
     display: flex;

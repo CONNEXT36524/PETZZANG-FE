@@ -11,8 +11,6 @@ function mypageBanner(props) {
 			<Container id="bannerContainer">
 				<div className="bannerContainerText">
 					<h2 className="bannerContainerTitle">펫짱 나의 공간</h2>
-
-					<br />
 					<br />
 					<p className="bannerContainerContent">
 						사랑스러운 반려동물을 자랑할 수 있는 공간,

@@ -20,10 +20,8 @@ const Center = styled.div`
 `
 const Content = styled.div`
     position: relative;
-    margin-top: 9rem;
-    margin-left: 10rem;
-    cursor: pointer;
-
+    margin-top: 5rem;
+    margin-left: 8rem;
 `
 const Title = styled.div`
     margin-top: 1rem;
@@ -41,6 +39,7 @@ const Sub =styled.div`
 `
 
 const StyledTable = styled.table`
+    font-family: "Pretendard-Regular";
 	border-collapse: collapse;
 	thead {
 		tr {
@@ -167,7 +166,7 @@ const History=()=>{
                 <Sidebar/>
                 <Content>
                   <Title>
-                        <div className="title">내가 작성한 글 보기</div> 
+                        <div className="title">✍ 내가 작성한 글 보기</div> <br/>
                         <div>
                         {data.map((elm, index) => {   
                             return ( 
@@ -228,9 +227,9 @@ const History=()=>{
 					</StyledTable>
                     <Paging />
                   </Sub>
-                  
+                  <br/><br/>
                   <Title>
-                        <div className="title">내가 작성한 댓글 보기</div>
+                        <div className="title">✍ 내가 작성한 댓글 보기</div> <br/>
                         <div>
                         {data.map((elm, index) => {   
                             return ( 
@@ -250,7 +249,7 @@ const History=()=>{
                   </Sub>
                 </Content>
             </Center>
-      
+            <br/><br/><br/>
             
         </>
     );

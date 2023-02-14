@@ -17,10 +17,8 @@ const Center = styled.div`
 `
 const Content = styled.div`
     position: relative;
-    margin-top: 9rem;
-    margin-left: 10rem;
-    cursor: pointer;
-
+    margin-top: 5rem;
+    margin-left: 8rem;
 `
 const Title = styled.div`
     display: flex;
@@ -51,8 +49,8 @@ const Awards=()=>{
                 <Sidebar/>
                 <Content>
                   <Title>
-                        <span role="img" aria-label="writing hand">✍</span>
-                        <div className="title">펫짱 수상기록</div>
+                        {/* <span role="img" aria-label="writing hand">✍</span> */}
+                        <div className="title">🎉 펫짱 수상기록</div>
                   </Title>
                   <Sub>
             
@@ -61,7 +59,7 @@ const Awards=()=>{
                   
                 </Content>
             </Center>
-      
+            <br/><br/><br/>
             
         </>
     );

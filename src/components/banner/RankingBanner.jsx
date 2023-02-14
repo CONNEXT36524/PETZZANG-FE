@@ -11,7 +11,6 @@ function rankingBanner(props) {
 					<div className="bannerContainerText">
 						<h2 className="bannerContainerTitle">펫짱 랭킹</h2>
 						<br />
-						<br />
 						<p className="bannerContainerContent">
 							사랑스러운 반려동물을 자랑할 수 있는 공간,
 							<br />

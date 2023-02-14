@@ -65,25 +65,27 @@ function Mainranking(props) {
     
 	return (
         <>
-        <div className="btn_section">
-                    <Button variant={Isbtn ? "warning":"light"} id="ranking_btn"onClick={()=>{setweek()}}>주간 랭킹</Button>
-                    <Button variant={Isbtn ? "light":"warning"} id="ranking_btn" onClick={()=>{setmonth()}}>월간 랭킹</Button>
+            <div className="btn_section">
+                <Button variant={Isbtn ? "warning":"light"} id="ranking_btn" onClick={()=>{setweek()}}>주간 랭킹</Button>
+                <Button variant={Isbtn ? "light":"warning"} id="ranking_btn" onClick={()=>{setmonth()}}>월간 랭킹</Button>
+            </div>
+            <div className="Mainranking_section">
+                <div className="img_section">
+                    <img src={crown} alt="crown"></img>
                 </div>
-		<div className="Mainranking_section">
-            <div className="img_section">
-                <img src={crown} alt="crown"></img>
+                <div className="date_section1">
+                    <Button id="date_leftbtn" size="sm" onClick={()=>{past()}}>{"<"}</Button>
+                    <p className="date_font1">{Isbtn? "주간 랭킹": "월간 랭킹"}</p>
+                    <Button id="date_rightbtn" size="sm" onClick={()=>{next()}}>{">"}</Button>
+                </div><br/><br/>
+                <div className="date_section2">
+                    {Isbtn? <p className="date_font2">{startyear}년 {startMonth}월 {startDate}일 ~ {endyear}년 {endMonth}월 {endDate}일</p>: <p className="date_font">{startyear}년{startMonth}월</p>}
+                </div>
             </div>
-            <div className="date_section">
-            <Button id="date_leftbtn" size="sm" onClick={()=>{past()}}>{"<"}</Button>
-            <p className="date_font">{Isbtn? "주간 랭킹": "월간 랭킹"}</p>
-            <Button id="date_rightbtn" size="sm" onClick={()=>{next()}}>{">"}</Button>
-            </div>
-            <div className="date_section">
-                {Isbtn? <p className="date_font">{startyear}년{startMonth}월 {startDate}일 ~ {endyear}년{endMonth}월 {endDate}일</p>: <p className="date_font">{startyear}년{startMonth}월</p>}
-            </div>
-        </div>
-        {/* map 으로 순위 8개 component들 불러오기  */}
-        <Rankingimg data={data}/>
+            {/* map 으로 순위 8개 component들 불러오기  */}
+            <Rankingimg data={data}/>
+
+            <br/><br/><br/>
         </>
 	);
 }

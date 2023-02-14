@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const COMMUNITY_API_BASE_URL = "http://localhost:8080/api/community";
+const COMMUNITY_API_BASE_URL = '/api/community';
 
 class ReplyService {
 	//댓글 불러오기

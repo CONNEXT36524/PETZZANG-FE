@@ -95,7 +95,7 @@ function Boast() {
         <MiddleNav contents={"HOME>커뮤니티>자랑"} />
 		<Container>
             <div className="boastMain">
-                <h2 className="boardName">자랑 게시판</h2> <br/>
+                <h2 className="boardName">👏 자랑 게시판</h2> <br/>
 
                 {
 					bList.length === 0
