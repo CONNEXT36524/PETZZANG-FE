@@ -37,6 +37,7 @@ function ReplyEditor(props) {
 	formData.append("isDeleted", isDeleted);
 	formData.append("userCode", parseInt(userCode));
 
+	console.log(userCode);
 	//axios로 input 데이터 보내기
 	async function onUpload() {
 		ReplyService.createReplies(formData)
