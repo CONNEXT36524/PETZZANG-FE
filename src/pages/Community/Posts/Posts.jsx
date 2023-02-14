@@ -96,7 +96,7 @@ function Posts(props) {
 			completed = true;
 			console.log(completed);
 		};
-	}, postData["likeNum"]);
+	}, []);
 
 	//댓글 기능
 	const [replies, setReplies] = useState([]);
