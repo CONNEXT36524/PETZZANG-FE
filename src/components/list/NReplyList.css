@@ -9,6 +9,14 @@
 	display: flex;
 	flex-direction: column;
 }
+.nReply-item-deleted {
+	border-radius: 5px;
+	padding: 10px 10px 10px 50px;
+	background-color: rgb(227, 227, 227);
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+}
 .NReplyBody {
 	display: flex;
 	flex-direction: row;

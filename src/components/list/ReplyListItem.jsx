@@ -4,10 +4,33 @@ import NReplyEditor from "../editor/NReplyEditor";
 import { useState, useEffect } from "react";
 import NReplyService from "../../service/ReplyService";
 import NReplyList from "./NReplyList";
-
+import ReplyService from "../../service/ReplyService";
+import DeleteReplyModal from "../modal/DeleteReplyModal";
 function ReplyListItem({ reply }) {
 	//대댓글 기능
 	const [nReplies, setNReplies] = useState([]);
+	const [modalShow, setModalShow] = useState(false);
+	function handleClose() {
+		setModalShow(false);
+	}
+	async function onRemove() {
+		await ReplyService.deleteReplies(reply.replyId)
+			.then(function (response) {
+				console.log(response.data);
+				// response
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+			})
+			.then(function () {
+				// 항상 실행
+			});
+	}
+
+	function handleDelete() {
+		setModalShow(true);
+		onRemove();
+	}
 	//대댓글 정보 가져오기
 	useEffect(() => {
 		let completed = false;
@@ -33,7 +56,6 @@ function ReplyListItem({ reply }) {
 	}, []);
 
 	//data <- postId
-	const onRemove = (data) => {};
 	const userImg = window.sessionStorage.getItem("userImg");
 	const replyDate = reply.createTime.split("T");
 	const replyTime = replyDate[1].split(".");
@@ -48,7 +70,9 @@ function ReplyListItem({ reply }) {
 
 	return (
 		<>
-			{reply === undefined || reply.bundleOrder !== 0 ? null : (
+			{reply === undefined ? null : reply.deleted === true ? (
+				<div className="nReply-item-deleted">글이 삭제 되었습니다.</div>
+			) : (
 				<Container
 					className="reply-item"
 					onClick={() => onRemove(reply.postId)}
@@ -85,7 +109,16 @@ function ReplyListItem({ reply }) {
 							>
 								수정
 							</Button>
-							<Button variant="outline-danger">삭제</Button>
+							<Button
+								variant="outline-danger"
+								onClick={() => handleDelete()}
+							>
+								삭제
+							</Button>
+							<DeleteReplyModal
+								show={modalShow}
+								onHide={() => handleClose()}
+							/>
 						</div>
 					</div>
 					<div className="Replyfooter">

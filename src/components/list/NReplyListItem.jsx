@@ -1,11 +1,11 @@
 import "./NReplyList.css";
-import { Button, Container, Collapse } from "react-bootstrap";
+import { Button, Container, Collapse, Modal } from "react-bootstrap";
 import { useState } from "react";
 import NReplyEditor from "../editor/NReplyEditor";
-
+import ReplyService from "../../service/ReplyService";
+import DeleteReplyModal from "../modal/DeleteReplyModal";
 function NReplyListItem({ nReply }) {
 	//data <- postId
-	const onRemove = (data) => {};
 	const userImg = window.sessionStorage.getItem("userImg");
 	const nReplyDate = nReply.createTime.split("T");
 	const nReplyTime = nReplyDate[1].split(".");
@@ -16,13 +16,35 @@ function NReplyListItem({ nReply }) {
 		setOpen(!open);
 		setBtnType(choice);
 	}
+	const [modalShow, setModalShow] = useState(false);
+
+	function handleClose() {
+		setModalShow(false);
+	}
+	async function onRemove() {
+		await ReplyService.deleteReplies(nReply.replyId)
+			.then(function (response) {
+				console.log(response.data);
+				// response
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+			})
+			.then(function () {
+				// 항상 실행
+			});
+	}
+
+	function handleDelete() {
+		setModalShow(true);
+		onRemove();
+	}
 	return (
 		<>
-			{nReply === undefined ? null : (
-				<Container
-					className="nReply-item"
-					onClick={() => onRemove(nReply.postId)}
-				>
+			{nReply === undefined ? null : nReply.deleted === true ? (
+				<div className="nReply-item-deleted">글이 삭제 되었습니다.</div>
+			) : (
+				<Container className="nReply-item">
 					<div className="NReplyBody">
 						<div>
 							<div className="user-div">
@@ -47,7 +69,17 @@ function NReplyListItem({ nReply }) {
 							>
 								수정
 							</Button>
-							<Button variant="outline-danger">삭제</Button>
+							<Button
+								variant="outline-danger"
+								onClick={() => handleDelete()}
+							>
+								삭제
+							</Button>
+
+							<DeleteReplyModal
+								show={modalShow}
+								onHide={() => handleClose()}
+							/>
 						</div>
 					</div>
 					<div className="NReplyfooter">

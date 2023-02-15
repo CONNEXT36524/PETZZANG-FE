@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const COMMUNITY_API_BASE_URL = '/api/community';
+const COMMUNITY_API_BASE_URL = "/api/community";
 
 class ReplyService {
 	//댓글 불러오기
@@ -38,6 +38,17 @@ class ReplyService {
 			headers: {
 				//"X-AUTH-TOKEN": token,
 				"Content-Type": `multipart/form-data`,
+			},
+		});
+	}
+
+	deleteReplies(replyId) {
+		return axios.delete(COMMUNITY_API_BASE_URL + "/delete-replies", {
+			params: {
+				replyId: replyId,
+			},
+			headers: {
+				"Content-Type": `text/plain`,
 			},
 		});
 	}
