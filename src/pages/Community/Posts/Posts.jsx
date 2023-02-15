@@ -96,7 +96,7 @@ function Posts(props) {
 			completed = true;
 			console.log(completed);
 		};
-	}, postData["likeNum"]);
+	}, []);
 
 	//댓글 기능
 	const [replies, setReplies] = useState([]);
@@ -161,12 +161,18 @@ function Posts(props) {
 	async function onUpload() {
 		if(likeBtnActive==false) {
 			setLikeBtnActive(true)
+			
+			// 프론트에서 likeNum값 +1
+			setInputs({
+				...inputs,
+				likeNum: likeNum+1
+			})
+			console.log(likeNum)
 
-			// 좋아요 수 +1
+			// 백엔드로 좋아요 수 +1 보내기
 			PostService.plusLikeNum(postId)
 			.then(function (response) {
-				console.log(response.data);
-				// response
+				//console.log(response.data);
 			})
 			.catch(function (error) {
 				// 오류발생시 실행
@@ -177,12 +183,18 @@ function Posts(props) {
 		
 		} else{
 			setLikeBtnActive(false)
+			
+			// 프론트에서 likeNum값 -1
+			setInputs({
+				...inputs,
+				likeNum: likeNum-1
+			})
+			console.log(likeNum)
 
-			// 좋아요 수 -1
+			// 백엔드로 좋아요 수 -1 보내기
 			PostService.minusLikeNum(postId)
 			.then(function (response) {
-				console.log(response.data);
-				// response
+				//console.log(response.data);
 			})
 			.catch(function (error) {
 				// 오류발생시 실행

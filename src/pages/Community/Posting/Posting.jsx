@@ -41,6 +41,7 @@ function Posting(props) {
 	const [imgFile, setImgFile] = useState("");
 	const imgRef = useRef();
 
+	const [upFile, setUpfile] = useState(null);
 	// 이미지 업로드 input의 onChange
 	const showImgFile = () => {
 		const file = imgRef.current.files[0];
@@ -48,6 +49,7 @@ function Posting(props) {
 		reader.readAsDataURL(file);
 		reader.onloadend = () => {
 			setImgFile(reader.result);
+			setUpfile(file);
 		};
 	};
 
@@ -59,12 +61,8 @@ function Posting(props) {
 	}
 
 	const data = new FormData();
-	data.append("key", inputs);
+	data.append("imgFile", upFile);
 	//input 데이터 확인용 함수
-	function setContentsShow() {
-		console.log("testing");
-	}
-
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
 
@@ -84,15 +82,15 @@ function Posting(props) {
 	formData.append("content", desc);
 	formData.append("views", 0);
 	formData.append("likeNum", 0);
-	formData.append("userCode", parseInt(userCode));
+	formData.append("userCode", parseInt("userCode"));
 	//axios로 input 데이터 보내기
-	async function onUpload() {
-		PostingService.createPosts(formData)
+	async function handleupload(postData) {
+		PostingService.createPosts(postData)
 			.then(function (response) {
 				console.log(response.data);
 				// response
 				//useState 업데이트 완료 상태로 바꿔주는 코드 작성하기!
-				setUploadedState("업로드가 안료되었습니다.");
+				setUploadedState("업로드가 완료되었습니다.");
 			})
 			.catch(function (error) {
 				// 오류발생시 실행
@@ -177,151 +175,151 @@ function Posting(props) {
 			<PostingBanner />
 			<MiddleNav contents={"HOME>커뮤니티>게시글 작성"} />
 			<div className="posting">
-			<Container >
-				<br />
-				<div className="containerHeader">
-					<Form.Group className="mb-3">
-						<Form.Label className="formLabel">제목</Form.Label>
-						<Form.Control
-							type="text"
-							size="lg"
-							placeholder="제목을 입력하세요"
-							name="titleName"
-							onChange={onChange}
-							value={titleName || ""}
-						/>
-					</Form.Group>
+				<Container>
 					<br />
-					<Form.Group className="mb-3" id="FileInputForm">
-						<div>
-							<img
-								// require()를 통해 이미지 불러오긴
-								src={
-									imgFile
-										? imgFile
-										: require("../../../assets/noImage.png")
-								}
-								alt="프로필 이미지"
-								className="thumbnailImg"
-							/>
-						</div>
-						<div>
-							<Form.Label className="formLabel">
-								썸네일 사진 첨부
-							</Form.Label>
-
+					<div className="containerHeader">
+						<Form.Group className="mb-3">
+							<Form.Label className="formLabel">제목</Form.Label>
 							<Form.Control
-								name="thumnail"
-								type="file"
-								accept="image/*"
-								id="thumbnailImg"
-								onChange={showImgFile}
-								ref={imgRef}
+								type="text"
+								size="lg"
+								placeholder="제목을 입력하세요"
+								name="titleName"
+								onChange={onChange}
+								value={titleName || ""}
 							/>
-						</div>
-					</Form.Group>
-					<br />
-					<Form.Select
-						name="boardType"
-						className="selectBoardType"
-						aria-label="Board Type Selection"
-						onChange={onChange}
-						value={boardType}
-						required
-					>
-						<option>커뮤니티 게시판</option>
-						{BoardOptions.map((item, index) => (
-							<option key={item.key} value={item.key}>
-								{item.value}
-							</option>
-						))}
-					</Form.Select>
-					<div className="selectPostingType">
+						</Form.Group>
+						<br />
+						<Form.Group className="mb-3" id="FileInputForm">
+							<div>
+								<img
+									// require()를 통해 이미지 불러오긴
+									src={
+										imgFile
+											? imgFile
+											: require("../../../assets/noImage.png")
+									}
+									alt="프로필 이미지"
+									className="thumbnailImg"
+								/>
+							</div>
+							<div>
+								<Form.Label className="formLabel">
+									썸네일 사진 첨부
+								</Form.Label>
+
+								<Form.Control
+									name="thumnail"
+									type="file"
+									accept="image/*"
+									id="thumbnailImg"
+									onChange={showImgFile}
+									ref={imgRef}
+								/>
+							</div>
+						</Form.Group>
+						<br />
 						<Form.Select
-							name="pet"
-							id="selection1"
-							className="selection"
-							aria-label="Pet Species"
+							name="boardType"
+							className="selectBoardType"
+							aria-label="Board Type Selection"
 							onChange={onChange}
-							value={pet}
+							value={boardType}
 							required
 						>
-							<option>동물</option>
-							{PetSpeciesOptions.map((item, index) => (
-								<option key={item.key} value={item.value}>
-									{item.value || ""}
-								</option>
-							))}
-						</Form.Select>
-
-						<Form.Select
-							name="kind"
-							id="selection2"
-							className="selection"
-							aria-label="Pet Kind"
-							onChange={onChange}
-							value={kind}
-						>
-							<option>종</option>
-							{PetKindOptions.map((item, index) => (
-								<option key={item.key} value={item.value}>
+							<option>커뮤니티 게시판</option>
+							{BoardOptions.map((item, index) => (
+								<option key={item.key} value={item.key}>
 									{item.value}
 								</option>
 							))}
 						</Form.Select>
+						<div className="selectPostingType">
+							<Form.Select
+								name="pet"
+								id="selection1"
+								className="selection"
+								aria-label="Pet Species"
+								onChange={onChange}
+								value={pet}
+								required
+							>
+								<option>동물</option>
+								{PetSpeciesOptions.map((item, index) => (
+									<option key={item.key} value={item.value}>
+										{item.value || ""}
+									</option>
+								))}
+							</Form.Select>
 
-						<Form.Select
-							name="sex"
-							id="selection3"
-							className="selection"
-							aria-label="Pet Sex"
-							onChange={onChange}
-							value={sex}
-						>
-							<option>성별</option>
-							{PetSexOptions.map((item, index) => (
-								<option key={item.key} value={item.value}>
-									{item.value}
-								</option>
-							))}
-						</Form.Select>
+							<Form.Select
+								name="kind"
+								id="selection2"
+								className="selection"
+								aria-label="Pet Kind"
+								onChange={onChange}
+								value={kind}
+							>
+								<option>종</option>
+								{PetKindOptions.map((item, index) => (
+									<option key={item.key} value={item.value}>
+										{item.value}
+									</option>
+								))}
+							</Form.Select>
+
+							<Form.Select
+								name="sex"
+								id="selection3"
+								className="selection"
+								aria-label="Pet Sex"
+								onChange={onChange}
+								value={sex}
+							>
+								<option>성별</option>
+								{PetSexOptions.map((item, index) => (
+									<option key={item.key} value={item.value}>
+										{item.value}
+									</option>
+								))}
+							</Form.Select>
+						</div>
+						<br />
 					</div>
 					<br />
-				</div>
-				<br />
-				<div>
-					<Button variant="warning" onClick={() => setContentsShow()}>
-						check contents
-					</Button>
+					<div>
+						<Editor
+							id="textEditor"
+							value={desc}
+							onChange={onEditorChange}
+						/>
+					</div>
+					<br />
+					<div className="containerFooter">
+						<Button
+							className="postingBtn"
+							variant="primary"
+							onClick={() => setModalShow(true)}
+						>
+							✏️ 작성하기
+						</Button>
 
-					<Editor
-						id="textEditor"
-						value={desc}
-						onChange={onEditorChange}
-					/>
-				</div>
-				<br />
-				<div className="containerFooter">
-					<Button
-						className="postingBtn"
-						variant="primary"
-						onClick={() => setModalShow(true)}
-					>
-						✏️ 작성하기
-					</Button>
-
-					<SavePostingModal
-						show={modalShow}
-						onHide={() => setModalShow(false)}
-						//업로드 함수 구현하기
-						onUpload={() => onUpload()}
-						//setModalShow를 axios 관련 쪽으로 넘기기
-						uploadedstate={uploadedstate}
-					/>
-				</div><br/>
-			</Container>
+						<SavePostingModal
+							show={modalShow}
+							onHide={() => setModalShow(false)}
+							//업로드 함수 구현하기
+							handleupload={() => handleupload({ formData })}
+							//setModalShow를 axios 관련 쪽으로 넘기기
+							uploadedstate={uploadedstate}
+							boardType={boardType}
+						/>
+					</div>
+					<br />
+				</Container>
 			</div>
-		<br/><br/><br/>
+			<br />
+			<br />
+			<br />
 		</>
 	);
 }

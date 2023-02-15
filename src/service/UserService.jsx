@@ -13,10 +13,13 @@ class UserService {
 			}
 		);
 	}
+	updateProfile(token, formData) {
+		// console.log(token)
+		// for (let key of formData.keys()) {
+        //     console.log(key, ":", formData.get('profileImage'));
+        // }
+		return axios.post("api/profile", formData, {
 
-	updateProfile(token, data) {
-		console.log(token)
-		return axios.post(COMMUNITY_API_BASE_URL+"/profile", data, {
 			headers: {
 				Authorization: token,
 			},

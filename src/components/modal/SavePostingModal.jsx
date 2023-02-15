@@ -1,9 +1,17 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useNavigate } from "react-router-dom";
 
 function SavePostingModal(props) {
-	const [uploadedstate, setuploadedstate] = useState(props.uploadedstate);
+	const navigate = useNavigate();
+	function backToBoard(boardType) {
+		if (boardType === "") {
+			navigate("/community/daily");
+		} else {
+			navigate("/community/" + boardType);
+		}
+	}
 
 	return (
 		<Modal
@@ -16,15 +24,28 @@ function SavePostingModal(props) {
 				<Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				<h4>{uploadedstate}</h4>
+				<h4>{props.uploadedstate}</h4>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button onClick={props.onHide} variant="dark">
-					취소
-				</Button>
-				<Button onClick={props.onUpload} variant="primary">
-					확인
-				</Button>
+				{props.uploadedstate === "업로드를 하시겠습니까?" ? (
+					<>
+						<Button onClick={props.onHide} variant="dark">
+							취소
+						</Button>
+						<Button onClick={props.handleupload} variant="primary">
+							확인
+						</Button>
+					</>
+				) : (
+					<>
+						<Button
+							onClick={() => backToBoard(props.boardType)}
+							variant="primary"
+						>
+							게시판으로 돌아가기
+						</Button>
+					</>
+				)}
 			</Modal.Footer>
 		</Modal>
 	);

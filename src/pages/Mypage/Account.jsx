@@ -68,28 +68,87 @@ const Account=()=>{
     //     });
     //   };
 
+    //데이터 가져오기
+	const [getImg, setGetImg] = useState();
+	useEffect(() => {
+        let completed = false; 
+		async function get() {
+			await axios.get('/api/get/profile', {
+				params:{
+					imgName : "thumbnail"
+					
+				}
+			}).then((respond)=>{
+				console.log(respond.data)
+				//setGetImg(respondList.data)
+			}).catch(error => console.log(error))
+		}
+		get()
+		return () => {
+			completed = true;
+		};
+	}, []);
+	//console.log(getImg)
+    
+
+    //axios로 input 데이터 보내기
+	// async function uploadImageBtnClick() {
+
+    //     const file = profileInputRef.current.files[0];
+    //     const reader = new FileReader();
+    //     let apiImgString = ""
+    //     reader.readAsDataURL(file);
+    //     reader.onloadend = () => {
+    //         apiImgString = reader.result.split(",")[1];
+    //     }
+
+
+    //     const formData = new FormData();
+    //     formData.append('profileImage', apiImgString);
+
+	// 	UserService.updateProfile(token, formData)
+	// 		.then(function (response) {
+	// 			console.log(response.data);
+	// 			// response
+	// 			//useState 업데이트 완료 상태로 바꿔주는 코드 작성하기!
+	// 			//setUploadedState("업로드가 안료되었습니다.");
+	// 		})
+	// 		.catch(function (error) {
+	// 			// 오류발생시 실행
+	// 			// setUploadedState(
+	// 			// 	"업로드 중 오류가 발생했습니다.\n다시 시도해주세요."
+	// 			// );
+	// 		})
+	// 		.then(function () {
+	// 			// 항상 실행
+	// 		});
+	// }
+
     const uploadImageBtnClick = (event) =>{
         event.preventDefault();
         (async () => {
             try {
                 const file = profileInputRef.current.files[0];
+
                 const reader = new FileReader();
+                let apiImgString = ""
                 reader.readAsDataURL(file);
-             
-                const formdata = new FormData();
-                const formdata1 = new FormData();
-                formdata.append('img', profileInputRef.current.files[0])
-                formdata1.append('img', userImg)
+                reader.onloadend = () => {
+                    apiImgString = reader.result.split(",")[1];
+                }
                 
-                console.log(formdata)
+                const formdata = new FormData();
+                formdata.append('uploadImg', apiImgString);
+
 
                 const res = await axios(
                     {
                         method: 'post',
-                        url: '/api/profile',
+                        url: '/api/upload/profile',
+
                         data: formdata,
                         headers: {
-                            //Authorization: token,
+                            Authorization: token,
                             'Content-Type': 'image/png'
                         },
                     }
@@ -112,7 +171,8 @@ const Account=()=>{
 
     let objectUrl="";
 
-    const uploadImageChange = async (e) =>{
+    // 이미지 변경 함수
+    const uploadImageChange = (e) => {
         const file = profileInputRef.current.files[0];
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -127,6 +187,7 @@ const Account=()=>{
             objectUrl = URL.createObjectURL(e.target.files[0])
             console.log(objectUrl)
         }
+        
     }
 
     useEffect (()=>{
