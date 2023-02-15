@@ -82,7 +82,8 @@ function Posting(props) {
 	formData.append("content", desc);
 	formData.append("views", 0);
 	formData.append("likeNum", 0);
-	formData.append("userCode", parseInt("userCode"));
+	formData.append("userCode", parseInt(userCode));
+
 	//axios로 input 데이터 보내기
 	async function handleupload(postData) {
 		PostingService.createPosts(postData)
@@ -308,10 +309,10 @@ function Posting(props) {
 							show={modalShow}
 							onHide={() => setModalShow(false)}
 							//업로드 함수 구현하기
-							handleupload={() => handleupload({ formData })}
+							handleupload={() => handleupload(formData)}
 							//setModalShow를 axios 관련 쪽으로 넘기기
 							uploadedstate={uploadedstate}
-							boardType={boardType}
+							boardtype={boardType}
 						/>
 					</div>
 					<br />
