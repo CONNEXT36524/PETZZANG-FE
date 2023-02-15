@@ -13,7 +13,6 @@ import myImage from "../../assets/default_profile.png";
 import DeleteAccountModal from "../../components/modal/DeleteAccountModal";
 import axios from "axios";
 import UserService from "../../service/UserService";
-import { string } from "yargs";
 
 const Center = styled.div`
   height: 92vh;
@@ -181,8 +180,6 @@ const Account=()=>{
             console.log(reader.result);
             setUploadImg(profileInputRef.current.files[0])
             console.log(profileInputRef.current.files[0])
-            //console.log(JSON.stringify(profileInputRef.current.files[0]))
-        
             //set preview image
             objectUrl = URL.createObjectURL(e.target.files[0])
             console.log(objectUrl)

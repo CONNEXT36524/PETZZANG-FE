@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import dummy from "./data.json"
 import Paging from "../../components/community/Paging";
 import { setCurPage, rpaging } from "../../Slice/PagingSlice";
-import axios from "axios";
 
 const Center = styled.div`
   display: flex;
@@ -77,7 +76,6 @@ const History=()=>{
     const cntPerPage = useSelector(state => state.PagingR.cntPerPage);
     const total = useSelector(state => state.PagingR.total);
     const range = useSelector(state => state.PagingR.range);
-    const [mypostData, setMypost]= useState([]);
 
     const setPage = {
         cntPerPage : 2, 
@@ -91,46 +89,21 @@ const History=()=>{
         dispatch(rpaging(setPage));
     },[dispatch])
     
-    //내가 작성한 글 가져오기 
-    useEffect(() => {
-        (async () => {
-            // get token from local storage
-            const token = window.sessionStorage.getItem("token");
-            try {
-                const res = await axios
-                    .get(
-                        // 백엔드에서 설정한 주소
-                        "/api/me/posts", //수정 필요
-                        {
-                            headers: {
-                                Authorization: token,
-                        },
-                        }
-                    )
-                    .then((response) => {
-                        setMypost(response.data);
-                        console.log(response);
-                    });
-            } catch (e) {
-                console.log(e);
-            }
-        })();
-    }, []);
 
 
     const myList = () =>{
         if (data[btnActive] == "전체" )
         {   
-            setPage.total = mypostData.length
+            setPage.total = dummy.post.length
             console.log(setPage.total)
             dispatch(rpaging(setPage))
-            return mypostData.slice(cntPerPage*(currentPage-1), cntPerPage*currentPage);
+            return dummy.post.slice(cntPerPage*(currentPage-1), cntPerPage*currentPage);
         }
         else
         {
-            setPage.total = mypostData.filter(post => post.type == data[btnActive]).length
+            setPage.total = dummy.post.filter(post => post.type == data[btnActive]).length
             dispatch(rpaging(setPage))
-            return mypostData.filter(post => post.type == data[btnActive]).slice(cntPerPage*(currentPage-1), cntPerPage*currentPage);
+            return dummy.post.filter(post => post.type == data[btnActive]).slice(cntPerPage*(currentPage-1), cntPerPage*currentPage);
         } 
     } 
 
@@ -243,10 +216,10 @@ const History=()=>{
 											className="recommendationImg"
 										/>{" "}
 									</td>
-									<td> {data["titleName"]} </td>
-									<td> {data["userCode"]} </td>
-									<td> {data["update_time"]} </td>
-									<td> {data["views"]} </td>
+									<td> {data["title"]} </td>
+									<td> {data["witer"]} </td>
+									<td> {data["date"]} </td>
+									<td> {data["clickNum"]} </td>
 									<td> {data["likeNum"]} </td>
 								</tr>
 							))}
