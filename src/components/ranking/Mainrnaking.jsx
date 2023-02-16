@@ -18,14 +18,16 @@ function Mainranking(props) {
     const endMonth=endday.getMonth()+1;
     const endDate=endday.getDate();
     const [Isbtn, setIsbtn]=useState(true);
-    const [type,settype]=useState("week")
+    const [type,settype]=useState("week");
+    const [data,setdata]=useState([]);
 
     const loadranking =()=>{
         console.log(startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'))
         axios.get("/api/ranking/load",{params:{date:startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'), type:type}
     })
         .then((response)=> {
-            console.log(response);
+            setdata(response.data)
+            console.log(data);
         }).catch(function (error) {
         console.log(error)
             // 오류발생시 실행
@@ -54,14 +56,6 @@ function Mainranking(props) {
     useEffect(()=>{
         loadranking()
     }, [startday,type])
-    const data = [
-		{id:0, img: '../../img/dog1.png', content: '내용1'},
-		{id:1, img: '../../img/dog2.png', content: '내용2'},
-		{id:2, img: '../../img/dog1.png', content: '내용3'},
-		{id:3, img: '../../img/dog2.png', content: '내용4'},
-		{id:4, img: '../../img/dog1.png', content: '내용5'},
-		{id:5, img: '../../img/dog2.png', content: '내용6'},
-	]
     
 	return (
         <>
