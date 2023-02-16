@@ -26,6 +26,7 @@ function Mainranking(props) {
         axios.get("/api/ranking/load",{params:{date:startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'), type:type}
     })
         .then((response)=> {
+            console.log(response.data);
             setdata(response.data)
             console.log(data);
         }).catch(function (error) {
