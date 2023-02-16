@@ -28,12 +28,12 @@ function Mainranking(props) {
         .then((response)=> {
             console.log(response.data);
             setdata(response.data)
-            console.log(data);
         }).catch(function (error) {
         console.log(error)
             // 오류발생시 실행
         });
     }
+    console.log(data);
 
     const next=()=>{
         Isbtn? setstartday(new Date(startday.setDate(startday.getDate()+7))): setstartday(new Date(startday.setMonth(startday.getMonth()+1)))
