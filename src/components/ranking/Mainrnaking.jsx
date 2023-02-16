@@ -34,7 +34,7 @@ function Mainranking(props) {
         });
     }
     console.log(data);
-    console.log(data.first_post_id);
+    // console.log(data.first_post_id);
 
     const next=()=>{
         Isbtn? setstartday(new Date(startday.setDate(startday.getDate()+7))): setstartday(new Date(startday.setMonth(startday.getMonth()+1)))
