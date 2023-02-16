@@ -78,7 +78,7 @@ function Mainranking(props) {
                 </div>
             </div>
             {/* map 으로 순위 8개 component들 불러오기  */}
-            <Rankingimg data={data}/>
+            {/* <Rankingimg data={data}/> */}
 
             <br/><br/><br/>
         </>
