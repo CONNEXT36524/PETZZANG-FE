@@ -26,9 +26,9 @@ function Mainranking(props) {
         loadranking()
     }, [startday,type])
 
-    const loadranking =()=>{
+    async function loadranking(){
         console.log(startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'))
-        axios.get("/api/ranking/load",{params:{date:startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'), type:type}
+        await axios.get("/api/ranking/load",{params:{date:startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'), type:type}
     })
         .then((response)=> {
             console.log(response.data);
