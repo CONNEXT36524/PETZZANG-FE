@@ -86,20 +86,5 @@
   background-size: cover;
   background-color: whitesmoke;
 }
-.infoDiv {
-  display: inline-flex;
-  margin-top: 450px;
-}
-.mem1 {
-  margin-left: 150px;
-}
-.mem2{
-  margin-left: 250px;
-}
-.mem3 {
-  margin-left: 350px;
-}
-.mem4 {
-  margin-left: 500px;
-}
+
 
