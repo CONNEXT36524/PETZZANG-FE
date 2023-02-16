@@ -66,23 +66,7 @@ const Home=()=>{
         </div> 
     {/* ###################################################### */}
         <div className="fourth_section">
-            <div className="infoDiv">
-                <div className="mem1"> 
-                    <h3>김현민</h3>
-                    <p>저는 김현민입니당</p>
-                </div>
-                <div className="mem2"> 
-                    <h3>박다정</h3>
-                </div>
-                <div className="mem3"> 
-                    <h3>박초롱</h3>
-                </div>
-                <div className="mem4"> 
-                    <h3>조민영</h3>
-                </div>
-                
-
-            </div>
+            
         </div> 
         </>
         
