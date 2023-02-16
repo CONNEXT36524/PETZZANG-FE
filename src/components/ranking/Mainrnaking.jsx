@@ -21,6 +21,11 @@ function Mainranking(props) {
     const [type,settype]=useState("week");
     const [data,setdata]=useState();
 
+    // axios 써야함
+    useEffect(()=>{
+        loadranking()
+    }, [startday,type])
+
     const loadranking =()=>{
         console.log(startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'))
         axios.get("/api/ranking/load",{params:{date:startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'), type:type}
@@ -32,8 +37,9 @@ function Mainranking(props) {
         console.log(error)
             // 오류발생시 실행
         });
+        console.log(data);
     }
-    console.log(data);
+   
 
     const next=()=>{
         Isbtn? setstartday(new Date(startday.setDate(startday.getDate()+7))): setstartday(new Date(startday.setMonth(startday.getMonth()+1)))
@@ -53,10 +59,7 @@ function Mainranking(props) {
         setstartday(new Date(day.setDate(day.getDate()-day.getDay())));
     }
 
-    // axios 써야함
-    useEffect(()=>{
-        loadranking()
-    }, [startday,type])
+    
     
 	return (
         <>
