@@ -19,7 +19,7 @@ function Mainranking(props) {
     const endDate=endday.getDate();
     const [Isbtn, setIsbtn]=useState(true);
     const [type,settype]=useState("week");
-    const [data,setdata]=useState([]);
+    const [data,setdata]=useState();
 
     const loadranking =()=>{
         console.log(startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'))
