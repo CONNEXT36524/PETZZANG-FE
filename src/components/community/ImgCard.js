@@ -3,7 +3,7 @@ import "./ImgCard.css";
 import { useNavigate } from "react-router";
 
 function ImgCard(props) {
-	//console.log(props)
+	console.log(props.item)
 
 	const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function ImgCard(props) {
 
 	return (
 		<>
-			{props.item === undefined ? null : (
+			{props.item === undefined || props.item === null ? null : (
 				<div
 					className="card"
 					onClick={() => onClickHandler(props.item.postId)}

@@ -19,26 +19,26 @@ function Mainranking(props) {
     const endDate=endday.getDate();
     const [Isbtn, setIsbtn]=useState(true);
     const [type,settype]=useState("week");
-    const [data,setdata]=useState();
+    const [data,setdata]=useState('');
 
     // axios 써야함
-    useEffect(()=>{
+    useEffect(()=>{ 
         loadranking()
     }, [startday,type])
 
     async function loadranking(){
         console.log(startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'))
-        await axios.get("/api/ranking/load",{params:{date:startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'), type:type}
-    })
-        .then((response)=> {
-            console.log(response.data);
-            setdata(response.data)
-        }).catch(function (error) {
+        try{
+        const response = await axios.get("/api/ranking/load",{params:{date:startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'), type:type}});
+        console.log(response.data);
+        setdata(response.data)
+        }
+        catch(error) {
         console.log(error)
             // 오류발생시 실행
-        });
-        console.log(data);
+        };
     }
+    console.log(data.first_post_id);
    
 
     const next=()=>{
@@ -81,7 +81,7 @@ function Mainranking(props) {
                 </div>
             </div>
             {/* map 으로 순위 8개 component들 불러오기  */}
-            {/* <Rankingimg data={data}/> */}
+            <Rankingimg data={data}/>
 
             <br/><br/><br/>
         </>
