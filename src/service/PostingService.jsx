@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const COMMUNITY_API_BASE_URL = '/api/community';
+const COMMUNITY_API_BASE_URL = "/api/community";
 
 class PostingService {
 	//게시글 불러오기
@@ -10,7 +10,7 @@ class PostingService {
 
 	//게시글 업로드하기
 	createPosts(posting) {
-		return axios.post("/api/community/posting", posting, {
+		return axios.post(COMMUNITY_API_BASE_URL + "/posting", posting, {
 			headers: {
 				//"X-AUTH-TOKEN": token,
 				"Content-Type": `multipart/form-data`,
@@ -19,7 +19,7 @@ class PostingService {
 	}
 
 	uploadThumbnail(img) {
-		return axios.put(COMMUNITY_API_BASE_URL + "/image", img, {
+		return axios.post(COMMUNITY_API_BASE_URL + "/image", img, {
 			headers: {
 				"Content-Type": `multipart/form-data; `,
 			},

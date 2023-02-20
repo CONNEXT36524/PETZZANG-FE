@@ -61,7 +61,7 @@ function Posting(props) {
 	}
 
 	const data = new FormData();
-	data.append("imgFile", upFile);
+	data.append("imgFile", imgFile);
 	//input 데이터 확인용 함수
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
@@ -84,6 +84,24 @@ function Posting(props) {
 	formData.append("likeNum", 0);
 	formData.append("userCode", parseInt(userCode));
 
+	function checkImage() {
+		console.log(imgFile);
+		PostingService.uploadThumbnail(data)
+			.then(function (response) {
+				console.log(response.data);
+				//useState 업데이트 완료 상태로 바꿔주는 코드 작성하기!
+				setUploadedState("업로드가 완료되었습니다.");
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+				setUploadedState(
+					"업로드 중 오류가 발생했습니다.\n다시 시도해주세요."
+				);
+			})
+			.then(function () {
+				// 항상 실행
+			});
+	}
 	//axios로 input 데이터 보내기
 	async function handleupload(postData) {
 		PostingService.createPosts(postData)
@@ -191,6 +209,7 @@ function Posting(props) {
 							/>
 						</Form.Group>
 						<br />
+						<Button onClick={() => checkImage()}>checking</Button>
 						<Form.Group className="mb-3" id="FileInputForm">
 							<div>
 								<img
