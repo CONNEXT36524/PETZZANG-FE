@@ -13,6 +13,8 @@ import ReplyEditor from "../../../components/editor/ReplyEditor";
 import { useLocation } from "react-use";
 import parse from "html-react-parser";
 import { useNavigate } from "react-router-dom";
+import Badge from "react-bootstrap/Badge";
+import { type } from "@testing-library/user-event/dist/type";
 
 function Posts(props) {
 	GlobalNavColor("community");
@@ -79,7 +81,9 @@ function Posts(props) {
 						content: parse(postData["content"]),
 						views: postData["views"],
 						likeNum: postData["likeNum"],
-						update_time: postData["update_time"],
+						update_time: postData["update_time"]
+							.replace("T", " ")
+							.substring(0, 19),
 						userCode: postData["userCode"],
 					});
 				})
@@ -159,52 +163,50 @@ function Posts(props) {
 	let [likeBtnActive, setLikeBtnActive] = useState(false);
 	//axios로 input 데이터 보내기
 	async function onUpload() {
-		if(likeBtnActive==false) {
-			setLikeBtnActive(true)
-			
+		if (likeBtnActive == false) {
+			setLikeBtnActive(true);
+
 			// 프론트에서 likeNum값 +1
 			setInputs({
 				...inputs,
-				likeNum: likeNum+1
-			})
-			console.log(likeNum)
+				likeNum: likeNum + 1,
+			});
+			console.log(likeNum);
 
 			// 백엔드로 좋아요 수 +1 보내기
 			PostService.plusLikeNum(postId)
-			.then(function (response) {
-				//console.log(response.data);
-			})
-			.catch(function (error) {
-				// 오류발생시 실행
-			})
-			.then(function () {
-				// 항상 실행
-			});
-		
-		} else{
-			setLikeBtnActive(false)
-			
+				.then(function (response) {
+					//console.log(response.data);
+				})
+				.catch(function (error) {
+					// 오류발생시 실행
+				})
+				.then(function () {
+					// 항상 실행
+				});
+		} else {
+			setLikeBtnActive(false);
+
 			// 프론트에서 likeNum값 -1
 			setInputs({
 				...inputs,
-				likeNum: likeNum-1
-			})
-			console.log(likeNum)
+				likeNum: likeNum - 1,
+			});
+			console.log(likeNum);
 
 			// 백엔드로 좋아요 수 -1 보내기
 			PostService.minusLikeNum(postId)
-			.then(function (response) {
-				//console.log(response.data);
-			})
-			.catch(function (error) {
-				// 오류발생시 실행
-			})
-			.then(function () {
-				// 항상 실행
-			});
+				.then(function (response) {
+					//console.log(response.data);
+				})
+				.catch(function (error) {
+					// 오류발생시 실행
+				})
+				.then(function () {
+					// 항상 실행
+				});
 		}
-	}	
-		
+	}
 
 	useEffect(() => {
 		let completed = false;
@@ -253,6 +255,7 @@ function Posts(props) {
 			console.log(completed);
 		};
 	}, []);
+	console.log(replies);
 	return (
 		<div className="posts-page">
 			<CommunityBanner />
@@ -261,9 +264,29 @@ function Posts(props) {
 
 			<Container className="posts">
 				<div className="articles">
-					<h5>
-						{pet} {">"} {kind} {">"} {sex}
-					</h5>
+					<h6>
+						<Badge pill bg="info">
+							{pet}
+						</Badge>
+
+						{kind.length === 0 ? null : (
+							<>
+								{"  "}
+								<Badge pill bg="info">
+									{kind}
+								</Badge>
+							</>
+						)}
+
+						{sex.length === 0 ? null : (
+							<>
+								{"  "}
+								<Badge pill bg="info">
+									{sex}
+								</Badge>
+							</>
+						)}
+					</h6>
 
 					<br />
 
@@ -288,10 +311,11 @@ function Posts(props) {
 				<button
 					size="lg"
 					className={likeBtnActive ? "likeBtnActive" : "likeBtn"}
-					onClick={onUpload} >
+					onClick={onUpload}
+				>
 					좋아요 👍🏻
 				</button>
-				<br/>
+				<br />
 				<div className="comments">
 					<h5>
 						❤️ 좋아요 {likeNum} 💭 댓글 {replies.length}
@@ -311,6 +335,8 @@ function Posts(props) {
 						postId={postId}
 						boardType={boardType}
 						onSubmit={handleSubmit}
+						replies={replies}
+						setReplies={setReplies}
 					/>
 				</div>
 			</Container>
