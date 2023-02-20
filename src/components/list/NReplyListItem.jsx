@@ -7,8 +7,7 @@ import DeleteReplyModal from "../modal/DeleteReplyModal";
 function NReplyListItem({ nReply }) {
 	//data <- postId
 	const userImg = window.sessionStorage.getItem("userImg");
-	const nReplyDate = nReply.createTime.split("T");
-	const nReplyTime = nReplyDate[1].split(".");
+	const nReplyDate = nReply.createTime.replace("T", " ").substring(0, 19);
 
 	const [open, setOpen] = useState(false);
 	const [btnType, setBtnType] = useState("");
@@ -56,9 +55,7 @@ function NReplyListItem({ nReply }) {
 								<b>{nReply.userCode}</b>
 							</h6>
 							<div>{nReply.content}</div>
-							<div className="nReplyTime">
-								{nReplyDate[0]} {nReplyTime[0]}
-							</div>
+							<div className="nReplyTime">{nReplyDate}</div>
 						</div>
 						<div>
 							<Button
