@@ -66,20 +66,20 @@ const Account=()=>{
     }, [])
     
 
-    //데이터 가져오기
+    //kic에서 이미지 데이터 가져오기
     //수정 필요
-	const [getImg, setGetImg] = useState();
+	const [getImg, setGetImg] = useState("");
 	useEffect(() => {
         let completed = false; 
 		async function get() {
 			await axios.get('/api/get/profile', {
 				params:{
-					imgName : "thumbnail"
-					
+					imgName : "dog2"
 				}
 			}).then((respond)=>{
-				console.log(respond.data)
-				//setGetImg(respondList.data)
+				//console.log(respond.data)
+                console.log(respond.data.body)
+				//setGetImg("data:image/png;base64,"+respond.data.body)
 			}).catch(error => console.log(error))
 		}
 		get()
@@ -87,15 +87,6 @@ const Account=()=>{
 			completed = true;
 		};
 	}, []);
-	//console.log(getImg)
-    // const encodeFileToBase64 = (image: File) => {
-    //     return new Promise((resolve, reject) => {
-    //       const reader = new FileReader();
-    //       reader.readAsDataURL(image);
-    //       reader.onload = (event: any) => resolve(event.target.result);
-    //       reader.onerror = (error) => reject(error);
-    //     });
-    //   };
     
 
     
@@ -152,6 +143,7 @@ const Account=()=>{
                 <Content>
                     <Title>
                         <div className="title">나의 계정</div>
+                        <img src={getImg}></img>
                     </Title>
                     
                     <Sub>
