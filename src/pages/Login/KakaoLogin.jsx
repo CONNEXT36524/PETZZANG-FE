@@ -64,16 +64,16 @@ const KakaoLogin = () => {
 					)
 					.then((response) => {
 						window.sessionStorage.setItem(
-							"userCode",
-							response.data.kakaoid
-						);
-						window.sessionStorage.setItem(
 							"userName",
 							response.data.kakaonickname
 						);
 						window.sessionStorage.setItem(
 							"userImg",
 							response.data.kakaoprofileimg
+						);
+						window.sessionStorage.setItem(
+							"userCode",
+							response.data.usercode
 						);
 						console.log(response);
 					});
