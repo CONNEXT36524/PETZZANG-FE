@@ -3,6 +3,7 @@ import "./homeRankImg.css"
 import { useEffect, useState } from "react";
 import Rankingimg from "./Rankingimg";
 import axios from "axios";
+import ImgCard from "../community/ImgCard";
 
 function HomeRankImg() {
 	const now=new Date();
@@ -44,6 +45,10 @@ function HomeRankImg() {
 
 	return (
 		<>
+        {
+            data.length ===0 ?<></> :
+            <>
+		
 			{/* {props.item === undefined ? null : (
 				<div
 					className="card"
@@ -64,10 +69,7 @@ function HomeRankImg() {
 				className="homeCardDiv1"
 				//onClick={() => onClickHandler(props.item.postId)}
 			>
-                <img src="../img/dog1.png" 
-                    className="homeRankImage"
-                    alt="이미지"
-                />
+                <ImgCard item={data.first_post_id}/>
             </div>
 
             {/* ################### 2등 ######################## */}
@@ -75,10 +77,7 @@ function HomeRankImg() {
 				className="homeCardDiv2"
 				//onClick={() => onClickHandler(props.item.postId)}
 			>
-                <img src="../img/dog1.png" 
-                    className="homeRankImage"
-                    alt="이미지"
-                />
+                <ImgCard item={data.second_post_id}/>
             </div>
 
             {/* ################### 3등 ######################## */}
@@ -86,10 +85,7 @@ function HomeRankImg() {
 				className="homeCardDiv3"
 				//onClick={() => onClickHandler(props.item.postId)}
 			>
-                <img src="../img/dog1.png" 
-                    className="homeRankImage"
-                    alt="이미지"
-                />
+                <ImgCard item={data.third_post_id}/>
             </div>
 
             {/* ################### 4등 ######################## */}
@@ -97,11 +93,10 @@ function HomeRankImg() {
 				className="homeCardDiv4"
 				//onClick={() => onClickHandler(props.item.postId)}
 			>
-                <img src="../img/dog1.png" 
-                    className="homeRankImage"
-                    alt="이미지"
-                />
+                <ImgCard item={data.fourth_post_id}/>
             </div>
+            </>
+}
 
 		</>
 	);
