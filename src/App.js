@@ -125,7 +125,7 @@ function App() {
 								<div className="user1Dropdown">
 
 									<NavDropdown title="" id={`mypageDropdown`}>
-										<NavDropdown.Item href="/mypage/notification">
+										<NavDropdown.Item href="/mypage/account">
 											마이페이지
 										</NavDropdown.Item>
 										<NavDropdown.Item href="/logout">

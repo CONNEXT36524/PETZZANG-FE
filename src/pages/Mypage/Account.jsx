@@ -74,7 +74,7 @@ const Account=()=>{
 		async function get() {
 			await axios.get('/api/get/profile', {
 				params:{
-					imgName : "dog2"
+					imgName : "dog2.png"
 				}
 			}).then((respond)=>{
 				//console.log(respond.data)
