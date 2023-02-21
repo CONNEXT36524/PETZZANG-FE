@@ -18,10 +18,10 @@ function Posting(props) {
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		titleName: "",
-		boardType: "daily",
-		pet: "",
-		kind: "",
-		sex: "",
+		boardType: "게시판 유형",
+		pet: "동물",
+		kind: "종",
+		sex: "성별",
 	});
 
 	// 비구조화 할당을 통해 값 추출
@@ -81,7 +81,7 @@ function Posting(props) {
 	formData.append("userCode", parseInt(userCode));
 
 	function checkImage() {
-		console.log(userCode);
+		console.log(boardType);
 	}
 	//axios로 input 데이터 보내기
 	async function handleupload(postData) {
@@ -227,6 +227,7 @@ function Posting(props) {
 						value={boardType}
 						required
 					>
+						<option>게시판 유형</option>
 						{BoardOptions.map((item, index) => (
 							<option key={item.key} value={item.key}>
 								{item.value}
