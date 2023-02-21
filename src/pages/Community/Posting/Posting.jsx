@@ -18,7 +18,7 @@ function Posting(props) {
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		titleName: "",
-		boardType: "daily",
+		boardType: "",
 		pet: "",
 		kind: "",
 		sex: "",
@@ -40,6 +40,8 @@ function Posting(props) {
 	const imgRef = useRef();
 
 	const [upFile, setUpfile] = useState(null);
+	const [imgName, setImgName] = useState("") //axios로 보낼 데이터
+
 	// 이미지 업로드 input의 onChange
 	const showImgFile = () => {
 		const file = imgRef.current.files[0];
@@ -48,6 +50,7 @@ function Posting(props) {
 		reader.onloadend = () => {
 			setImgFile(reader.result);
 			setUpfile(file);
+			setImgName(file.name);
 		};
 	};
 
@@ -79,6 +82,7 @@ function Posting(props) {
 	formData.append("views", 0);
 	formData.append("likeNum", 0);
 	formData.append("userCode", parseInt(userCode));
+	formData.append("imgName", imgName);
 
 	function checkImage() {
 		console.log(upFile.name);
