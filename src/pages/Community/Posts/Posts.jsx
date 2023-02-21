@@ -14,7 +14,6 @@ import { useLocation } from "react-use";
 import parse from "html-react-parser";
 import { useNavigate } from "react-router-dom";
 import Badge from "react-bootstrap/Badge";
-import { type } from "@testing-library/user-event/dist/type";
 
 function Posts(props) {
 	GlobalNavColor("community");

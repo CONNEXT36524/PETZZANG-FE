@@ -8,7 +8,6 @@ import Editor from "../../../components/editor/QuillEditor";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
 import PostingService from "../../../service/PostingService";
-import UserService from "../../../service/UserService";
 
 function Posting(props) {
 	GlobalNavColor("community");
@@ -19,15 +18,14 @@ function Posting(props) {
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		titleName: "",
-		boardType: "",
+		boardType: "daily",
 		pet: "",
 		kind: "",
 		sex: "",
-		thumbnail: "",
 	});
 
 	// 비구조화 할당을 통해 값 추출
-	const { titleName, boardType, pet, kind, sex, thumbnail } = inputs;
+	const { titleName, boardType, pet, kind, sex } = inputs;
 
 	const onChange = (e) => {
 		const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
@@ -60,8 +58,6 @@ function Posting(props) {
 		//여기서 desc는 description
 	}
 
-	const data = new FormData();
-	data.append("imgFile", imgFile);
 	//input 데이터 확인용 함수
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
@@ -78,29 +74,14 @@ function Posting(props) {
 	formData.append("pet", pet);
 	formData.append("kind", kind);
 	formData.append("sex", sex);
-	//formData.append("thumbnail", imgFile);
+	formData.append("thumbnail", imgFile);
 	formData.append("content", desc);
 	formData.append("views", 0);
 	formData.append("likeNum", 0);
 	formData.append("userCode", parseInt(userCode));
 
 	function checkImage() {
-		console.log(imgFile);
-		PostingService.uploadThumbnail(data)
-			.then(function (response) {
-				console.log(response.data);
-				//useState 업데이트 완료 상태로 바꿔주는 코드 작성하기!
-				setUploadedState("업로드가 완료되었습니다.");
-			})
-			.catch(function (error) {
-				// 오류발생시 실행
-				setUploadedState(
-					"업로드 중 오류가 발생했습니다.\n다시 시도해주세요."
-				);
-			})
-			.then(function () {
-				// 항상 실행
-			});
+		console.log(upFile.name);
 	}
 	//axios로 input 데이터 보내기
 	async function handleupload(postData) {
@@ -247,7 +228,6 @@ function Posting(props) {
 							value={boardType}
 							required
 						>
-							<option>커뮤니티 게시판</option>
 							{BoardOptions.map((item, index) => (
 								<option key={item.key} value={item.key}>
 									{item.value}
