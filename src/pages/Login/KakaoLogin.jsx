@@ -73,7 +73,7 @@ const KakaoLogin = () => {
 						);
 						window.sessionStorage.setItem(
 							"userCode",
-							response.data.usercode
+							response.data.kakaoid
 						);
 						console.log(response);
 					});

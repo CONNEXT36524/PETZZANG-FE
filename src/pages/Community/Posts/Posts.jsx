@@ -13,6 +13,8 @@ import ReplyEditor from "../../../components/editor/ReplyEditor";
 import { useLocation } from "react-use";
 import parse from "html-react-parser";
 import { useNavigate } from "react-router-dom";
+import Badge from "react-bootstrap/Badge";
+import axios from "axios";
 
 function Posts(props) {
 	GlobalNavColor("community");
@@ -79,7 +81,9 @@ function Posts(props) {
 						content: parse(postData["content"]),
 						views: postData["views"],
 						likeNum: postData["likeNum"],
-						update_time: postData["update_time"],
+						update_time: postData["update_time"]
+							.replace("T", " ")
+							.substring(0, 19),
 						userCode: postData["userCode"],
 					});
 				})
@@ -98,13 +102,27 @@ function Posts(props) {
 		};
 	}, []);
 
-	//댓글 기능
-	const [replies, setReplies] = useState([]);
 
-	//댓글 정보 가져오기
+	const [getImg, setGetImg] = useState(""); //이미지
+	axios.get('/api/community/get/img', {
+		params:{
+			imgUrl : thumbnail
+		}
+	}).then((respond)=>{
+		//console.log(respond.data)
+		console.log(respond.data.body)
+		setGetImg("data:image/png;base64,"+respond.data.body)
+	}).catch(error => console.log(error))
+
+
+	
+	//댓글
+	const [replies, setReplies] = useState([]); 
+	
 	useEffect(() => {
 		let completed = false;
 		async function get() {
+			//댓글 정보 가져오기
 			await ReplyService.getReplies(postId)
 				.then(function (response) {
 					// 성공 핸들링
@@ -118,122 +136,8 @@ function Posts(props) {
 				.then(function () {
 					// 항상 실행되는 영역
 				});
-		}
-		get();
-		return () => {
-			completed = true;
-			console.log(completed);
-		};
-	}, []);
-
-	const nextId = useRef(0);
-
-	function handleSubmit() {
-		console.log("hello");
-	}
-
-	const [show, setShow] = useState(false);
-	const navigate = useNavigate();
-
-	const handleClose = () => {
-		setShow(false);
-		navigate(`/community/daily`);
-	};
-	const handleShow = () => setShow(true);
-
-	async function onRemove() {
-		setShow(true);
-		await PostService.deletePosts(postId)
-			.then(function (response) {
-				console.log(response.data);
-				// response
-			})
-			.catch(function (error) {
-				// 오류발생시 실행
-			})
-			.then(function () {
-				// 항상 실행
-			});
-	}
-
-	let [likeBtnActive, setLikeBtnActive] = useState(false);
-	//axios로 input 데이터 보내기
-	async function onUpload() {
-		if(likeBtnActive==false) {
-			setLikeBtnActive(true)
-			
-			// 프론트에서 likeNum값 +1
-			setInputs({
-				...inputs,
-				likeNum: likeNum+1
-			})
-			console.log(likeNum)
-
-			// 백엔드로 좋아요 수 +1 보내기
-			PostService.plusLikeNum(postId)
-			.then(function (response) {
-				//console.log(response.data);
-			})
-			.catch(function (error) {
-				// 오류발생시 실행
-			})
-			.then(function () {
-				// 항상 실행
-			});
-		
-		} else{
-			setLikeBtnActive(false)
-			
-			// 프론트에서 likeNum값 -1
-			setInputs({
-				...inputs,
-				likeNum: likeNum-1
-			})
-			console.log(likeNum)
-
-			// 백엔드로 좋아요 수 -1 보내기
-			PostService.minusLikeNum(postId)
-			.then(function (response) {
-				//console.log(response.data);
-			})
-			.catch(function (error) {
-				// 오류발생시 실행
-			})
-			.then(function () {
-				// 항상 실행
-			});
-		}
-	}	
-		
-
-	useEffect(() => {
-		let completed = false;
-		async function get() {
-			await ReplyService.getReplies(postId)
-				.then(function (response) {
-					// 성공 핸들링
-					setReplies(response.data);
-					console.log(response.data);
-				})
-				.catch(function (error) {
-					// 에러 핸들링
-					console.log(error);
-				})
-				.then(function () {
-					// 항상 실행되는 영역
-				});
-		}
-		get();
-		return () => {
-			completed = true;
-			console.log(completed);
-		};
-	}, []);
-
-	//	조회수 올리기
-	useEffect(() => {
-		let completed = false;
-		async function get() {
+				
+			//조회수 올리기
 			await PostService.updateView(postId)
 				.then(function (response) {
 					// 성공 핸들링
@@ -253,6 +157,86 @@ function Posts(props) {
 			console.log(completed);
 		};
 	}, []);
+
+	function handleSubmit() {
+		console.log("hello");
+	}
+
+	const [show, setShow] = useState(false);
+	const navigate = useNavigate();
+
+	const handleClose = () => {
+		setShow(false);
+		navigate(`/community/daily`);
+	};
+	const handleShow = () => setShow(true);
+
+	// 삭제 기능
+	async function onRemove() {
+		setShow(true);
+		await PostService.deletePosts(postId)
+			.then(function (response) {
+				console.log(response.data);
+				// response
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+			})
+			.then(function () {
+				// 항상 실행
+			});
+	}
+
+	//좋아요 버튼
+	let [likeBtnActive, setLikeBtnActive] = useState(false);
+	//axios로 input 데이터 보내기
+	async function onUpload() {
+		if (likeBtnActive == false) {
+			setLikeBtnActive(true);
+
+			// 프론트에서 likeNum값 +1
+			setInputs({
+				...inputs,
+				likeNum: likeNum + 1,
+			});
+			console.log(likeNum);
+
+			// 백엔드로 좋아요 수 +1 보내기
+			PostService.plusLikeNum(postId)
+				.then(function (response) {
+					//console.log(response.data);
+				})
+				.catch(function (error) {
+					// 오류발생시 실행
+				})
+				.then(function () {
+					// 항상 실행
+				});
+		} else {
+			setLikeBtnActive(false);
+
+			// 프론트에서 likeNum값 -1
+			setInputs({
+				...inputs,
+				likeNum: likeNum - 1,
+			});
+			console.log(likeNum);
+
+			// 백엔드로 좋아요 수 -1 보내기
+			PostService.minusLikeNum(postId)
+				.then(function (response) {
+					//console.log(response.data);
+				})
+				.catch(function (error) {
+					// 오류발생시 실행
+				})
+				.then(function () {
+					// 항상 실행
+				});
+		}
+	}
+
+
 	return (
 		<div className="posts-page">
 			<CommunityBanner />
@@ -261,9 +245,29 @@ function Posts(props) {
 
 			<Container className="posts">
 				<div className="articles">
-					<h5>
-						{pet} {">"} {kind} {">"} {sex}
-					</h5>
+					<h6>
+						<Badge pill bg="info">
+							{pet}
+						</Badge>
+
+						{kind.length === 0 ? null : (
+							<>
+								{"  "}
+								<Badge pill bg="info">
+									{kind}
+								</Badge>
+							</>
+						)}
+
+						{sex.length === 0 ? null : (
+							<>
+								{"  "}
+								<Badge pill bg="info">
+									{sex}
+								</Badge>
+							</>
+						)}
+					</h6>
 
 					<br />
 
@@ -283,15 +287,24 @@ function Posts(props) {
 						</h6>
 					</div>
 					<br />
+					<img src={
+							getImg=="data:image/png;base64,undefined"
+							? require("../../../assets/noImage.png")
+							: getImg
+						}
+						className="postImg"
+					/>
+					
 					<div className="articleBody">{content}</div>
 				</div>
 				<button
 					size="lg"
 					className={likeBtnActive ? "likeBtnActive" : "likeBtn"}
-					onClick={onUpload} >
+					onClick={onUpload}
+				>
 					좋아요 👍🏻
 				</button>
-				<br/>
+				<br />
 				<div className="comments">
 					<h5>
 						❤️ 좋아요 {likeNum} 💭 댓글 {replies.length}
@@ -311,6 +324,8 @@ function Posts(props) {
 						postId={postId}
 						boardType={boardType}
 						onSubmit={handleSubmit}
+						replies={replies}
+						setReplies={setReplies}
 					/>
 				</div>
 			</Container>

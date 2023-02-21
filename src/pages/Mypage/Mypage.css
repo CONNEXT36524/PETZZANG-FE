@@ -53,6 +53,9 @@
     justify-content: center;
     align-items: center;
 }
+.circle:hover{
+    cursor: pointer;
+}
 
 div img.profile {
     position: absolute;

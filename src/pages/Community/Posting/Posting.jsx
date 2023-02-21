@@ -8,7 +8,6 @@ import Editor from "../../../components/editor/QuillEditor";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
 import PostingService from "../../../service/PostingService";
-import UserService from "../../../service/UserService";
 
 function Posting(props) {
 	GlobalNavColor("community");
@@ -19,15 +18,14 @@ function Posting(props) {
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		titleName: "",
-		boardType: "",
-		pet: "",
-		kind: "",
-		sex: "",
-		thumbnail: "",
+    boardType: "게시판 유형",
+		pet: "동물",
+		kind: "종",
+		sex: "성별",
 	});
 
 	// 비구조화 할당을 통해 값 추출
-	const { titleName, boardType, pet, kind, sex, thumbnail } = inputs;
+	const { titleName, boardType, pet, kind, sex } = inputs;
 
 	const onChange = (e) => {
 		const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
@@ -42,6 +40,8 @@ function Posting(props) {
 	const imgRef = useRef();
 
 	const [upFile, setUpfile] = useState(null);
+	const [imgName, setImgName] = useState("") //axios로 보낼 데이터
+
 	// 이미지 업로드 input의 onChange
 	const showImgFile = () => {
 		const file = imgRef.current.files[0];
@@ -50,6 +50,7 @@ function Posting(props) {
 		reader.onloadend = () => {
 			setImgFile(reader.result);
 			setUpfile(file);
+			setImgName(file.name);
 		};
 	};
 
@@ -60,8 +61,6 @@ function Posting(props) {
 		//여기서 desc는 description
 	}
 
-	const data = new FormData();
-	data.append("imgFile", upFile);
 	//input 데이터 확인용 함수
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
@@ -78,12 +77,16 @@ function Posting(props) {
 	formData.append("pet", pet);
 	formData.append("kind", kind);
 	formData.append("sex", sex);
-	//formData.append("thumbnail", imgFile);
+	formData.append("thumbnail", imgFile);
 	formData.append("content", desc);
 	formData.append("views", 0);
 	formData.append("likeNum", 0);
 	formData.append("userCode", parseInt(userCode));
+	formData.append("imgName", imgName);
 
+	function checkImage() {
+		console.log(boardType);
+	}
 	//axios로 input 데이터 보내기
 	async function handleupload(postData) {
 		PostingService.createPosts(postData)
@@ -175,149 +178,148 @@ function Posting(props) {
 		<>
 			<PostingBanner />
 			<MiddleNav contents={"HOME>커뮤니티>게시글 작성"} />
-			<div className="posting">
-				<Container>
-					<br />
-					<div className="containerHeader">
-						<Form.Group className="mb-3">
-							<Form.Label className="formLabel">제목</Form.Label>
-							<Form.Control
-								type="text"
-								size="lg"
-								placeholder="제목을 입력하세요"
-								name="titleName"
-								onChange={onChange}
-								value={titleName || ""}
-							/>
-						</Form.Group>
-						<br />
-						<Form.Group className="mb-3" id="FileInputForm">
-							<div>
-								<img
-									// require()를 통해 이미지 불러오긴
-									src={
-										imgFile
-											? imgFile
-											: require("../../../assets/noImage.png")
-									}
-									alt="프로필 이미지"
-									className="thumbnailImg"
-								/>
-							</div>
-							<div>
-								<Form.Label className="formLabel">
-									썸네일 사진 첨부
-								</Form.Label>
-
-								<Form.Control
-									name="thumnail"
-									type="file"
-									accept="image/*"
-									id="thumbnailImg"
-									onChange={showImgFile}
-									ref={imgRef}
-								/>
-							</div>
-						</Form.Group>
-						<br />
-						<Form.Select
-							name="boardType"
-							className="selectBoardType"
-							aria-label="Board Type Selection"
+			<Container className="posting">
+				<br />
+				<div className="containerHeader">
+					<Form.Group className="mb-3">
+						<Form.Label className="formLabel">제목</Form.Label>
+						<Form.Control
+							type="text"
+							size="lg"
+							placeholder="제목을 입력하세요"
+							name="titleName"
 							onChange={onChange}
-							value={boardType}
+							value={titleName || ""}
+						/>
+					</Form.Group>
+					<br />
+					<Button onClick={() => checkImage()}>checking</Button>
+					<Form.Group className="mb-3" id="FileInputForm">
+						<div>
+							<img
+								// require()를 통해 이미지 불러오긴
+								src={
+									imgFile
+										? imgFile
+										: require("../../../assets/noImage.png")
+								}
+								alt="프로필 이미지"
+								className="thumbnailImg"
+							/>
+						</div>
+						<div>
+							<Form.Label className="formLabel">
+								썸네일 사진 첨부
+							</Form.Label>
+
+							<Form.Control
+								name="thumnail"
+								type="file"
+								accept="image/*"
+								id="thumbnailImg"
+								onChange={showImgFile}
+								ref={imgRef}
+							/>
+						</div>
+					</Form.Group>
+					<br />
+					<Form.Select
+						name="boardType"
+						className="selectBoardType"
+						aria-label="Board Type Selection"
+						onChange={onChange}
+						value={boardType}
+						required
+					>
+						<option>게시판 유형</option>
+						{BoardOptions.map((item, index) => (
+							<option key={item.key} value={item.key}>
+								{item.value}
+							</option>
+						))}
+					</Form.Select>
+					<div className="selectPostingType">
+						<Form.Select
+							name="pet"
+							id="selection1"
+							className="selection"
+							aria-label="Pet Species"
+							onChange={onChange}
+							value={pet}
 							required
 						>
-							<option>커뮤니티 게시판</option>
-							{BoardOptions.map((item, index) => (
-								<option key={item.key} value={item.key}>
+							<option>동물</option>
+							{PetSpeciesOptions.map((item, index) => (
+								<option key={item.key} value={item.value}>
+									{item.value || ""}
+								</option>
+							))}
+						</Form.Select>
+
+						<Form.Select
+							name="kind"
+							id="selection2"
+							className="selection"
+							aria-label="Pet Kind"
+							onChange={onChange}
+							value={kind}
+						>
+							<option>종</option>
+							{PetKindOptions.map((item, index) => (
+								<option key={item.key} value={item.value}>
 									{item.value}
 								</option>
 							))}
 						</Form.Select>
-						<div className="selectPostingType">
-							<Form.Select
-								name="pet"
-								id="selection1"
-								className="selection"
-								aria-label="Pet Species"
-								onChange={onChange}
-								value={pet}
-								required
-							>
-								<option>동물</option>
-								{PetSpeciesOptions.map((item, index) => (
-									<option key={item.key} value={item.value}>
-										{item.value || ""}
-									</option>
-								))}
-							</Form.Select>
 
-							<Form.Select
-								name="kind"
-								id="selection2"
-								className="selection"
-								aria-label="Pet Kind"
-								onChange={onChange}
-								value={kind}
-							>
-								<option>종</option>
-								{PetKindOptions.map((item, index) => (
-									<option key={item.key} value={item.value}>
-										{item.value}
-									</option>
-								))}
-							</Form.Select>
-
-							<Form.Select
-								name="sex"
-								id="selection3"
-								className="selection"
-								aria-label="Pet Sex"
-								onChange={onChange}
-								value={sex}
-							>
-								<option>성별</option>
-								{PetSexOptions.map((item, index) => (
-									<option key={item.key} value={item.value}>
-										{item.value}
-									</option>
-								))}
-							</Form.Select>
-						</div>
-						<br />
-					</div>
-					<br />
-					<div>
-						<Editor
-							id="textEditor"
-							value={desc}
-							onChange={onEditorChange}
-						/>
-					</div>
-					<br />
-					<div className="containerFooter">
-						<Button
-							className="postingBtn"
-							variant="primary"
-							onClick={() => setModalShow(true)}
+						<Form.Select
+							name="sex"
+							id="selection3"
+							className="selection"
+							aria-label="Pet Sex"
+							onChange={onChange}
+							value={sex}
 						>
-							✏️ 작성하기
-						</Button>
-
-						<SavePostingModal
-							show={modalShow}
-							onHide={() => setModalShow(false)}
-							//업로드 함수 구현하기
-							handleupload={() => handleupload(formData)}
-							//setModalShow를 axios 관련 쪽으로 넘기기
-							uploadedstate={uploadedstate}
-							boardtype={boardType}
-						/>
+							<option>성별</option>
+							{PetSexOptions.map((item, index) => (
+								<option key={item.key} value={item.value}>
+									{item.value}
+								</option>
+							))}
+						</Form.Select>
 					</div>
 					<br />
-				</Container>
-			</div>
+				</div>
+				<br />
+				<div>
+					<Editor
+						id="textEditor"
+						value={desc}
+						onChange={onEditorChange}
+					/>
+				</div>
+				<br />
+				<div className="containerFooter">
+					<Button
+						className="postingBtn"
+						variant="primary"
+						onClick={() => setModalShow(true)}
+					>
+						✏️ 작성하기
+					</Button>
+
+					<SavePostingModal
+						show={modalShow}
+						onHide={() => setModalShow(false)}
+						//업로드 함수 구현하기
+						handleupload={() => handleupload(formData)}
+						//setModalShow를 axios 관련 쪽으로 넘기기
+						uploadedstate={uploadedstate}
+						boardtype={boardType}
+					/>
+				</div>
+				<br />
+			</Container>
 			<br />
 			<br />
 			<br />

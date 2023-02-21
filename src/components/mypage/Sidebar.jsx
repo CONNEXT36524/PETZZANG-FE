@@ -31,10 +31,11 @@ const Menu = styled.div`
 
 function Sidebar() {
   const menus = [
+    { name: "정보 수정", path: "/mypage/account"},
     { name: "알림", path: "/mypage/notification" },
     { name: "펫짱 수첩", path: "/mypage/history" },
     { name: "펫짱 수상기록", path: "/mypage/awards" },
-    { name: "정보 수정", path: "/mypage/account"}
+    
   ];
   return (
     <Side>

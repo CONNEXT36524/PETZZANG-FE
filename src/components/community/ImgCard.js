@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ImgCard.css";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 function ImgCard(props) {
 	// console.log(props.item)
@@ -15,6 +16,31 @@ function ImgCard(props) {
 			},
 		});
 	};
+
+	//console.log(props.item.thumbnail);
+
+	//kic에서 이미지 데이터 가져오기
+	const [getImg, setGetImg] = useState("");
+	useEffect(() => {
+        let completed = false; 
+		async function get() {
+			await axios.get('/api/community/get/img', {
+				params:{
+					imgUrl : props.item.thumbnail
+				}
+			}).then((respond)=>{
+				//console.log(respond.data)
+                //console.log(respond.data.body)
+				setGetImg("data:image/png;base64,"+respond.data.body)
+			}).catch(error => console.log(error))
+		}
+		get()
+		return () => {
+			completed = true;
+		};
+	}, []);
+
+	
 
 	return (
 		<>
@@ -34,11 +60,10 @@ function ImgCard(props) {
 				>
 					<p id="imgContent"> {props.item.titleName} </p>
 					<img
-						src={props.item.thumbnail}
+						src={getImg}
 						className="card-img"
 						alt="이미지"
 					/>
-					{/* <img src="../img/dog1.png" className="card-img" alt="이미지"/>  */}
 				</div>
 			)}
 		</>
