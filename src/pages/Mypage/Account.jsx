@@ -64,10 +64,9 @@ const Account=()=>{
         if (sessionStorage.getItem("userImg"))
         setUserImg(sessionStorage.getItem("userImg")) 
     }, [])
-    
 
+    
     //kic에서 이미지 데이터 가져오기
-    //수정 필요
 	const [getImg, setGetImg] = useState("");
 	useEffect(() => {
         let completed = false; 
@@ -157,7 +156,7 @@ const Account=()=>{
                             
                             <div className="nickname">
                                 <h3>닉네임:</h3>
-                                <input className="nicknameInputTag" type="text" />
+                                <input className="nicknameInputTag" type="text" placeholder={sessionStorage.userName}/>
                                 <button className="duplicateBtn" onClick={duplicateCheck}> 중복 확인 </button>
                             </div> 
 

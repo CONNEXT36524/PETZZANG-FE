@@ -44,20 +44,19 @@ function ImgCard(props) {
 
 	return (
 		<>
-			{props.item === undefined || props.item === null ? 
-			<div className="card">
-
+		{
+			props.item === undefined || props.item === null 
+			? 
+				<div className="card">
 					<img
-						src="../img/dog1.png"
+						src={require("../../assets/noImage.png")}
 						className="card-img"
 						alt="이미지"
 					/>
-					{/* <img src="../img/dog1.png" className="card-img" alt="이미지"/>  */}
-				</div> : (
-				<div
-					className="card"
-					onClick={() => onClickHandler(props.item.postId)}
-				>
+				</div> 
+			: 
+				<div className="card"
+					onClick={() => onClickHandler(props.item.postId)}>
 					<p id="imgContent"> {props.item.titleName} </p>
 					<img
 						src={getImg}
@@ -65,7 +64,7 @@ function ImgCard(props) {
 						alt="이미지"
 					/>
 				</div>
-			)}
+		}
 		</>
 	);
 }

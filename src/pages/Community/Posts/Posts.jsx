@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./Posts.css";
 import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import { Modal } from "react-bootstrap";
@@ -191,7 +191,7 @@ function Posts(props) {
 	let [likeBtnActive, setLikeBtnActive] = useState(false);
 	//axios로 input 데이터 보내기
 	async function onUpload() {
-		if (likeBtnActive == false) {
+		if (likeBtnActive === false) {
 			setLikeBtnActive(true);
 
 			// 프론트에서 likeNum값 +1
@@ -288,11 +288,11 @@ function Posts(props) {
 					</div>
 					<br />
 					<img src={
-							getImg=="data:image/png;base64,undefined"
+							getImg==="data:image/png;base64,undefined"
 							? require("../../../assets/noImage.png")
 							: getImg
 						}
-						className="postImg"
+						className="postImg" alt="이미지"
 					/>
 					
 					<div className="articleBody">{content}</div>
