@@ -2,6 +2,7 @@
 	"name": "petzzang-frontend",
 	"version": "0.1.0",
 	"private": true,
+	"proxy": "http://localhost:8080",
 	"dependencies": {
 		"@jest/transform": "^29.4.2",
 		"@reduxjs/toolkit": "^1.9.1",
@@ -12,9 +13,7 @@
 		"apollo-upload-client": "^17.0.0",
 		"axios": "^1.2.3",
 		"bootstrap": "^5.2.3",
-		"dotenv": "^16.0.3",
 		"emoji-picker-react": "^4.4.7",
-		"env-cmd": "^10.1.0",
 		"html-react-parser": "^3.0.8",
 		"multer": "^1.4.5-lts.1",
 		"quill-image-resize": "^3.0.9",
@@ -32,11 +31,8 @@
 		"styled-components": "^5.3.6",
 		"web-vitals": "^2.1.4"
 	},
-	"proxy": "http://localhost:8080",
-
 	"scripts": {
-		"start": "env-cmd -f .env.local react-scripts start",
-		"start:dev": "env-cmd -f .env.development react-scripts start",
+		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"

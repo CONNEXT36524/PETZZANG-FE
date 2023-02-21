@@ -52,183 +52,77 @@ const Account=()=>{
     },[dispatch])
 
 
-   const [modalShow, setModalShow] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
     const [userImg, setUserImg] = useState(myImage)
-    const [uploadImg, setUploadImg] = useState(null)
+    const [uploadImg, setUploadImg] = useState("") //axios로 보낼 데이터
+    const [imgName, setImgName] = useState("") //axios로 보낼 데이터
     const profileInputRef = useRef();
-    const kicToken = ""
+    const formData = new FormData();
+    
     const token = sessionStorage.getItem("token")
-    // const encodeFileToBase64 = (image: File) => {
-    //     return new Promise((resolve, reject) => {
-    //       const reader = new FileReader();
-    //       reader.readAsDataURL(image);
-    //       reader.onload = (event: any) => resolve(event.target.result);
-    //       reader.onerror = (error) => reject(error);
-    //     });
-    //   };
-
-    //데이터 가져오기
-	// const [getImg, setGetImg] = useState();
-	// useEffect(() => {
-    //     let completed = false; 
-	// 	async function get() {
-	// 		await axios.get('/api/get/profile', {
-	// 			params:{
-	// 				imgName : "thumbnail"
-					
-	// 			}
-	// 		}).then((respond)=>{
-	// 			console.log(respond.data)
-	// 			//setGetImg(respondList.data)
-	// 		}).catch(error => console.log(error))
-	// 	}
-	// 	get()
-	// 	return () => {
-	// 		completed = true;
-	// 	};
-	// }, []);
-	//console.log(getImg)
+    useEffect (()=>{
+        if (sessionStorage.getItem("userImg"))
+        setUserImg(sessionStorage.getItem("userImg")) 
+    }, [])
     
 
-    //axios로 input 데이터 보내기
-	// async function uploadImageBtnClick() {
-
-    //     const file = profileInputRef.current.files[0];
-    //     const reader = new FileReader();
-    //     let apiImgString = ""
-    //     reader.readAsDataURL(file);
-    //     reader.onloadend = () => {
-    //         apiImgString = reader.result.split(",")[1];
-    //     }
-
-
-    //     const formData = new FormData();
-    //     formData.append('profileImage', apiImgString);
-
-	// 	UserService.updateProfile(token, formData)
-	// 		.then(function (response) {
-	// 			console.log(response.data);
-	// 			// response
-	// 			//useState 업데이트 완료 상태로 바꿔주는 코드 작성하기!
-	// 			//setUploadedState("업로드가 안료되었습니다.");
-	// 		})
-	// 		.catch(function (error) {
-	// 			// 오류발생시 실행
-	// 			// setUploadedState(
-	// 			// 	"업로드 중 오류가 발생했습니다.\n다시 시도해주세요."
-	// 			// );
-	// 		})
-	// 		.then(function () {
-	// 			// 항상 실행
-	// 		});
-	// }
-
-    const uploadImageBtnClick = (event) =>{
-        event.preventDefault();
-        (async () => {
-            //kic 토큰 발행 
-            // try {
-            //     const kicTokenReq = JSON.stringify(
-            //         {
-            //             "auth": {
-            //                 "identity": {
-            //                     "methods": [
-            //                         "application_credential"
-            //                     ],
-            //                     "application_credential": {
-            //                         "id": "736e743ff9c640b99718303487f4a6f0",
-            //                         "secret": "JLrJUVANDChAOiuiCfw9zdeb5QEqcNhZ7pPGn3f46SnPXPUkos_RyLK6a645pgMH2ojGOv_0ahpFRcrIbJV-QQ"
-            //                     }
-            //                 }
-            //             }
-            //         }
-            //     )
-
-            //     const res = await axios(
-            //         {
-            //             method: 'post',
-            //             url: 'https://iam.kakaoi.io/identity/v3/auth/tokens',
-            //             data: kicTokenReq,
-            //         }
-            //         )
-            //         // response from backend server
-            //         .then((response) => {
-            //             console.log("ok response", response);
-            //             kicToken = response.headers.get("X-Subject-Token");
-            //             console.log(token)
-            //         }).catch(function(e){
-            //             console.log(e)
-            //         });
-            // } catch (e) {
-            //     // response fail error message
-            //     console.log(e);
-            // }
-
-            try {
-                const file = profileInputRef.current.files[0];
-
-                const reader = new FileReader();
-                let apiImgString = ""
-                reader.readAsDataURL(file);
-                reader.onloadend = () => {
-                    apiImgString = reader.result.split(",")[1];
-                }
-                
-                const formdata = new FormData();
-                formdata.append('uploadImg', file);
-                // formdata.append('token', kicToken)
-
-                const res = await axios(
-                    {
-                        method: 'post',
-                        url: '/api/upload/profile',
-                        data: formdata,
-                        headers: {
-                            Authorization: token,
-                        },
-                    }
-                    )
-                    // response from backend server
-                    .then((response) => {
-                        console.log("ok response", response);
-                        // const token = response.headers.authorization;
+    //kic에서 이미지 데이터 가져오기
+    //수정 필요
+	const [getImg, setGetImg] = useState("");
+	useEffect(() => {
+        let completed = false; 
+		async function get() {
+			await axios.get('/api/get/profile', {
+				params:{
+					imgName : "dog2.png"
+				}
+			}).then((respond)=>{
+				//console.log(respond.data)
+                console.log(respond.data.body)
+				//setGetImg("data:image/png;base64,"+respond.data.body)
+			}).catch(error => console.log(error))
+		}
+		get()
+		return () => {
+			completed = true;
+		};
+	}, []);
     
-                    }).catch(function(e){
-                        console.log(e)
-                      });
-            } catch (e) {
-                // response fail error message
-                console.log(e);
-            }
-            
-        })();
-    };
 
-
-    let objectUrl="";
-
+    
     // 이미지 변경 함수
     const uploadImageChange = (e) => {
         const file = profileInputRef.current.files[0];
+        setImgName(file.name);
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setUserImg(reader.result);
             console.log(reader.result);
-            setUploadImg(profileInputRef.current.files[0])
-            console.log(e.target.files[0])
-            console.log(JSON.parse(profileInputRef.current.files[0]))
-            //set preview image
-            objectUrl = URL.createObjectURL(e.target.files[0])
-            console.log(objectUrl)
+            setUploadImg(reader.result);
         }
-        
     }
 
-    useEffect (()=>{
-      if (sessionStorage.getItem("userImg"))
-      setUserImg(sessionStorage.getItem("userImg")) 
-    }, [])
+    formData.append('imgName', imgName);
+    formData.append('uploadImg', uploadImg);
+
+    //변경사항 저장 버튼 누르면 실행
+    //axios로 이미지 데이터 보내기
+	async function uploadImageBtnClick() {
+
+		UserService.updateProfile(formData)
+			.then(function (response) {
+				console.log(response);
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+			})
+			.then(function () {
+				// 항상 실행
+			});
+	}
+
+
 
     // 중복확인 
     const duplicateCheck = () => {
@@ -249,6 +143,7 @@ const Account=()=>{
                 <Content>
                     <Title>
                         <div className="title">나의 계정</div>
+                        <img src={getImg}></img>
                     </Title>
                     
                     <Sub>

@@ -8,7 +8,6 @@ import Editor from "../../../components/editor/QuillEditor";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
 import PostingService from "../../../service/PostingService";
-import UserService from "../../../service/UserService";
 
 function Posting(props) {
 	GlobalNavColor("community");
@@ -23,11 +22,10 @@ function Posting(props) {
 		pet: "",
 		kind: "",
 		sex: "",
-		thumbnail: "",
 	});
 
 	// 비구조화 할당을 통해 값 추출
-	const { titleName, boardType, pet, kind, sex, thumbnail } = inputs;
+	const { titleName, boardType, pet, kind, sex } = inputs;
 
 	const onChange = (e) => {
 		const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
@@ -42,6 +40,8 @@ function Posting(props) {
 	const imgRef = useRef();
 
 	const [upFile, setUpfile] = useState(null);
+	const [imgName, setImgName] = useState("") //axios로 보낼 데이터
+
 	// 이미지 업로드 input의 onChange
 	const showImgFile = () => {
 		const file = imgRef.current.files[0];
@@ -50,6 +50,7 @@ function Posting(props) {
 		reader.onloadend = () => {
 			setImgFile(reader.result);
 			setUpfile(file);
+			setImgName(file.name);
 		};
 	};
 
@@ -60,8 +61,6 @@ function Posting(props) {
 		//여기서 desc는 description
 	}
 
-	const data = new FormData();
-	data.append("imgFile", upFile);
 	//input 데이터 확인용 함수
 	//Modal
 	const [modalShow, setModalShow] = React.useState(false);
@@ -78,11 +77,16 @@ function Posting(props) {
 	formData.append("pet", pet);
 	formData.append("kind", kind);
 	formData.append("sex", sex);
-	//formData.append("thumbnail", imgFile);
+	formData.append("thumbnail", imgFile);
 	formData.append("content", desc);
 	formData.append("views", 0);
 	formData.append("likeNum", 0);
-	formData.append("userCode", parseInt("userCode"));
+	formData.append("userCode", parseInt(userCode));
+	formData.append("imgName", imgName);
+
+	function checkImage() {
+		console.log(upFile.name);
+	}
 	//axios로 input 데이터 보내기
 	async function handleupload(postData) {
 		PostingService.createPosts(postData)
@@ -190,6 +194,7 @@ function Posting(props) {
 							/>
 						</Form.Group>
 						<br />
+						<Button onClick={() => checkImage()}>checking</Button>
 						<Form.Group className="mb-3" id="FileInputForm">
 							<div>
 								<img
@@ -227,7 +232,6 @@ function Posting(props) {
 							value={boardType}
 							required
 						>
-							<option>커뮤니티 게시판</option>
 							{BoardOptions.map((item, index) => (
 								<option key={item.key} value={item.key}>
 									{item.value}
@@ -308,10 +312,10 @@ function Posting(props) {
 							show={modalShow}
 							onHide={() => setModalShow(false)}
 							//업로드 함수 구현하기
-							handleupload={() => handleupload({ formData })}
+							handleupload={() => handleupload(formData)}
 							//setModalShow를 axios 관련 쪽으로 넘기기
 							uploadedstate={uploadedstate}
-							boardType={boardType}
+							boardtype={boardType}
 						/>
 					</div>
 					<br />

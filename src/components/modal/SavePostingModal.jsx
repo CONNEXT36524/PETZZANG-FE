@@ -39,7 +39,7 @@ function SavePostingModal(props) {
 				) : (
 					<>
 						<Button
-							onClick={() => backToBoard(props.boardType)}
+							onClick={() => backToBoard(props.boardtype)}
 							variant="primary"
 						>
 							게시판으로 돌아가기
