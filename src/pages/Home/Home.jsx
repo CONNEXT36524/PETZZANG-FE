@@ -5,7 +5,7 @@ import { changepagetype } from "../../Slice/Navslice";
 import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import home_cat from "../../assets/home_cat.png"
-import HomeRankImg from "../../components/ranking/homeRankImg"
+import HomeRankImg from "../../components/ranking/HomeRankImg"
 
 const Home=()=>{
     const dispatch = useDispatch();

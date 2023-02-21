@@ -1,7 +1,34 @@
 import React from "react";
 import "./homeRankImg.css"
+import { useEffect, useState } from "react";
+import Rankingimg from "./Rankingimg";
+import axios from "axios";
 
-function homeRankImg() {
+function HomeRankImg() {
+	const now=new Date();
+    const [startday,setstartday]=useState(new Date(now.setDate(now.getDate()-now.getDay())));
+	const startyear=startday.getFullYear();
+    const startMonth=startday.getMonth()+1;
+    const startDate=startday.getDate();
+	const [data,setdata]=useState('');
+	const type="week"
+	useEffect(()=>{ 
+        loadranking()
+    },[])
+
+	async function loadranking(){
+        console.log(startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'))
+        try{
+        const response = await axios.get("/api/ranking/load",{params:{date:startyear.toString()+String(startMonth).padStart(2,'0')+String(startDate).padStart(2,'0'), type:type}});
+        console.log(response.data);
+        setdata(response.data)
+        }
+        catch(error) {
+        console.log(error)
+            // 오류발생시 실행
+        };
+    }
+	console.log(data)
 	//console.log(props)
 
 	//const navigate = useNavigate();
@@ -80,4 +107,4 @@ function homeRankImg() {
 	);
 }
 
-export default homeRankImg;
+export default HomeRankImg;
