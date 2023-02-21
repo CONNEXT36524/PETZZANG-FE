@@ -56,7 +56,7 @@ const Account=()=>{
     const [userImg, setUserImg] = useState(myImage)
     const [uploadImg, setUploadImg] = useState(null)
     const profileInputRef = useRef();
-    
+    const kicToken = ""
     const token = sessionStorage.getItem("token")
     // const encodeFileToBase64 = (image: File) => {
     //     return new Promise((resolve, reject) => {
@@ -68,25 +68,25 @@ const Account=()=>{
     //   };
 
     //데이터 가져오기
-	const [getImg, setGetImg] = useState();
-	useEffect(() => {
-        let completed = false; 
-		async function get() {
-			await axios.get('/api/get/profile', {
-				params:{
-					imgName : "thumbnail"
+	// const [getImg, setGetImg] = useState();
+	// useEffect(() => {
+    //     let completed = false; 
+	// 	async function get() {
+	// 		await axios.get('/api/get/profile', {
+	// 			params:{
+	// 				imgName : "thumbnail"
 					
-				}
-			}).then((respond)=>{
-				console.log(respond.data)
-				//setGetImg(respondList.data)
-			}).catch(error => console.log(error))
-		}
-		get()
-		return () => {
-			completed = true;
-		};
-	}, []);
+	// 			}
+	// 		}).then((respond)=>{
+	// 			console.log(respond.data)
+	// 			//setGetImg(respondList.data)
+	// 		}).catch(error => console.log(error))
+	// 	}
+	// 	get()
+	// 	return () => {
+	// 		completed = true;
+	// 	};
+	// }, []);
 	//console.log(getImg)
     
 
@@ -126,6 +126,44 @@ const Account=()=>{
     const uploadImageBtnClick = (event) =>{
         event.preventDefault();
         (async () => {
+            //kic 토큰 발행 
+            // try {
+            //     const kicTokenReq = JSON.stringify(
+            //         {
+            //             "auth": {
+            //                 "identity": {
+            //                     "methods": [
+            //                         "application_credential"
+            //                     ],
+            //                     "application_credential": {
+            //                         "id": "736e743ff9c640b99718303487f4a6f0",
+            //                         "secret": "JLrJUVANDChAOiuiCfw9zdeb5QEqcNhZ7pPGn3f46SnPXPUkos_RyLK6a645pgMH2ojGOv_0ahpFRcrIbJV-QQ"
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     )
+
+            //     const res = await axios(
+            //         {
+            //             method: 'post',
+            //             url: 'https://iam.kakaoi.io/identity/v3/auth/tokens',
+            //             data: kicTokenReq,
+            //         }
+            //         )
+            //         // response from backend server
+            //         .then((response) => {
+            //             console.log("ok response", response);
+            //             kicToken = response.headers.get("X-Subject-Token");
+            //             console.log(token)
+            //         }).catch(function(e){
+            //             console.log(e)
+            //         });
+            // } catch (e) {
+            //     // response fail error message
+            //     console.log(e);
+            // }
+
             try {
                 const file = profileInputRef.current.files[0];
 
@@ -137,18 +175,16 @@ const Account=()=>{
                 }
                 
                 const formdata = new FormData();
-                formdata.append('uploadImg', apiImgString);
-
+                formdata.append('uploadImg', file);
+                // formdata.append('token', kicToken)
 
                 const res = await axios(
                     {
                         method: 'post',
                         url: '/api/upload/profile',
-
                         data: formdata,
                         headers: {
                             Authorization: token,
-                            'Content-Type': 'image/png'
                         },
                     }
                     )
@@ -164,6 +200,7 @@ const Account=()=>{
                 // response fail error message
                 console.log(e);
             }
+            
         })();
     };
 
@@ -179,7 +216,8 @@ const Account=()=>{
             setUserImg(reader.result);
             console.log(reader.result);
             setUploadImg(profileInputRef.current.files[0])
-            console.log(profileInputRef.current.files[0])
+            console.log(e.target.files[0])
+            console.log(JSON.parse(profileInputRef.current.files[0]))
             //set preview image
             objectUrl = URL.createObjectURL(e.target.files[0])
             console.log(objectUrl)
