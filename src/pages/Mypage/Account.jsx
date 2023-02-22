@@ -55,7 +55,7 @@ const Account=()=>{
 
     const [delModalShow, setDelModalShow] = useState(false);
     const [cheModalShow, setCheModalShow] = useState(false);
-    const [userImg, setUserImg] = useState(myImage)
+    const [userImg, setUserImg] = useState("")
     const [uploadImg, setUploadImg] = useState("") //axios로 보낼 데이터
     const [imgName, setImgName] = useState("") //axios로 보낼 데이터
     const profileInputRef = useRef();
@@ -66,14 +66,35 @@ const Account=()=>{
     const [nameChg, setNameChg] = useState(userName)
     const [modalMsg, setModalMsg] = useState("")
     const [imgChg, setImgChg] = useState(false)
-    
+    const [imgApiUrl, setImgUrl] = useState("")
+
+
     useEffect (()=>{
         if (sessionStorage.getItem("userImg"))
-        setUserImg()
-         
+        setUserImg()   
+        //유저 정보 가져오기
+        axios.get('/api/get/user', {
+            params:{
+                nickName : nameChg
+            }
+        }).then((respond)=>{
+            console.log(respond.data)
+            setImgUrl(respond.data.kakaoprofileimg)
+        }).catch(error => console.log(error))
+
     }, [])
 
-    
+    // 유저 이미지 가져오기
+    console.log(imgApiUrl)
+    axios.get('/api/community/get/img', {
+        params:{
+            imgUrl : imgApiUrl
+        }
+    }).then((respond)=>{
+        console.log(respond.data)
+        //console.log(respond.data.body)
+        setUserImg("data:image/png;base64,"+respond.data.body)
+    }).catch(error => console.log(error))
 
     
     // 이미지 변경 함수

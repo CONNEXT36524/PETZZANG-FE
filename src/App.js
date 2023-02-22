@@ -33,6 +33,8 @@ function App() {
 	const KAKAO_AUTH_URL = process.env.REACT_APP_KAKAO_AUTH_URL;
 	const [islogin, setlogin] = useState(false);
 	const [isChange, setChange] = useState(false);
+	const [userName, setUserName] = useState("");
+
 	// 검색
 	const [searchText, setSearchText] = useState("");
 	const onChangeSearchText = (e) => {
@@ -63,7 +65,9 @@ function App() {
 	}
 	const userImg = window.sessionStorage.getItem("userImg");
 	useEffect(() => {
-		if (sessionStorage.getItem("userName")) setlogin(true);
+		if (sessionStorage.getItem("userName")) {
+			setlogin(true);
+		}
 		else setlogin(false);
 	}, );
 	
