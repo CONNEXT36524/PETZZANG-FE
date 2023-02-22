@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { changepagetype } from "../../../Slice/Navslice";file
+import { changepagetype } from "../../../Slice/Navslice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
