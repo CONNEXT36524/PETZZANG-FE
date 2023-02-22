@@ -171,7 +171,7 @@ function Posts(props) {
 	}, []);
 
 	function handleSubmit() {
-		console.log("hello");
+		///setReplies(...replies);
 	}
 
 	const [show, setShow] = useState(false);
@@ -247,6 +247,31 @@ function Posts(props) {
 				});
 		}
 	}
+
+
+	//	조회수 올리기
+	useEffect(() => {
+		let completed = false;
+		async function get() {
+			await PostService.updateView(postId)
+				.then(function (response) {
+					// 성공 핸들링
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					// 에러 핸들링
+					console.log(error);
+				})
+				.then(function () {
+					// 항상 실행되는 영역
+				});
+		}
+		get();
+		return () => {
+			completed = true;
+			console.log(completed);
+		};
+	}, []);
 
 
 	return (
