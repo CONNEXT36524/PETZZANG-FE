@@ -3,9 +3,12 @@ import crown from "../../assets/crown.png"
 import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 import Rankingimg from "./Rankingimg";
+import { useDispatch} from "react-redux/";
+import { setfirstranking } from "../../Slice/RankingSlice";
 import axios from "axios";
 
 function Mainranking(props) {
+    const dispatch = useDispatch();
     const now=new Date();
     const day=new Date()
     const [startday,setstartday]=useState(new Date(now.setDate(now.getDate()-now.getDay())));
@@ -24,6 +27,7 @@ function Mainranking(props) {
     // axios 써야함
     useEffect(()=>{ 
         loadranking()
+        
     }, [startday,type])
 
     async function loadranking(){
@@ -39,6 +43,8 @@ function Mainranking(props) {
         };
     }
     console.log(data.first_post_id);
+    dispatch(setfirstranking(data.first_post_id))
+   
    
 
     const next=()=>{
