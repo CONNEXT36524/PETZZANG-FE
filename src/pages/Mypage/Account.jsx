@@ -55,7 +55,7 @@ const Account=()=>{
 
     const [delModalShow, setDelModalShow] = useState(false);
     const [cheModalShow, setCheModalShow] = useState(false);
-    const [userImg, setUserImg] = useState(myImage)
+    const [userImg, setUserImg] = useState("")
     const [uploadImg, setUploadImg] = useState("") //axios로 보낼 데이터
     const [imgName, setImgName] = useState("") //axios로 보낼 데이터
     const profileInputRef = useRef();
@@ -66,37 +66,40 @@ const Account=()=>{
     const [nameChg, setNameChg] = useState(userName)
     const [modalMsg, setModalMsg] = useState("")
     const [imgChg, setImgChg] = useState(false)
-    
+    const [imgApiUrl, setImgUrl] = useState("")
+
+
     useEffect (()=>{
         if (sessionStorage.getItem("userImg"))
-        setUserImg(sessionStorage.getItem("userImg")) 
+        setUserImg()   
+        //유저 정보 가져오기
+        axios.get('/api/get/user', {
+            params:{
+                nickName : nameChg
+            }
+        }).then((respond)=>{
+            console.log(respond.data)
+            setImgUrl(respond.data.kakaoprofileimg)
+        }).catch(error => console.log(error))
+
     }, [])
 
-    //kic에서 이미지 데이터 가져오기
-	const [getImg, setGetImg] = useState("");
-	useEffect(() => {
-        let completed = false; 
-		async function get() {
-			await axios.get('/api/get/profile', {
-				params:{
-					imgName : "dog2.png"
-				}
-			}).then((respond)=>{
-				//console.log(respond.data)
-                console.log(respond.data.body)
-				//setGetImg("data:image/png;base64,"+respond.data.body)
-			}).catch(error => console.log(error))
-		}
-		get()
-		return () => {
-			completed = true;
-		};
-	}, []);
-    
+    // 유저 이미지 가져오기
+    console.log(imgApiUrl)
+    axios.get('/api/community/get/img', {
+        params:{
+            imgUrl : imgApiUrl
+        }
+    }).then((respond)=>{
+        console.log(respond.data)
+        //console.log(respond.data.body)
+        setUserImg("data:image/png;base64,"+respond.data.body)
+    }).catch(error => console.log(error))
 
     
     // 이미지 변경 함수
     const uploadImageChange = (e) => {
+        setImgChg(true)
         const file = profileInputRef.current.files[0];
         setImgName(file.name);
         const reader = new FileReader();
@@ -113,14 +116,15 @@ const Account=()=>{
 
     //변경사항 저장 버튼 누르면 실행
     //axios로 이미지 데이터 보내기
-	async function updateProfileBtnClick() {
+	const updateProfileBtnClick = () => {
         setCheModalShow(true)
         setModalMsg("변경을 완료했습니다!😊")
-        //닉네임+사진 변경했을때
+        //닉네임+사진 변경
         if (nameCheck && imgChg)
         {
-        formData.append('nameChg', nameChg)
-		UserService.updateProfile(formData)
+        console.log("닉네임 사진 변경")
+        formData.append('nameChg', nameChg);
+		UserService.updateProfile(formData, token)
 			.then(function (response) {
 				console.log(response);
 			})
@@ -134,9 +138,11 @@ const Account=()=>{
         //사진만 변경
         else if (!nameCheck && nameChg === userName )
         {
-            UserService.updateProfile(formData)
+            UserService.updateImg(formData, token)
 			.then(function (response) {
 				console.log(response);
+                window.sessionStorage.setItem("userName", userName);
+                window.sessionStorage.setItem("userImg", "data:image/png;base64,"+response.data.uploadImg);
 			})
 			.catch(function (error) {
 				// 오류발생시 실행
@@ -150,11 +156,8 @@ const Account=()=>{
         {
             console.log("닉네임변경")
              try{
-                 axios.post("/api/updateNickname", 
-                {
-                    params:{   
-                        name : nameChg
-                    }, 
+                 axios.get("/api/updateNickname", {
+                 params : {name : nameChg},    
                     headers: {
                         Authorization: token,
                     },
@@ -234,7 +237,7 @@ const Account=()=>{
                 <Content>
                     <Title>
                         <div className="title">나의 계정</div>
-                        <img src={getImg}></img>
+       
                     </Title>
                     
                     <Sub>

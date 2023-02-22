@@ -2,6 +2,7 @@ import { configureStore} from "@reduxjs/toolkit";
 import NavReducer from "../Slice/Navslice"
 import OffcanvasReducer from "../Slice/OffcanvasSlice"
 import PagingReducer from "../Slice/PagingSlice"
+import ImgReducer from "../Slice/ImgSlice"
 import RankingReducer from "../Slice/RankingSlice"
 
 export const Store = configureStore({
@@ -9,7 +10,8 @@ export const Store = configureStore({
         Nav: NavReducer,
         Offcanvas: OffcanvasReducer,
         PagingR: PagingReducer,
-        Rank: RankingReducer
+        ImgUrl : ImgReducer,
+        Rank: RankingReducer,
     }
 });
 

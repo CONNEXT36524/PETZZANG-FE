@@ -1,11 +1,15 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { converter } from "../../Slice/ImgSlice";
 
 const KakaoLogin = () => {
 	// get auth code from kakao server
 	const location = useLocation();
 	const navigate = useNavigate();
+	const imageUrl = useSelector(state => state.ImgUrl);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		// pass auth code to backend server
@@ -63,6 +67,7 @@ const KakaoLogin = () => {
 						}
 					)
 					.then((response) => {
+						
 						window.sessionStorage.setItem(
 							"userName",
 							response.data.kakaonickname
@@ -71,6 +76,7 @@ const KakaoLogin = () => {
 							"userImg",
 							response.data.kakaoprofileimg
 						);
+						dispatch(converter(response.data.kakaoprofileimg))
 						window.sessionStorage.setItem(
 							"userCode",
 							response.data.kakaoid
@@ -78,6 +84,31 @@ const KakaoLogin = () => {
 						console.log(response);
 					});
 			} catch (e) {
+				console.log(e);
+			}
+			try {
+				if (window.sessionStorage.getItem("userImg").indexOf("objectstorage"))
+				{
+					console.log("들어옴"+window.sessionStorage.getItem("userImg"))
+					const imgurl = window.sessionStorage.getItem("userImg")
+					async function get() {
+						await axios.get('/api/community/get/img', {
+							params:{
+								imgUrl : imgurl
+							}
+						}).then((respond)=>{
+							//console.log(respond.data)
+							console.log(respond)
+							dispatch(converter("data:image/png;base64,"+respond.data.body))
+							console.log("d여ㅣ겨이ㅑ"+imageUrl)
+							window.sessionStorage.setItem("userImg", "data:image/png;base64,"+respond.data.body)
+
+						}).catch(error => console.log(error))
+					}
+				}
+			
+			}
+			catch (e) {
 				console.log(e);
 			}
 		})();
