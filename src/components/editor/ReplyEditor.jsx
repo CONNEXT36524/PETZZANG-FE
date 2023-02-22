@@ -53,6 +53,7 @@ function ReplyEditor(props) {
 		userCode: userCode,
 		userName: userName,
 	};
+  
 	//axios로 input 데이터 보내기
 	async function onUpload() {
 		ReplyService.createReplies(formData)

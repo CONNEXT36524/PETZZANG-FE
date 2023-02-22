@@ -36,7 +36,10 @@ const StyledTable = styled.table`
 		}
 	}
 	.second-col {
-		width: 400px;
+		width: 300px;
+	}
+	.date-col {
+		width: 250px;
 	}
 	.tbodyDiv:hover {
 		cursor: pointer;
@@ -61,6 +64,38 @@ function Recommendation() {
 			})
 			.catch((error) => console.log(error));
 	}, []);
+
+	//kic에서 이미지 데이터 가져오기
+	const [getImg, setGetImg] = useState("");
+	
+	function get(data) {
+		console.log(data)
+		axios.get('/api/community/get/img', {
+			params:{
+				imgUrl : data
+			}
+		}).then((respond)=>{
+			//console.log(respond.data)
+            //console.log(respond.data.body)
+			setGetImg("data:image/png;base64,"+respond.data.body)
+		}).catch(error => console.log(error))
+
+	}
+
+	const [userName, setUserName] = useState("");
+    function getUserName(data) {
+		console.log(typeof data)
+		console.log(typeof String(data))
+		axios.get('/api/get/username', {
+			params:{
+				userCode : String(data)
+			}
+		}).then((respond)=>{
+			console.log(respond.data)
+        	setUserName(respond.data)
+		}).catch(error => console.log(error))
+	}
+		
 
 	const navigate = useNavigate();
 	const recommendationClick = (data) => {
@@ -110,7 +145,7 @@ function Recommendation() {
 										<th> 이미지 </th>
 										<th className="second-col"> 제목 </th>
 										<th> 글쓴이 </th>
-										<th> 작성 날짜 </th>
+										<th className="date-col"> 작성 날짜 </th>
 										<th> 조회수 </th>
 										<th> 좋아요수 </th>
 									</tr>
@@ -118,6 +153,7 @@ function Recommendation() {
 
 								<tbody className="tbodyDiv">
 									{rList.map((data, num) => (
+										
 										<tr
 											num={num}
 											key={num}
@@ -132,13 +168,23 @@ function Recommendation() {
 												<td> {num + 1} </td>
 											)}
 
-											<td className="second-col">
-												{" "}
-												{data.titleName}{" "}
+											<td>
+												<img
+													src={ get(data.thumbnail) || getImg
+														// getImg===""
+														// ? require("../../../assets/noImage.png")
+														// : get(data.thumbnail)
+													}
+													className="recommendationImg"
+													alt="이미지"
+												/>
 											</td>
 											<td> {data.titleName} </td>
-											<td> {data.userCode} </td>
-											<td> {data.createTime} </td>
+											<td> {userName === ""
+													? getUserName(data.userCode)
+													: userName } 
+											</td>
+											<td> {data.create_time.replace("T", " ").substring(0, 19)} </td>
 											<td> {data.views} </td>
 											<td> {data.likeNum} </td>
 										</tr>

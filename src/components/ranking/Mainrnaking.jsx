@@ -77,11 +77,18 @@ function Mainranking(props) {
                     <Button id="date_rightbtn" size="sm" onClick={()=>{next()}}>{">"}</Button>
                 </div><br/><br/>
                 <div className="date_section2">
-                    {Isbtn? <p className="date_font2">{startyear}년 {startMonth}월 {startDate}일 ~ {endyear}년 {endMonth}월 {endDate}일</p>: <p className="date_font">{startyear}년{startMonth}월</p>}
+                    {Isbtn
+                    ? <p className="date_font2">{startyear}년 {startMonth}월 {startDate}일 ~ {endyear}년 {endMonth}월 {endDate}일</p>
+                    : <p className="date_font2">{startyear}년{startMonth}월</p>}
                 </div>
             </div>
             {/* map 으로 순위 8개 component들 불러오기  */}
+            {
+            data.length ===0 ?<></> :
+             <>
             <Rankingimg data={data}/>
+            </>
+            }
 
             <br/><br/><br/>
         </>

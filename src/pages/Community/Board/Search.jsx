@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changepagetype } from "../../../Slice/Navslice";
 import CommunityBanner from "../../../components/banner/CommunityBanner";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
@@ -10,16 +10,12 @@ import SearchSectionDiv from "../../../components/community/SearchSectionDiv.js"
 import SearchDailyCard from "../../../components/community/SearchDailyCard.js";
 import SearchQuestionCard from "../../../components/community/SearchQuestionCard.js";
 import Paging from "../../../components/community/Paging.js";
+import { setCurPage, rpaging } from "../../../Slice/PagingSlice";
 
 
 
 function Search() {
-    // 상단 navbar 색깔 바꾸기
-    const dispatch = useDispatch();
-    useEffect(()=>{
-        dispatch(changepagetype("community"))
-    },[dispatch])
-
+    
     // app.js에서 받은 검색어 찾기
     let getLink = window.location.search;
     let getKeyword = getLink.split('=')[1];	//분리한 배열 중 두번째 요소 변수에 넣기
@@ -27,27 +23,28 @@ function Search() {
     //console.log(keyword);
 
 
+    const dispatch = useDispatch();
     const [searchList, setSearchList] = useState([]);
-    useEffect(()=>{
-        getSearch()
-    }, [])
-
-    // const getSearch = async() => {
-    //     let searchQuery = query.get('q') || "";
-    //     console.log("쿼리값: ", searchQuery);
-    //     let url = `http://localhost:3000/Community/search?q=${searchQuery}`
-    //     let response = await fetch(url);
-            
-    //     let data = await response.json();
-    //     if(data.length < 1) {
-    //         setError(`검색어 '${searchQuery}'에 대한 결과가 없습니다.` )
-    //     } else {
-    //         setSearchList(data)
-    //     }
-    //     setSearchList(data)
-    // }
-
     
+    useEffect(()=>{
+        dispatch(changepagetype("community"))
+        getSearch()
+        dispatch(rpaging(setPage))
+        dispatch(setCurPage(1)); //첫 페이지 설정
+    },[dispatch])
+    
+
+
+    // 페이지 설정
+    const currentPage = useSelector(state => state.PagingR.page);
+    const cntPerPage = useSelector(state => state.PagingR.cntPerPage);
+
+    const setPage = {
+        cntPerPage : 3, 
+        total : 10, 
+        range : 5 
+    }
+
     //api통신 test
 	const getSearch = async() => {
 
@@ -63,6 +60,12 @@ function Search() {
 	}
     console.log(searchList)
 
+    
+    const searchListSlice = () =>{
+        setPage.total = searchList.length
+        dispatch(rpaging(setPage))
+        return searchList.slice(cntPerPage*(currentPage-1), cntPerPage*currentPage);
+    }
 
     return (
         <>
@@ -84,7 +87,7 @@ function Search() {
                     )
                 } */}
 
-                {searchList.map((item, index) => (
+                {searchListSlice().map((item, index) => (
                     <>
                         <SearchSectionDiv boardName={item.boardType} key={index}/>
                         {

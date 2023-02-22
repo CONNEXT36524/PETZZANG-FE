@@ -37,7 +37,10 @@ const StyledTable = styled.table`
 		}
 	}
 	.second-col {
-		width: 400px;
+		width: 350px;
+	}
+	.date-col {
+		width: 250px;
 	}
 	.tbodyDiv:hover {
 		cursor: pointer;
@@ -63,6 +66,7 @@ function Question() {
 			})
 			.catch((error) => console.log(error));
 	}, []);
+	console.log(qList)
 
 	const navigate = useNavigate();
 
@@ -74,6 +78,21 @@ function Question() {
 			},
 		});
 	};
+
+
+	const [userName, setUserName] = useState("");
+    function getUserName(data) {
+		console.log(typeof data)
+		console.log(typeof String(data))
+		axios.get('/api/get/username', {
+			params:{
+				userCode : String(data)
+			}
+		}).then((respond)=>{
+			console.log(respond.data)
+        	setUserName(respond.data)
+		}).catch(error => console.log(error))
+	}
 
 	// 하단 pagination 설정
 	const currentPage = useSelector((state) => state.PagingR.page);
@@ -114,7 +133,7 @@ function Question() {
 										<th> No. </th>
 										<th className="second-col"> 제목 </th>
 										<th> 글쓴이 </th>
-										<th> 작성 날짜 </th>
+										<th className="date-col"> 작성 날짜 </th>
 										<th> 조회수 </th>
 										<th> 좋아요수 </th>
 									</tr>
@@ -136,13 +155,14 @@ function Question() {
 												<td> {num + 1} </td>
 											)}
 
-											<td className="second-col">
-												{" "}
-												{data.titleName}{" "}
+											<td>
+												{data.titleName}
 											</td>
-											{/* 일단 userCode(숫자) 넣어놓음  */}
-											<td> {data.userCode} </td>
-											<td> {data.createTime} </td>
+											<td> {userName === ""
+													? getUserName(data.userCode)
+													: userName }  
+											</td>
+											<td> {data.create_time.replace("T", " ").substring(0, 19)} </td>
 											<td> {data.views} </td>
 											<td> {data.likeNum} </td>
 										</tr>
