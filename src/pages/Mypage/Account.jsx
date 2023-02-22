@@ -72,31 +72,12 @@ const Account=()=>{
         setUserImg(sessionStorage.getItem("userImg")) 
     }, [])
 
-    //kic에서 이미지 데이터 가져오기
-	const [getImg, setGetImg] = useState("");
-	useEffect(() => {
-        let completed = false; 
-		async function get() {
-			await axios.get('/api/get/profile', {
-				params:{
-					imgName : "dog2.png"
-				}
-			}).then((respond)=>{
-				//console.log(respond.data)
-                console.log(respond.data.body)
-				//setGetImg("data:image/png;base64,"+respond.data.body)
-			}).catch(error => console.log(error))
-		}
-		get()
-		return () => {
-			completed = true;
-		};
-	}, []);
     
 
     
     // 이미지 변경 함수
     const uploadImageChange = (e) => {
+        setImgChg(true)
         const file = profileInputRef.current.files[0];
         setImgName(file.name);
         const reader = new FileReader();
@@ -113,14 +94,15 @@ const Account=()=>{
 
     //변경사항 저장 버튼 누르면 실행
     //axios로 이미지 데이터 보내기
-	async function updateProfileBtnClick() {
+	const updateProfileBtnClick = () => {
         setCheModalShow(true)
         setModalMsg("변경을 완료했습니다!😊")
-        //닉네임+사진 변경했을때
+        //닉네임+사진 변경
         if (nameCheck && imgChg)
         {
-        formData.append('nameChg', nameChg)
-		UserService.updateProfile(formData)
+        console.log("닉네임 사진 변경")
+        formData.append('nameChg', nameChg);
+		UserService.updateProfile(formData, token)
 			.then(function (response) {
 				console.log(response);
 			})
@@ -134,9 +116,11 @@ const Account=()=>{
         //사진만 변경
         else if (!nameCheck && nameChg === userName )
         {
-            UserService.updateProfile(formData)
+            UserService.updateImg(formData, token)
 			.then(function (response) {
 				console.log(response);
+                window.sessionStorage.setItem("userName", userName);
+                window.sessionStorage.setItem("userImg", "data:image/png;base64,"+response.data.uploadImg);
 			})
 			.catch(function (error) {
 				// 오류발생시 실행
@@ -150,11 +134,8 @@ const Account=()=>{
         {
             console.log("닉네임변경")
              try{
-                 axios.post("/api/updateNickname", 
-                {
-                    params:{   
-                        name : nameChg
-                    }, 
+                 axios.get("/api/updateNickname", {
+                 params : {name : nameChg},    
                     headers: {
                         Authorization: token,
                     },
@@ -234,7 +215,7 @@ const Account=()=>{
                 <Content>
                     <Title>
                         <div className="title">나의 계정</div>
-                        <img src={getImg}></img>
+       
                     </Title>
                     
                     <Sub>

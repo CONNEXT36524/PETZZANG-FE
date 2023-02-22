@@ -11,10 +11,26 @@ class UserService {
 			}
 		);
 	}
-	updateProfile(formData) {
-		return axios.post("/api/profile", formData, {
+	updateProfile(formData, token) {
+		return axios.post("/api/updateProfile", formData, {
 			headers: {
 				"Content-Type": `multipart/form-data`,
+				Authorization: token,
+			},
+		});
+	}
+	updateImg (formData, token) {
+		return axios.post("/api/updateImg", formData, {
+			headers: {
+				"Content-Type": `multipart/form-data`,
+				Authorization: token,
+			},
+		});
+	}
+	updateNickname (name, token) {
+		return axios.post("/api/updateNickname", {name : name}, {
+			headers: {
+				Authorization: token,
 			},
 		});
 	}

@@ -11,7 +11,7 @@ function CheckNicknameModal(props) {
 		>
 			<Modal.Header closeButton>
 				<Modal.Title id="contained-modal-title-vcenter">
-					닉네임 변경
+					프로필 변경
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
