@@ -9,12 +9,12 @@ import axios from "axios";
 function RankingBanner(props) {
 	const img = useSelector((state) => state.Rank.firstimg);
 
-	//console.log(img.thumbnail)
+	console.log(img)
 
 	//kic에서 이미지 데이터 가져오기
 	const [getImg, setGetImg] = useState("");
-	useEffect(() => {
-		
+	if(img!='' && img!=undefined)
+		{
 		axios.get('/api/community/get/img', {
 			params:{
 				imgUrl : img.thumbnail
@@ -24,8 +24,7 @@ function RankingBanner(props) {
             //console.log(respond.data.body)
 			setGetImg("data:image/png;base64,"+respond.data.body)
 		}).catch(error => console.log(error))
-
-	}, []);
+}
 
 	
 	return (
@@ -45,7 +44,7 @@ function RankingBanner(props) {
 					</div>
 				</div>
 				{
-				img===''
+				img==='' || img===undefined
 				? <></>
 				:
 					<div className="banner_circle">
