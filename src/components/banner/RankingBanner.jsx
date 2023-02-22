@@ -2,8 +2,12 @@ import "./BannerDetail.css";
 import "./Banner.css";
 import Container from "react-bootstrap/Container";
 import bannerDogImage from "../../assets/dog.png";
+import { useSelector } from "react-redux/";
+import ImgCard from "../community/ImgCard";
 
-function rankingBanner(props) {
+function RankingBanner(props) {
+	const img = useSelector((state) => state.Rank.firstimg);
+
 	return (
 		<div className="rankingBanner">
 			<Container id="bannerContainer">
@@ -20,12 +24,14 @@ function rankingBanner(props) {
 						</p>
 					</div>
 				</div>
+				{img===''? <></>:
 				<div className="banner_circle">
-					<img src={bannerDogImage} className="bannerCircleDogImage" alt="weekly" />
+					<ImgCard item={img}/>
 				</div>
+}
 			</Container>
 		</div>
 	);
 }
 
-export default rankingBanner;
+export default RankingBanner;
