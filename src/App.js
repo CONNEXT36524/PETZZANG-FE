@@ -26,7 +26,7 @@ import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
 function App() {
 	// 로그인
 	const pagetype = useSelector((state) => state.Nav.pagetype);
-
+	const imageUrl = useSelector(state => state.ImgUrl);
 
 	const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
 	const rest_api_key = process.env.REACT_APP_REST_API_KEY;
@@ -65,8 +65,8 @@ function App() {
 	useEffect(() => {
 		if (sessionStorage.getItem("userName")) setlogin(true);
 		else setlogin(false);
-
 	}, );
+	
 
 
 	console.log(userImg)
@@ -135,7 +135,7 @@ function App() {
 							islogin ? 
 							<>
 								<div className="user1">
-									<img className="user-logo1" src={userImg}/>
+									<img className="user-logo1" src={imageUrl}/>
 								</div>
 								<div className="user1Dropdown">
 

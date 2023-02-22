@@ -69,7 +69,8 @@ const Account=()=>{
     
     useEffect (()=>{
         if (sessionStorage.getItem("userImg"))
-        setUserImg(sessionStorage.getItem("userImg")) 
+        setUserImg()
+         
     }, [])
 
     
