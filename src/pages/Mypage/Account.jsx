@@ -114,7 +114,8 @@ const Account=()=>{
     //변경사항 저장 버튼 누르면 실행
     //axios로 이미지 데이터 보내기
 	async function updateProfileBtnClick() {
-
+        setCheModalShow(true)
+        setModalMsg("변경을 완료했습니다!😊")
         //닉네임+사진 변경했을때
         if (nameCheck && imgChg)
         {
@@ -259,6 +260,12 @@ const Account=()=>{
 
                             <div className="saveNdeleteBtn">
                                 <button className="saveBtn" onClick={updateProfileBtnClick}>변경사항 저장</button>
+                                 <CheckNicknameModal 
+                                    show={cheModalShow}
+                                    msg = {modalMsg}
+                                    onHide={() => setCheModalShow(false)
+                                    }
+                                    />
                                 <button className="deleteBtn" onClick={() => setDelModalShow(true)}>회원 탈퇴</button>
                                 <DeleteAccountModal 
                                     show={delModalShow}
