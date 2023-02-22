@@ -4,18 +4,17 @@
 	margin-left: 100px;
 	margin-right: 100px;
 	border-radius: 20px;
-	padding: 10px;
+	padding: 30px;
 	font-family: Gmarket-Medium;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
 }
 
-.formLabel {
-	font-size: 110%;
-	font-weight: 600;
+#postingInfoLabel {
+	font-size: 115%;
+	font-weight: 500;
 }
-
 #FileInputForm {
 	display: flex;
 	flex-direction: row;
