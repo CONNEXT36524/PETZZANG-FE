@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./Posts.css";
 import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import { Modal } from "react-bootstrap";
@@ -14,6 +14,7 @@ import { useLocation } from "react-use";
 import parse from "html-react-parser";
 import { useNavigate } from "react-router-dom";
 import Badge from "react-bootstrap/Badge";
+import axios from "axios";
 
 function Posts(props) {
 	GlobalNavColor("community");
@@ -101,17 +102,57 @@ function Posts(props) {
 		};
 	}, []);
 
-	//댓글 기능
-	const [replies, setReplies] = useState([]);
 
-	//댓글 정보 가져오기
+	const [getImg, setGetImg] = useState(""); //이미지
+	axios.get('/api/community/get/img', {
+		params:{
+			imgUrl : thumbnail
+		}
+	}).then((respond)=>{
+		//console.log(respond.data)
+		console.log(respond.data.body)
+		setGetImg("data:image/png;base64,"+respond.data.body)
+	}).catch(error => console.log(error))
+
+	//유저 이름
+	const [userName, setUserName] = useState("");
+    function getUserName(data) {
+		console.log(typeof String(data))
+		axios.get('/api/get/username', {
+			params:{
+				userCode : String(data)
+			}
+		}).then((respond)=>{
+			console.log(respond.data)
+        	setUserName(respond.data)
+		}).catch(error => console.log(error))
+	}
+	
+	//댓글
+	const [replies, setReplies] = useState([]); 
+	
 	useEffect(() => {
 		let completed = false;
 		async function get() {
+			//댓글 정보 가져오기
 			await ReplyService.getReplies(postId)
 				.then(function (response) {
 					// 성공 핸들링
 					setReplies(response.data);
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					// 에러 핸들링
+					console.log(error);
+				})
+				.then(function () {
+					// 항상 실행되는 영역
+				});
+				
+			//조회수 올리기
+			await PostService.updateView(postId)
+				.then(function (response) {
+					// 성공 핸들링
 					console.log(response.data);
 				})
 				.catch(function (error) {
@@ -129,8 +170,6 @@ function Posts(props) {
 		};
 	}, []);
 
-	const nextId = useRef(0);
-
 	function handleSubmit() {
 		console.log("hello");
 	}
@@ -144,6 +183,7 @@ function Posts(props) {
 	};
 	const handleShow = () => setShow(true);
 
+	// 삭제 기능
 	async function onRemove() {
 		setShow(true);
 		await PostService.deletePosts(postId)
@@ -159,10 +199,11 @@ function Posts(props) {
 			});
 	}
 
+	//좋아요 버튼
 	let [likeBtnActive, setLikeBtnActive] = useState(false);
 	//axios로 input 데이터 보내기
 	async function onUpload() {
-		if (likeBtnActive == false) {
+		if (likeBtnActive === false) {
 			setLikeBtnActive(true);
 
 			// 프론트에서 likeNum값 +1
@@ -207,54 +248,7 @@ function Posts(props) {
 		}
 	}
 
-	useEffect(() => {
-		let completed = false;
-		async function get() {
-			await ReplyService.getReplies(postId)
-				.then(function (response) {
-					// 성공 핸들링
-					setReplies(response.data);
-					console.log(response.data);
-				})
-				.catch(function (error) {
-					// 에러 핸들링
-					console.log(error);
-				})
-				.then(function () {
-					// 항상 실행되는 영역
-				});
-		}
-		get();
-		return () => {
-			completed = true;
-			console.log(completed);
-		};
-	}, []);
 
-	//	조회수 올리기
-	useEffect(() => {
-		let completed = false;
-		async function get() {
-			await PostService.updateView(postId)
-				.then(function (response) {
-					// 성공 핸들링
-					console.log(response.data);
-				})
-				.catch(function (error) {
-					// 에러 핸들링
-					console.log(error);
-				})
-				.then(function () {
-					// 항상 실행되는 영역
-				});
-		}
-		get();
-		return () => {
-			completed = true;
-			console.log(completed);
-		};
-	}, []);
-	console.log(replies);
 	return (
 		<div className="posts-page">
 			<CommunityBanner />
@@ -301,10 +295,26 @@ function Posts(props) {
 					<hr size="0" />
 					<div className="articleHeaderBottom">
 						<h6>
-							{userCode} | {update_time}
+							{ userName === ""
+								? getUserName(userCode) 
+								: userName  
+							} 
+							{" "} | {update_time}
 						</h6>
 					</div>
 					<br />
+
+					{
+						boardType === "question" //질문 게시판은 사진 필요없음
+						? <></>
+						: <img src={
+							getImg==="data:image/png;base64,undefined"
+							? require("../../../assets/noImage.png")
+							: getImg
+							}
+							className="postImg" alt="이미지"/>
+					}
+					
 					<div className="articleBody">{content}</div>
 				</div>
 				<button

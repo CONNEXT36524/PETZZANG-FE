@@ -5,7 +5,7 @@ import { changepagetype } from "../../Slice/Navslice";
 import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import home_cat from "../../assets/home_cat.png"
-import HomeRankImg from "../../components/ranking/homeRankImg"
+import HomeRankingImg from "../../components/ranking/HomeRankingImg"
 
 const Home=()=>{
     const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const Home=()=>{
                 🎉 PETZZANG RANKING (펫짱 랭킹) 🎉
             </h3><br/>
             <div className="HomeRankImgDiv">
-                <HomeRankImg/>
+                <HomeRankingImg/>
             </div> <br/><br/><br/><br/><br/>
             <Link to="/Ranking">
                 <Button variant="warning" size='lg'>
