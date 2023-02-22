@@ -2,18 +2,18 @@ import React, { useState, useRef, useEffect } from "react";
 import GlobalNavColor from "../../../components/navbar/GNB/GlobalNavColor";
 import "./Posting.css";
 import "../../../components/form/select/PostingSelection.css";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import MiddleNav from "../../../components/navbar/MNB/MiddleNav";
 import Editor from "../../../components/editor/QuillEditor";
 import PostingBanner from "../../../components/banner/PostingBanner";
 import SavePostingModal from "../../../components/modal/SavePostingModal";
 import PostingService from "../../../service/PostingService";
 
-function Posting(props) {
+function PostingTemp(props) {
 	GlobalNavColor("community");
 
 	let userCode = window.sessionStorage.getItem("userCode");
-	console.log(userCode);
+	//console.log(userCode);
 
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
@@ -27,12 +27,27 @@ function Posting(props) {
 	// 비구조화 할당을 통해 값 추출
 	const { titleName, boardType, pet, kind, sex } = inputs;
 
+	let [inputCount, setInputCount] = useState(0);
+	const handleKeyDown = (e) => {
+		if (e.key === "Backspace" && inputCount <= 0) {
+			setInputCount(0);
+		} else if (e.key === "Backspace") {
+			setInputCount(titleName.length - 1);
+		}
+
+		if (e.key !== "Backspace" && inputCount === 10) {
+			setInputCount(10);
+		} else if (e.key !== "Backspace") {
+			setInputCount(titleName.length + 1);
+		}
+	};
 	const onChange = (e) => {
 		const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
 		setInputs({
 			...inputs, // 기존의 input 객체를 전개 구문으로 펼쳐서 복사한 뒤
 			[name]: value, // name 키를 가진 값을 value 로 설정 (이때 [name]은 계산된 속성명 구문 사용),
 		});
+		console.log(titleName.length);
 	};
 
 	//File Input
@@ -85,7 +100,7 @@ function Posting(props) {
 	formData.append("imgName", imgName);
 
 	function checkImage() {
-		console.log(boardType);
+		console.log(kind);
 	}
 	//axios로 input 데이터 보내기
 	async function handleupload(postData) {
@@ -180,124 +195,174 @@ function Posting(props) {
 			<MiddleNav contents={"HOME>커뮤니티>게시글 작성"} />
 			<Container className="posting">
 				<br />
-				<div className="containerHeader">
-					<Form.Group className="mb-3">
-						<Form.Label className="formLabel">제목</Form.Label>
-						<Form.Control
-							type="text"
-							size="lg"
-							placeholder="제목을 입력하세요"
-							name="titleName"
-							onChange={onChange}
-							value={titleName || ""}
-						/>
-					</Form.Group>
-					<br />
-					<Button onClick={() => checkImage()}>checking</Button>
-					<Form.Group className="mb-3" id="FileInputForm">
-						<div>
-							<img
-								// require()를 통해 이미지 불러오긴
-								src={
-									imgFile
-										? imgFile
-										: require("../../../assets/noImage.png")
-								}
-								alt="프로필 이미지"
-								className="thumbnailImg"
-							/>
-						</div>
-						<div>
-							<Form.Label className="formLabel">
-								썸네일 사진 첨부
+				<Container className="containerHeader">
+					<Form>
+						<Form.Group as={Row} className="mb-3">
+							<Form.Label column sm="2" id="postingInfoLabel">
+								제목
 							</Form.Label>
+							<Col sm="10">
+								<Form.Control
+									type="text"
+									size="lg"
+									placeholder="제목을 입력하세요"
+									name="titleName"
+									onChange={onChange}
+									onKeyDownCapture={handleKeyDown}
+									//onKeyPress
+									value={titleName || ""}
+									maxLength="10"
+								/>
+							</Col>
+							<p>
+								<span>{inputCount}</span>
+								<span>/10 자</span>
+							</p>
+						</Form.Group>
+						<br />
+						<Form.Group as={Row} className="mb-3">
+							<Form.Label column sm="2" id="postingInfoLabel">
+								썸네일 첨부
+							</Form.Label>
+							<Col sm="10">
+								<Form.Control
+									name="thumnail"
+									type="file"
+									accept="image/*"
+									id="thumbnailImg"
+									onChange={showImgFile}
+									ref={imgRef}
+								/>
+								<br />
+								<div>
+									<img
+										// require()를 통해 이미지 불러오긴
+										src={
+											imgFile
+												? imgFile
+												: require("../../../assets/noImage.png")
+										}
+										alt="프로필 이미지"
+										className="thumbnailImg"
+									/>
+								</div>
+							</Col>
+						</Form.Group>
 
-							<Form.Control
-								name="thumnail"
-								type="file"
-								accept="image/*"
-								id="thumbnailImg"
-								onChange={showImgFile}
-								ref={imgRef}
+						<Button onClick={() => checkImage()}>checking</Button>
+
+						<Form.Group as={Row} className="mb-3">
+							<Form.Label column sm="2" id="postingInfoLabel">
+								게시판 유형
+							</Form.Label>
+							<Col sm="10">
+								<Form.Select
+									name="boardType"
+									className="selectBoardType"
+									aria-label="Board Type Selection"
+									onChange={onChange}
+									value={boardType}
+									required
+								>
+									<option>게시판 유형</option>
+									{BoardOptions.map((item, index) => (
+										<option key={item.key} value={item.key}>
+											{item.value}
+										</option>
+									))}
+								</Form.Select>
+							</Col>
+						</Form.Group>
+						<Form.Group as={Row} className="mb-3">
+							<Form.Label column sm="2" id="postingInfoLabel">
+								동물
+							</Form.Label>
+							<Col sm="10">
+								<Form.Select
+									name="pet"
+									id="selection1"
+									className="selection"
+									aria-label="Pet Species"
+									onChange={onChange}
+									value={pet}
+									required
+								>
+									<option>동물</option>
+									{PetSpeciesOptions.map((item, index) => (
+										<option
+											key={item.key}
+											value={item.value}
+										>
+											{item.value || ""}
+										</option>
+									))}
+								</Form.Select>
+							</Col>
+						</Form.Group>
+						<Form.Group as={Row} className="mb-3">
+							<Form.Label column sm="2" id="postingInfoLabel">
+								종
+							</Form.Label>
+							<Col sm="10">
+								<Form.Select
+									name="kind"
+									id="selection2"
+									className="selection"
+									aria-label="Pet Kind"
+									onChange={onChange}
+									value={kind}
+								>
+									<option>종</option>
+									{PetKindOptions.map((item, index) => (
+										<option
+											key={item.key}
+											value={item.value}
+										>
+											{item.value}
+										</option>
+									))}
+								</Form.Select>
+							</Col>
+						</Form.Group>
+						<Form.Group as={Row} className="mb-3">
+							<Form.Label column sm="2" id="postingInfoLabel">
+								성별
+							</Form.Label>
+							<Col sm="10">
+								<Form.Select
+									name="sex"
+									id="selection3"
+									className="selection"
+									aria-label="Pet Sex"
+									onChange={onChange}
+									value={sex}
+								>
+									<option>성별</option>
+									{PetSexOptions.map((item, index) => (
+										<option
+											key={item.key}
+											value={item.value}
+										>
+											{item.value}
+										</option>
+									))}
+								</Form.Select>
+							</Col>
+						</Form.Group>
+					</Form>
+					<Form.Group as={Row} className="mb-3">
+						<Form.Label column sm="2" id="postingInfoLabel">
+							게시글 내용
+						</Form.Label>
+						<Col sm="10">
+							<Editor
+								id="textEditor"
+								value={desc}
+								onChange={onEditorChange}
 							/>
-						</div>
+						</Col>
 					</Form.Group>
-					<br />
-					<Form.Select
-						name="boardType"
-						className="selectBoardType"
-						aria-label="Board Type Selection"
-						onChange={onChange}
-						value={boardType}
-						required
-					>
-						<option>게시판 유형</option>
-						{BoardOptions.map((item, index) => (
-							<option key={item.key} value={item.key}>
-								{item.value}
-							</option>
-						))}
-					</Form.Select>
-					<div className="selectPostingType">
-						<Form.Select
-							name="pet"
-							id="selection1"
-							className="selection"
-							aria-label="Pet Species"
-							onChange={onChange}
-							value={pet}
-							required
-						>
-							<option>동물</option>
-							{PetSpeciesOptions.map((item, index) => (
-								<option key={item.key} value={item.value}>
-									{item.value || ""}
-								</option>
-							))}
-						</Form.Select>
-
-						<Form.Select
-							name="kind"
-							id="selection2"
-							className="selection"
-							aria-label="Pet Kind"
-							onChange={onChange}
-							value={kind}
-						>
-							<option>종</option>
-							{PetKindOptions.map((item, index) => (
-								<option key={item.key} value={item.value}>
-									{item.value}
-								</option>
-							))}
-						</Form.Select>
-
-						<Form.Select
-							name="sex"
-							id="selection3"
-							className="selection"
-							aria-label="Pet Sex"
-							onChange={onChange}
-							value={sex}
-						>
-							<option>성별</option>
-							{PetSexOptions.map((item, index) => (
-								<option key={item.key} value={item.value}>
-									{item.value}
-								</option>
-							))}
-						</Form.Select>
-					</div>
-					<br />
-				</div>
-				<br />
-				<div>
-					<Editor
-						id="textEditor"
-						value={desc}
-						onChange={onEditorChange}
-					/>
-				</div>
+				</Container>
 				<br />
 				<div className="containerFooter">
 					<Button
@@ -327,4 +392,4 @@ function Posting(props) {
 	);
 }
 
-export default Posting;
+export default PostingTemp;
