@@ -3,6 +3,7 @@ import NavReducer from "../Slice/Navslice"
 import OffcanvasReducer from "../Slice/OffcanvasSlice"
 import PagingReducer from "../Slice/PagingSlice"
 import ImgReducer from "../Slice/ImgSlice"
+import RankingReducer from "../Slice/RankingSlice"
 
 export const Store = configureStore({
     reducer:{
@@ -10,6 +11,7 @@ export const Store = configureStore({
         Offcanvas: OffcanvasReducer,
         PagingR: PagingReducer,
         ImgUrl : ImgReducer,
+        Rank: RankingReducer,
     }
 });
 

@@ -50,7 +50,7 @@ function ImgCard(props) {
 			<div className="card">
 
 					<img
-						src="../img/dog1.png"
+						src={require("../../assets/noImage.png")}
 						className="card-img"
 						alt="이미지"
 					/>

@@ -1,9 +1,33 @@
 import "./BannerDetail.css";
 import "./Banner.css";
 import Container from "react-bootstrap/Container";
-import bannerDogImage from "../../assets/dog.png";
+import { useSelector } from "react-redux/";
+import ImgCard from "../community/ImgCard";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-function rankingBanner(props) {
+function RankingBanner(props) {
+	const img = useSelector((state) => state.Rank.firstimg);
+
+	//console.log(img.thumbnail)
+
+	//kic에서 이미지 데이터 가져오기
+	const [getImg, setGetImg] = useState("");
+	useEffect(() => {
+		
+		axios.get('/api/community/get/img', {
+			params:{
+				imgUrl : img.thumbnail
+			}
+		}).then((respond)=>{
+			//console.log(respond.data)
+            //console.log(respond.data.body)
+			setGetImg("data:image/png;base64,"+respond.data.body)
+		}).catch(error => console.log(error))
+
+	}, []);
+
+	
 	return (
 		<div className="rankingBanner">
 			<Container id="bannerContainer">
@@ -20,12 +44,22 @@ function rankingBanner(props) {
 						</p>
 					</div>
 				</div>
-				<div className="banner_circle">
-					<img src={bannerDogImage} className="bannerCircleDogImage" alt="weekly" />
-				</div>
+				{
+				img===''
+				? <></>
+				:
+					<div className="banner_circle">
+						<img
+							src={getImg}
+							className="circle-img"
+							alt="이미지"
+						/>
+						{/* <ImgCard item={img}/> */}
+					</div>
+}
 			</Container>
 		</div>
 	);
 }
 
-export default rankingBanner;
+export default RankingBanner;
