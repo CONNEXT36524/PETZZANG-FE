@@ -23,40 +23,43 @@ function ImgCard(props) {
 	const [getImg, setGetImg] = useState("");
 	useEffect(() => {
         let completed = false; 
-		async function get() {
-			await axios.get('/api/community/get/img', {
-				params:{
-					imgUrl : props.item.thumbnail
-				}
-			}).then((respond)=>{
-				//console.log(respond.data)
-                //console.log(respond.data.body)
-				setGetImg("data:image/png;base64,"+respond.data.body)
-			}).catch(error => console.log(error))
+		if(props.item!=null){
+			async function get() {
+				await axios.get('/api/community/get/img', {
+					params:{
+						imgUrl : props.item.thumbnail
+					}
+				}).then((respond)=>{
+					//console.log(respond.data)
+					//console.log(respond.data.body)
+					setGetImg("data:image/png;base64,"+respond.data.body)
+				}).catch(error => console.log(error))
+			}
+			get()
+			return () => {
+				completed = true;
+			};
 		}
-		get()
-		return () => {
-			completed = true;
-		};
 	}, []);
 
 	
 
 	return (
 		<>
-		{
-			props.item === undefined || props.item === null 
-			? 
-				<div className="card">
+			{props.item === undefined || props.item === null ? 
+			<div className="card">
+
 					<img
-						src={require("../../assets/noImage.png")}
+						src="../img/dog1.png"
 						className="card-img"
 						alt="이미지"
 					/>
-				</div> 
-			: 
-				<div className="card"
-					onClick={() => onClickHandler(props.item.postId)}>
+					{/* <img src="../img/dog1.png" className="card-img" alt="이미지"/>  */}
+				</div> : (
+				<div
+					className="card"
+					onClick={() => onClickHandler(props.item.postId)}
+				>
 					<p id="imgContent"> {props.item.titleName} </p>
 					<img
 						src={getImg}
@@ -64,7 +67,7 @@ function ImgCard(props) {
 						alt="이미지"
 					/>
 				</div>
-		}
+			)}
 		</>
 	);
 }
