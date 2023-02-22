@@ -13,6 +13,7 @@ import myImage from "../../assets/default_profile.png";
 import DeleteAccountModal from "../../components/modal/DeleteAccountModal";
 import axios from "axios";
 import UserService from "../../service/UserService";
+import CheckNicknameModal from "../../components/modal/CheckNicknameModal";
 
 const Center = styled.div`
   height: 92vh;
@@ -52,14 +53,20 @@ const Account=()=>{
     },[dispatch])
 
 
-    const [modalShow, setModalShow] = useState(false);
+    const [delModalShow, setDelModalShow] = useState(false);
+    const [cheModalShow, setCheModalShow] = useState(false);
     const [userImg, setUserImg] = useState(myImage)
     const [uploadImg, setUploadImg] = useState("") //axios로 보낼 데이터
     const [imgName, setImgName] = useState("") //axios로 보낼 데이터
     const profileInputRef = useRef();
     const formData = new FormData();
-    
+    const userName = sessionStorage.getItem("userName")
     const token = sessionStorage.getItem("token")
+    const [nameCheck, setNameCheck] = useState(false)
+    const [nameChg, setNameChg] = useState(userName)
+    const [modalMsg, setModalMsg] = useState("")
+    const [imgChg, setImgChg] = useState(false)
+    
     useEffect (()=>{
         if (sessionStorage.getItem("userImg"))
         setUserImg(sessionStorage.getItem("userImg")) 
@@ -106,8 +113,13 @@ const Account=()=>{
 
     //변경사항 저장 버튼 누르면 실행
     //axios로 이미지 데이터 보내기
-	async function uploadImageBtnClick() {
-
+	async function updateProfileBtnClick() {
+        setCheModalShow(true)
+        setModalMsg("변경을 완료했습니다!😊")
+        //닉네임+사진 변경했을때
+        if (nameCheck && imgChg)
+        {
+        formData.append('nameChg', nameChg)
 		UserService.updateProfile(formData)
 			.then(function (response) {
 				console.log(response);
@@ -118,13 +130,94 @@ const Account=()=>{
 			.then(function () {
 				// 항상 실행
 			});
-	}
+        }
+        //사진만 변경
+        else if (!nameCheck && nameChg === userName )
+        {
+            UserService.updateProfile(formData)
+			.then(function (response) {
+				console.log(response);
+			})
+			.catch(function (error) {
+				// 오류발생시 실행
+			})
+			.then(function () {
+				// 항상 실행
+			});
+        }
+        //닉네임만 변경
+        else if (nameCheck)
+        {
+            console.log("닉네임변경")
+             try{
+                 axios.post("/api/updateNickname", 
+                {
+                    params:{   
+                        name : nameChg
+                    }, 
+                    headers: {
+                        Authorization: token,
+                    },
+                })
+                .then((res)=>{
+                    console.log(res)
+                    const result = res.data
+                    setModalMsg("변경을 완료했습니다!😊")
+                })}catch (err) {
+                    console.log(err)
+                }
+                };
+            
+        }
+    
+    // 닉네임 
+    const checkNameChange = (e) =>{
 
+        setNameChg(e.target.value)
+        setNameCheck(false)
+        console.log(nameChg)
+    }
 
+    //닉네임 유효성 검사 영어, 한글, 숫자 
+    const validateNickname = (nickname) => {
+        return nickname
+          .toLowerCase()
+          .match(/^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|].{2,10}$/)
+      }
 
     // 중복확인 
     const duplicateCheck = () => {
+        setCheModalShow(true)
 
+        if (!validateNickname(nameChg))
+        {
+            setModalMsg("3글자 이상 10글자 미만으로 입력해주세요")
+        }
+        else {
+            try{
+            axios.get("/api/duplicationcheck", 
+            {
+                params:{   
+                    name : nameChg
+                }, 
+                headers: {
+                    Authorization: token,
+                },
+            })
+            .then((res)=>{
+                console.log(res)
+                const result = res.data
+                if (!result) {
+                    setModalMsg("사용 가능한 닉네임입니다.😊")
+                    setNameCheck(true)
+                }
+                else{
+                    setModalMsg("이미 등록된 닉네임입니다. 다시 입력해주세요")
+                }
+            })}catch (err) {
+                console.log(err)
+            }
+            };
     }
 
     // 회원탈퇴
@@ -155,16 +248,28 @@ const Account=()=>{
                             
                             <div className="nickname">
                                 <h3>닉네임:</h3>
-                                <input className="nicknameInputTag" type="text" placeholder={sessionStorage.userName}/>
+                                <input className="nicknameInputTag" value={nameChg} type="text" placeholder={userName} onChange={checkNameChange} />
                                 <button className="duplicateBtn" onClick={duplicateCheck}> 중복 확인 </button>
+                                <CheckNicknameModal 
+                                    show={cheModalShow}
+                                    msg = {modalMsg}
+                                    onHide={() => setCheModalShow(false)
+                                    }
+                                />
                             </div> 
 
                             <div className="saveNdeleteBtn">
-                                <button className="saveBtn" onClick={uploadImageBtnClick}>변경사항 저장</button>
-                                <button className="deleteBtn" onClick={() => setModalShow(true)}>회원 탈퇴</button>
+                                <button className="saveBtn" onClick={updateProfileBtnClick}>변경사항 저장</button>
+                                 <CheckNicknameModal 
+                                    show={cheModalShow}
+                                    msg = {modalMsg}
+                                    onHide={() => setCheModalShow(false)
+                                    }
+                                    />
+                                <button className="deleteBtn" onClick={() => setDelModalShow(true)}>회원 탈퇴</button>
                                 <DeleteAccountModal 
-                                    show={modalShow}
-                                    onHide={() => setModalShow(false)}
+                                    show={delModalShow}
+                                    onHide={() => setDelModalShow(false)}
                                 />
                             </div>
                         </div>

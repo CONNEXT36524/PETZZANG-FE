@@ -52,6 +52,13 @@ function App() {
 		window.location.href = KAKAO_AUTH_URL;
 	};
 
+	const logoutBtn = (e) => {
+		sessionStorage.removeItem('userImg')
+		sessionStorage.removeItem('token')
+		sessionStorage.removeItem('userName')
+		sessionStorage.removeItem('userCode')
+	}
+
 	useEffect(() => {
 		if (sessionStorage.getItem("userName")) setlogin(true);
 		else setlogin(false);
@@ -128,7 +135,7 @@ function App() {
 										<NavDropdown.Item href="/mypage/account">
 											마이페이지
 										</NavDropdown.Item>
-										<NavDropdown.Item href="/logout">
+										<NavDropdown.Item onClick={logoutBtn} href="/">
 											로그아웃
 										</NavDropdown.Item>
 									</NavDropdown>

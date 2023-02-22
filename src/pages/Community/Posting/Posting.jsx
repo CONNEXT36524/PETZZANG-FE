@@ -18,7 +18,7 @@ function PostingTemp(props) {
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		titleName: "",
-    boardType: "게시판 유형",
+		boardType: "게시판 유형",
 		pet: "동물",
 		kind: "종",
 		sex: "성별",
@@ -35,8 +35,8 @@ function PostingTemp(props) {
 			setInputCount(titleName.length - 1);
 		}
 
-		if (e.key !== "Backspace" && inputCount === 10) {
-			setInputCount(10);
+		if (e.key !== "Backspace" && inputCount === 30) {
+			setInputCount(30);
 		} else if (e.key !== "Backspace") {
 			setInputCount(titleName.length + 1);
 		}
@@ -47,7 +47,7 @@ function PostingTemp(props) {
 			...inputs, // 기존의 input 객체를 전개 구문으로 펼쳐서 복사한 뒤
 			[name]: value, // name 키를 가진 값을 value 로 설정 (이때 [name]은 계산된 속성명 구문 사용),
 		});
-		console.log(titleName.length);
+		//console.log(titleName.length);
 	};
 
 	//File Input
@@ -55,7 +55,7 @@ function PostingTemp(props) {
 	const imgRef = useRef();
 
 	const [upFile, setUpfile] = useState(null);
-	const [imgName, setImgName] = useState("") //axios로 보낼 데이터
+	const [imgName, setImgName] = useState(""); //axios로 보낼 데이터
 
 	// 이미지 업로드 input의 onChange
 	const showImgFile = () => {
@@ -100,7 +100,7 @@ function PostingTemp(props) {
 	formData.append("imgName", imgName);
 
 	function checkImage() {
-		console.log(kind);
+		//console.log(desc);
 	}
 	//axios로 input 데이터 보내기
 	async function handleupload(postData) {
@@ -211,12 +211,12 @@ function PostingTemp(props) {
 									onKeyDownCapture={handleKeyDown}
 									//onKeyPress
 									value={titleName || ""}
-									maxLength="10"
+									maxLength="30"
 								/>
 							</Col>
 							<p>
 								<span>{inputCount}</span>
-								<span>/10 자</span>
+								<span>/30 자</span>
 							</p>
 						</Form.Group>
 						<br />
@@ -249,7 +249,7 @@ function PostingTemp(props) {
 							</Col>
 						</Form.Group>
 
-						<Button onClick={() => checkImage()}>checking</Button>
+						{/* <Button onClick={() => checkImage()}>checking</Button> */}
 
 						<Form.Group as={Row} className="mb-3">
 							<Form.Label column sm="2" id="postingInfoLabel">
