@@ -4,9 +4,11 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import ReplyService from "../../service/ReplyService";
+import { type } from "@testing-library/user-event/dist/type";
 
 function ReplyEditor(props) {
 	const userCode = window.sessionStorage.getItem("userCode");
+	const userName = window.sessionStorage.getItem("userName");
 	//Posting Inputs
 	const [inputs, setInputs] = useState({
 		content: "",
@@ -38,6 +40,19 @@ function ReplyEditor(props) {
 	formData.append("userCode", parseInt(userCode));
 
 	console.log(userCode);
+	const newReply = {
+		boardType: "",
+		bundleId: 0,
+		content: content,
+		createTime: "",
+		deleteTime: "",
+		deleted: false,
+		postId: 0,
+		replyId: 0,
+		updateTime: 0,
+		userCode: userCode,
+		userName: userName,
+	};
 	//axios로 input 데이터 보내기
 	async function onUpload() {
 		ReplyService.createReplies(formData)
@@ -51,6 +66,8 @@ function ReplyEditor(props) {
 			.then(function () {
 				// 항상 실행
 			});
+		props.replies.push(newReply);
+		props.setReplies([...props.replies]);
 	}
 
 	return (

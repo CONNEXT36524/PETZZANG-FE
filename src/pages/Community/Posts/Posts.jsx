@@ -132,7 +132,7 @@ function Posts(props) {
 	const nextId = useRef(0);
 
 	function handleSubmit() {
-		console.log("hello");
+		///setReplies(...replies);
 	}
 
 	const [show, setShow] = useState(false);
@@ -254,7 +254,7 @@ function Posts(props) {
 			console.log(completed);
 		};
 	}, []);
-	console.log(replies);
+
 	return (
 		<div className="posts-page">
 			<CommunityBanner />
