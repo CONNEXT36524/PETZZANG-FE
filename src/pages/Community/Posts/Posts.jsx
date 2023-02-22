@@ -114,7 +114,19 @@ function Posts(props) {
 		setGetImg("data:image/png;base64,"+respond.data.body)
 	}).catch(error => console.log(error))
 
-
+	//유저 이름
+	const [userName, setUserName] = useState("");
+    function getUserName(data) {
+		console.log(typeof String(data))
+		axios.get('/api/get/username', {
+			params:{
+				userCode : String(data)
+			}
+		}).then((respond)=>{
+			console.log(respond.data)
+        	setUserName(respond.data)
+		}).catch(error => console.log(error))
+	}
 	
 	//댓글
 	const [replies, setReplies] = useState([]); 
@@ -283,17 +295,25 @@ function Posts(props) {
 					<hr size="0" />
 					<div className="articleHeaderBottom">
 						<h6>
-							{userCode} | {update_time}
+							{ userName === ""
+								? getUserName(userCode) 
+								: userName  
+							} 
+							{" "} | {update_time}
 						</h6>
 					</div>
 					<br />
-					<img src={
+
+					{
+						boardType === "question" //질문 게시판은 사진 필요없음
+						? <></>
+						: <img src={
 							getImg==="data:image/png;base64,undefined"
 							? require("../../../assets/noImage.png")
 							: getImg
-						}
-						className="postImg" alt="이미지"
-					/>
+							}
+							className="postImg" alt="이미지"/>
+					}
 					
 					<div className="articleBody">{content}</div>
 				</div>

@@ -27,7 +27,7 @@ function SearchDailyCard(props) {
 				}
 			}).then((respond)=>{
 				//console.log(respond.data)
-        //console.log(respond.data.body)
+        		//console.log(respond.data.body)
 				setGetImg("data:image/png;base64,"+respond.data.body)
 			}).catch(error => console.log(error))
 		}
@@ -47,7 +47,7 @@ function SearchDailyCard(props) {
 				}
 			}).then((respond)=>{
 				//console.log(respond.data)
-        setUserName(respond.data)
+        		setUserName(respond.data)
 			}).catch(error => console.log(error))
 		}
 		get()

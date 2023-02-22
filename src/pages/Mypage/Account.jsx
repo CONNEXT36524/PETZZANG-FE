@@ -65,7 +65,6 @@ const Account=()=>{
         setUserImg(sessionStorage.getItem("userImg")) 
     }, [])
 
-    
     //kic에서 이미지 데이터 가져오기
 	const [getImg, setGetImg] = useState("");
 	useEffect(() => {
