@@ -1,6 +1,6 @@
 
 import "./Mypage.css"
-import { useDispatch} from "react-redux/";
+import { useDispatch, useSelector} from "react-redux/";
 import { changepagetype } from "../../Slice/Navslice";
 import { useEffect } from "react";
 import { useState, useRef } from "react"
@@ -52,6 +52,9 @@ const Account=()=>{
         dispatch(changepagetype("mypage"))
     },[dispatch])
 
+    const imageUrl = useSelector(state => state.ImgUrl);
+	const urlString =JSON.stringify(imageUrl).slice(11, -2)
+    console.log(urlString)
 
     const [delModalShow, setDelModalShow] = useState(false);
     const [cheModalShow, setCheModalShow] = useState(false);
@@ -67,36 +70,30 @@ const Account=()=>{
     const [modalMsg, setModalMsg] = useState("")
     const [imgChg, setImgChg] = useState(false)
     const [imgApiUrl, setImgUrl] = useState("")
-
+    const [chgProfile, setChgProfile] = useState(false)
 
     useEffect (()=>{
         if (sessionStorage.getItem("userImg"))
-        setUserImg()   
-        //유저 정보 가져오기
-        axios.get('/api/get/user', {
-            params:{
-                nickName : nameChg
-            }
-        }).then((respond)=>{
-            console.log(respond.data)
-            setImgUrl(respond.data.kakaoprofileimg)
-        }).catch(error => console.log(error))
-
+        setUploadImg(sessionStorage.getItem("userImg"))   
     }, [])
 
-    // 유저 이미지 가져오기
-    console.log(imgApiUrl)
-    axios.get('/api/community/get/img', {
-        params:{
-            imgUrl : imgApiUrl
-        }
-    }).then((respond)=>{
-        console.log(respond.data)
-        //console.log(respond.data.body)
-        setUserImg("data:image/png;base64,"+respond.data.body)
-    }).catch(error => console.log(error))
+    useEffect (()=>{
+        const umgUrl = window.sessionStorage.getItem("imgUrl")
+        setImgUrl(window.sessionStorage.getItem("imgUrl"))
+        console.log(umgUrl)
+        axios.get('/api/community/get/img', {
+            params:{
+                imgUrl : umgUrl
+            }
+        }).then((respond)=>{
+            console.log(respond.data.body)
+            setUploadImg("data:image/png;base64,"+respond.data.body)
+            window.sessionStorage.setItem("userImg", "data:image/png;base64,"+respond.data.body);
+        }).catch(error => console.log(error)) 
+    }, [setImgUrl])
+   
 
-    
+
     // 이미지 변경 함수
     const uploadImageChange = (e) => {
         setImgChg(true)
@@ -105,7 +102,6 @@ const Account=()=>{
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-            setUserImg(reader.result);
             console.log(reader.result);
             setUploadImg(reader.result);
         }
@@ -119,14 +115,34 @@ const Account=()=>{
 	const updateProfileBtnClick = () => {
         setCheModalShow(true)
         setModalMsg("변경을 완료했습니다!😊")
+        const testImg = ""
+
         //닉네임+사진 변경
-        if (nameCheck && imgChg)
+        try
+        {if (nameCheck && imgChg)
         {
         console.log("닉네임 사진 변경")
         formData.append('nameChg', nameChg);
 		UserService.updateProfile(formData, token)
 			.then(function (response) {
-				console.log(response);
+				console.log(response.data);
+                testImg = response.data
+                console.log(testImg)
+                setUserImg(response.data.uploadImg)
+                window.sessionStorage.setItem("userName", userName);
+                window.sessionStorage.setItem("userImg", response.data);
+                setModalMsg("변경을 완료했습니다!😊")
+                setChgProfile(true)
+                 axios.get('/api/community/get/img', {
+                    params:{
+                        imgUrl : window.sessionStorage.getItem("userImg")
+                    }
+                }).then((respond)=>{
+                    //console.log(respond.data)
+                    //console.log(respond.data.body)
+                    setUserImg("data:image/png;base64,"+respond.data.body)
+                    window.sessionStorage.setItem("userImg", "data:image/png;base64,"+respond.data.uploadImg);
+                }).catch(error => console.log(error))
 			})
 			.catch(function (error) {
 				// 오류발생시 실행
@@ -140,15 +156,18 @@ const Account=()=>{
         {
             UserService.updateImg(formData, token)
 			.then(function (response) {
-				console.log(response);
+				console.log(response.data);
+                setImgUrl(response.data)
                 window.sessionStorage.setItem("userName", userName);
-                window.sessionStorage.setItem("userImg", "data:image/png;base64,"+response.data.uploadImg);
+                window.sessionStorage.setItem("imgUrl", response.data)
+                setModalMsg("변경을 완료했습니다!😊")
+                setChgProfile(true)
 			})
 			.catch(function (error) {
 				// 오류발생시 실행
 			})
 			.then(function () {
-				// 항상 실행
+               
 			});
         }
         //닉네임만 변경
@@ -165,17 +184,30 @@ const Account=()=>{
                 .then((res)=>{
                     console.log(res)
                     const result = res.data
+                    window.sessionStorage.setItem("userName", res.userName);
                     setModalMsg("변경을 완료했습니다!😊")
+                    setChgProfile(true)
                 })}catch (err) {
                     console.log(err)
                 }
-                };
-            
-        }
+        };
+
+        // try {
+    
+            }catch (e) {
+                console.log(e);
+            }
+        // }catch (err) {
+        //     console.log(err)
+        // }
+
+       
+    }
+        
+    
     
     // 닉네임 
     const checkNameChange = (e) =>{
-
         setNameChg(e.target.value)
         setNameCheck(false)
         console.log(nameChg)
@@ -226,7 +258,7 @@ const Account=()=>{
     // 회원탈퇴
     const deleteAccount = () => {
     }
-    
+
 
     return(
         <>
@@ -243,7 +275,7 @@ const Account=()=>{
                     <Sub>
                         <div className = "circle" 
                             onClick={()=>{profileInputRef.current.click()}}>
-                        <img className="profile" src={userImg ? userImg : {myImage}}/>
+                        <img className="profile" src={uploadImg ? uploadImg : {myImage}}/>
                         <input style={{ display: "none" }} type="file" accept="image/*" className="profileInput" ref={profileInputRef} onChange={uploadImageChange} />
                         </div>
                         <div className="modify">

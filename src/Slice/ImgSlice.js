@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    ImgUrl :"null"
+    ImgUrl :" "
 }
 
 export const ImgSlice = createSlice({

@@ -73,7 +73,7 @@ const KakaoLogin = () => {
 							response.data.kakaonickname
 						);
 						window.sessionStorage.setItem(
-							"userImg",
+							"imgUrl",
 							response.data.kakaoprofileimg
 						);
 						dispatch(converter(response.data.kakaoprofileimg))
@@ -87,12 +87,11 @@ const KakaoLogin = () => {
 				console.log(e);
 			}
 			try {
-				if (window.sessionStorage.getItem("userImg").indexOf("objectstorage"))
+				if (window.sessionStorage.getItem("imgUrl").indexOf("objectstorage"))
 				{
-					console.log("들어옴"+window.sessionStorage.getItem("userImg"))
-					const imgurl = window.sessionStorage.getItem("userImg")
-					async function get() {
-						await axios.get('/api/community/get/img', {
+					const imgurl = window.sessionStorage.getItem("imgUrl")
+					
+						axios.get('/api/community/get/img', {
 							params:{
 								imgUrl : imgurl
 							}
@@ -100,11 +99,8 @@ const KakaoLogin = () => {
 							//console.log(respond.data)
 							console.log(respond)
 							dispatch(converter("data:image/png;base64,"+respond.data.body))
-							console.log("d여ㅣ겨이ㅑ"+imageUrl)
 							window.sessionStorage.setItem("userImg", "data:image/png;base64,"+respond.data.body)
-
 						}).catch(error => console.log(error))
-					}
 				}
 			
 			}

@@ -6,7 +6,7 @@ import Home from "./pages/Home/Home";
 import Ranking from "./pages/ranking/Ranking";
 import Posting from "./pages/Community/Posting/Posting";
 import Posts from "./pages/Community/Posts/Posts";
-import { useSelector } from "react-redux/";
+import { useSelector, useDispatch } from "react-redux/";
 import Daily from "./pages/Community/Board/Daily";
 import Boast from "./pages/Community/Board/Boast";
 import Question from "./pages/Community/Board/Question";
@@ -20,14 +20,16 @@ import Account from "./pages/Mypage/Account";
 import { FiSearch, FiUser } from "react-icons/fi";
 import logoImg from "./assets/logo192.png";
 import Footer from "./components/footer/Footer";
-import axios from "react"
+import axios from "axios"
 import "bootstrap/dist/css/bootstrap.css"; //bootstrap css 적용
+import { converter } from "./Slice/ImgSlice";
 
 function App() {
 	// 로그인
 	const pagetype = useSelector((state) => state.Nav.pagetype);
 	const imageUrl = useSelector(state => state.ImgUrl);
-
+	const urlString =JSON.stringify(imageUrl).slice(11, -2)
+	
 	const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
 	const rest_api_key = process.env.REACT_APP_REST_API_KEY;
 	const KAKAO_AUTH_URL = process.env.REACT_APP_KAKAO_AUTH_URL;
@@ -62,14 +64,15 @@ function App() {
 		sessionStorage.removeItem('token')
 		sessionStorage.removeItem('userName')
 		sessionStorage.removeItem('userCode')
+		sessionStorage.removeItem('imgUrl')
 	}
 	const userImg = window.sessionStorage.getItem("userImg");
 	useEffect(() => {
-		if (sessionStorage.getItem("userName")) {
+		if (sessionStorage.getItem("userName") ) {
 			setlogin(true);
 		}
 		else setlogin(false);
-	}, );
+	}, []);
 	
 
 
@@ -139,7 +142,7 @@ function App() {
 							islogin ? 
 							<>
 								<div className="user1">
-									<img className="user-logo1" src={imageUrl}/>
+									<img className="user-logo1" src={userImg}/>
 								</div>
 								<div className="user1Dropdown">
 
